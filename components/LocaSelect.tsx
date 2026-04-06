@@ -2,13 +2,40 @@
 import { useState } from "react";
 
 const cities = [
-  "TP.HCM",
-  "Hà Nội",
-  "Đà Nẵng",
-  "Cần Thơ",
-  "Vũng Tàu",
-  "Huế",
-  "Nha Trang"
+  "Tp Hà Nội",
+  "Tp HCM",
+  "Tuyên Quang",
+  "Lào Cai",
+  "Thái Nguyên",
+  "Phú Thọ",
+  "Bắc Ninh",
+  "Hưng Yên",
+  "Tp Hải Phòng",
+  "Ninh Bình",
+  "Quảng Trị",
+  "Tp Đà Nẵng",
+  "Quảng Ngãi",
+  "Gia Lai",
+  "Khánh Hoà",
+  "Lâm Đồng",
+  "Đắk Lắk",
+  "Đồng Nai",
+  "Tây Ninh",
+  "Tp Cần Thơ",
+  "Vĩnh Long",
+  "Đồng Tháp",
+  "Cà Mau",
+  "An Giang",
+  "Tp Huế",
+  "Lai Châu",
+  "Điện Biên",
+  "Sơn La",
+  "Lạng Sơn",
+  "Quảng Ninh",
+  "Thanh Hoá",
+  "Nghệ An",
+  "Hà Tĩnh",
+  "Cao Bằng",
 ];
 export default function LocationSelect() {
   const [open, setOpen] = useState(false);
@@ -28,7 +55,7 @@ export default function LocationSelect() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          color: "#d50101",
+          color: "#838282",
                 }}
         onMouseEnter={(e) => (e.currentTarget.style.color = "black")}
         onMouseLeave={(e) => (e.currentTarget.style.color = "#5c5c5c")}
@@ -55,7 +82,8 @@ export default function LocationSelect() {
             style={{
               width: "100%",
               padding: "5px",
-              marginBottom: "10px"
+              marginBottom: "10px",
+              color:"#8c8c8c",
             }}
           />
           <div style={{ maxHeight: "150px", overflowY: "auto" }}>
@@ -67,14 +95,15 @@ export default function LocationSelect() {
                   setOpen(false);
                 }}
                 style={{
-                  padding: "5px",
-                  cursor: "pointer"
+                  padding: "6px",
+                  cursor: "pointer",
+                  color: "black",  
                 }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = "#1f4e79")//màu chữ trong drop down
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "white")
+                  (e.currentTarget.style.color = "black")
                 }
               >
                 {city}
