@@ -11,7 +11,7 @@
 -  Mô tả (Tiếng Việt & Tiếng Anh).
 -  Tìm kiếm và lọc các địa điểm, món ăn
 ### 💎 Trải nghiệm người dùng: 
-<br> Đăng ký/đăng nhập bằng localstorage.
+- Đăng ký/đăng nhập bằng localstorage.
 - Hiển thị avatar người dùng khi đã đăng nhập.
 - Cập nhật UI khi thêm quán mới.
 - F5 để reload trang khi đã thêm món.
