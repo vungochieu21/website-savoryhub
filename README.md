@@ -9,17 +9,17 @@
 -  Người dùng có thể xem địa điểm bằng google map.
 -  Tiêu đề (Tiếng Việt & Tiếng Anh).
 -  Mô tả (Tiếng Việt & Tiếng Anh).
---  Tìm kiếm và lọc các địa điểm, món ăn
+-  Tìm kiếm và lọc các địa điểm, món ăn
 ### 💎 Trải nghiệm người dùng: 
-<br> • Đăng ký/đăng nhập bằng localstorage.
-<br> • Hiển thị avatar người dùng khi đã đăng nhập.
-<br> • Cập nhật UI khi thêm quán mới.
-<br> • F5 để reload trang khi đã thêm món.
-<br> • Hỗ trợ Dark Mode.
-<br> • Giao diện dark mode mượt.
-<br> • Hỗ trợ Tiếng Việt & Tiếng Anh.
-<br> • Có thông báo khi add, đánh giá, đăng kí/đăng nhập.
-<br> • Tương thích cho desktop.
+<br> Đăng ký/đăng nhập bằng localstorage.
+- Hiển thị avatar người dùng khi đã đăng nhập.
+- Cập nhật UI khi thêm quán mới.
+- F5 để reload trang khi đã thêm món.
+- Hỗ trợ Dark Mode.
+- Giao diện dark mode mượt.
+- Hỗ trợ Tiếng Việt & Tiếng Anh.
+- Có thông báo khi add, đánh giá, đăng kí/đăng nhập.
+- Tương thích cho desktop.
 ### 📄 Các trang chính:
 <br> ➡️ Trang chủ:
 <br> • Banner hình ảnh các món ăn. 
