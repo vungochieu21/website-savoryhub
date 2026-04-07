@@ -9,7 +9,7 @@
 -  Người dùng có thể xem địa điểm bằng google map.
 -  Tiêu đề (Tiếng Việt & Tiếng Anh).
 -  Mô tả (Tiếng Việt & Tiếng Anh).
- -  Tìm kiếm và lọc các địa điểm, món ăn
+  -  Tìm kiếm và lọc các địa điểm, món ăn
 ### 💎 Trải nghiệm người dùng: 
 <br> • Đăng ký/đăng nhập bằng localstorage.
 <br> • Hiển thị avatar người dùng khi đã đăng nhập.
