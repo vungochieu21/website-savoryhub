@@ -1,6 +1,6 @@
 # ✏ Ứng dụng Giới thiệu địa điểm ăn uống địa phương (Local Food Discovery App)
 
-<br> Đây là một ứng dụng hiện đại giúp người dùng có thể khám phá và tìm kiếm các địa điểm ăn uống trong địa phương. Được code bởi TypeScript và Tailwind CSS. Được lấy cảm hứng từ diadiemanuong.net.vn và DominoPizza, giao diện hiện đại, gọn gàng, có hỗ trợ dark mode và ngôn ngữ ( Anh/Việt ).
+<br> - Đây là một ứng dụng hiện đại giúp người dùng có thể khám phá và tìm kiếm các địa điểm ăn uống trong địa phương. Được code bởi TypeScript và Tailwind CSS. Được lấy cảm hứng từ diadiemanuong.net.vn và DominoPizza, giao diện hiện đại, gọn gàng, có hỗ trợ dark mode và ngôn ngữ ( Anh/Việt ).
 
 ## 🛠 Các chức năng:
 ### 🔑 *Chức năng chính:*
