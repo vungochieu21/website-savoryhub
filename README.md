@@ -21,15 +21,15 @@
 - Có thông báo khi add, đánh giá, đăng kí/đăng nhập.
 - Tương thích cho desktop.
 ### 📄 Các trang chính:
-<br> ➡️ **Trang chủ**:
+- ➡️ **Trang chủ:**
 <br> • Banner hình ảnh các món ăn. 
 <br> • List các địa điểm quán ăn.
 <br> • List các quán ăn đang có sale.
-<br> ➡️ Setting:
+- ➡️ Setting:
 <br> • Chuyển đổi ngôn ngữ, xem hồ sơ người dùng.
-<br> ➡️ Giao diện xác thực:
+- ➡️ Giao diện xác thực:
 <br> • Trang đăng nhập/đăng ký cơ bản.
-<br> ➡️ Quản lý:
+- ➡️ Quản lý:
 <br> • Danh mục yêu thích.
 <br> • Lưu trữ tự động.
 <br> • Có localstorage.
