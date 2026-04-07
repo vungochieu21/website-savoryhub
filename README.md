@@ -4,12 +4,12 @@
 
 ## 🛠 Các chức năng:
 ### 🔑 Chức năng chính:
-- • Giúp người dùng tìm kiếm những quán ăn trong địa phương nơi sinh sống.
-<br> • Thêm, chỉnh sửa và xóa các địa điểm ăn uống một cách dễ dàng.
-<br> • Người dùng có thể xem địa điểm bằng google map.
-<br> • Tiêu đề (Tiếng Việt & Tiếng Anh).
-<br> • Mô tả (Tiếng Việt & Tiếng Anh).
-<br> • Tìm kiếm và lọc các địa điểm, món ăn
+-  Giúp người dùng tìm kiếm những quán ăn trong địa phương nơi sinh sống.
+-  Thêm, chỉnh sửa và xóa các địa điểm ăn uống một cách dễ dàng.
+-  Người dùng có thể xem địa điểm bằng google map.
+-  Tiêu đề (Tiếng Việt & Tiếng Anh).
+-  Mô tả (Tiếng Việt & Tiếng Anh).
+ -  Tìm kiếm và lọc các địa điểm, món ăn
 ### 💎 Trải nghiệm người dùng: 
 <br> • Đăng ký/đăng nhập bằng localstorage.
 <br> • Hiển thị avatar người dùng khi đã đăng nhập.
