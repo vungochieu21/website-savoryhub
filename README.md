@@ -2,8 +2,8 @@
 
 <br> Đây là một ứng dụng hiện đại giúp người dùng có thể khám phá và tìm kiếm các địa điểm ăn uống trong địa phương. Được code bởi TypeScript và Tailwind CSS. Được lấy cảm hứng từ diadiemanuong.net.vn và DominoPizza, giao diện hiện đại, gọn gàng, có hỗ trợ dark mode và ngôn ngữ ( Anh/Việt ).
 
-🛠 Các chức năng:
-<br> 🔑 Chức năng chính:
+## 🛠 Các chức năng:
+<br> ### 🔑 Chức năng chính:
 <br> • Giúp người dùng tìm kiếm những quán ăn trong địa phương nơi sinh sống.
 <br> • Thêm, chỉnh sửa và xóa các địa điểm ăn uống một cách dễ dàng.
 <br> • Người dùng có thể xem địa điểm bằng google map.
