@@ -1,11 +1,36 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import LocationSelect from "./LocaSelect";
 
 export default function Navbar() {
-  const [activeTab, setActiveTab] = useState("order");
+  const router = useRouter();
+
+  const [activeTab, setActiveTab] = useState("explore");
   const [search, setSearch] = useState("");
   const [dark, setDark] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+  const [lang, setLang] = useState("vi");
+
+  const [foods, setFoods] = useState<string[]>([]);
+  const [result, setResult] = useState<string[]>([]);
+  const [searched, setSearched] = useState(false);
+
+  const data = ["Phở", "Bún bò", "Cơm tấm"];
+
+  const handleSearch = () => {
+    const res = data.filter(item =>
+      item.toLowerCase().includes(search.toLowerCase())
+    );
+    setResult(res);
+    setSearched(true);
+  };
+
+  const flags: any = {
+    vi: "🇻🇳",
+    en: "🇺🇸",
+    jp: "🇯🇵"
+  };
 
   return (
     <div style={{ fontFamily: "Arial" }}>
@@ -14,82 +39,120 @@ export default function Navbar() {
       <div style={{
         display: "flex",
         background: "#1f4e79",
-        color: "white"
+        color: "white",
+        justifyContent: "center"
       }}>
-        <div
-          onClick={() => setActiveTab("explore")}
-          style={{
-            padding: "10px 20px",
-            cursor: "pointer",
-            background: activeTab === "explore" ? "#ccc" : "transparent",
-            color: activeTab === "explore" ? "black" : "white"
-          }}
-        >
-          Khám phá
-        </div>
+        <div style={{
+          width: "100%",
+          maxWidth: "1200px",
+          display: "flex"
+        }}>
+          
+          {/* Khám phá */}
+          <div
+            onClick={() => setActiveTab("explore")}
+            style={{
+              padding: "10px 20px",
+              cursor: "pointer",
+              background: activeTab === "explore" ? "#e9e9e9" : "transparent",
+              color: activeTab === "explore" ? "black" : "white"
+            }}
+          >
+            Khám phá
+          </div>
 
-        <div
-          onClick={() => setActiveTab("order")}
-          style={{
-            padding: "10px 20px",
-            cursor: "pointer",
-            borderBottom: activeTab === "order" ? "3px solid white" : "none"
-          }}
-        >
-          Đặt hàng
+          {/* Đặt hàng */}
+          <div
+            onClick={() => {
+              setActiveTab("Shopee");
+                window.open("https://shopeefood.vn/", "_blank"); // mở tab mới
+            }}
+            style={{
+              padding: "10px 20px",
+              cursor: "pointer",
+            }}
+          >
+            Đặt hàng
+          </div>
         </div>
       </div>
 
       {/* 🔹 Main header */}
       <div style={{
+        background: dark ? "#1e1e1e" : "#e9e9e9",
         display: "flex",
-        alignItems: "center",
-        padding: "10px",
-        background: "#e9e9e9",
-        gap: "10px"
+        justifyContent: "center",
+        color: dark ? "#ddd" : "black",
+        position: "relative"
       }}>
-        
-        {/* Menu */}
-        <button onClick={() => alert("Menu clicked")}>☰</button>
-
         <div style={{
-          color: "#1f4e79",
-          fontWeight: "bold",
-          fontSize: "20px"
+          display: "flex",
+          alignItems: "center",
+          padding: "10px",
+          gap: "10px",
+          width: "100%",
+          maxWidth: "1200px"
         }}>
-          LOGO
+          <button>☰</button>
+
+          <div style={{
+            color: "#1f4e79",
+            fontWeight: "bold",
+            fontSize: "20px"
+          }}>
+            LOGO
+          </div>
+
+          <LocationSelect />
+
+          {/* 🔍 SEARCH */}
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Địa điểm, món ăn..."
+            style={{
+              flex: 1,
+              padding: "8px",
+              border: "none",
+              outline: "none",
+              background: "#fff",
+              color: "#333"
+            }}
+          />
+
+          <button onClick={handleSearch}>🔍</button>
+
+          {/* ⚙️ FILTER */}
+          <button onClick={() => setShowFilter(!showFilter)}>
+            ⚙️ Bộ lọc
+          </button>
+
+          {/* LOGIN */}
+          <button style={{ color: "black" }}>
+            Đăng nhập
+          </button>
+
+          {/* DARK MODE */}
+          <button onClick={() => setDark(!dark)}>
+            {dark ? "🌙" : "☀️"}
+          </button>
+
+          {/* ADD FOOD */}
+          <button onClick={() => {
+            const newFood = prompt("Nhập món ăn:");
+            if (newFood) setFoods([...foods, newFood]);
+          }}>
+            ➕
+          </button>
+
+          {/* LANGUAGE */}
+          <button onClick={() => {
+            const next = lang === "vi" ? "en" : lang === "en" ? "jp" : "vi";
+            setLang(next);
+          }}>
+            {flags[lang]}
+          </button>
         </div>
-
-        {/* Location */}
-        <LocationSelect />
-
-        {/* Search */}
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Địa điểm, món ăn..."
-          style={{ flex: 1, padding: "5px" }}
-        />
-
-        {/* Search button */}
-        <button onClick={() => alert("Tìm: " + search)}>🔍</button>
-
-        {/* Filter */}
-        <button onClick={() => alert("Mở bộ lọc")}>⚙️ Bộ lọc</button>
-
-        {/* Login */}
-        <button onClick={() => alert("Đăng nhập")}>Đăng nhập</button>
-
-        {/* Dark mode */}
-        <button onClick={() => setDark(!dark)}>
-          {dark ? "🌙" : "☀️"}
-        </button>
-
-        {/* Add */}
-        <button onClick={() => alert("Thêm mới")}>➕</button>
-
-        {/* Language */}
-        <button onClick={() => alert("Đổi ngôn ngữ")}>🌐</button>
       </div>
     </div>
   );
