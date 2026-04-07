@@ -10,7 +10,7 @@
 <br> • Tiêu đề (Tiếng Việt & Tiếng Anh).
 <br> • Mô tả (Tiếng Việt & Tiếng Anh).
 <br> • Tìm kiếm và lọc các địa điểm, món ăn
-<br> 💎 Trải nghiệm người dùng: 
+### 💎 Trải nghiệm người dùng: 
 <br> • Đăng ký/đăng nhập bằng localstorage.
 <br> • Hiển thị avatar người dùng khi đã đăng nhập.
 <br> • Cập nhật UI khi thêm quán mới.
@@ -20,7 +20,7 @@
 <br> • Hỗ trợ Tiếng Việt & Tiếng Anh.
 <br> • Có thông báo khi add, đánh giá, đăng kí/đăng nhập.
 <br> • Tương thích cho desktop.
-<br> 📄 Các trang chính:
+### 📄 Các trang chính:
 <br> ➡️ Trang chủ:
 <br> • Banner hình ảnh các món ăn. 
 <br> • List các địa điểm quán ăn.
