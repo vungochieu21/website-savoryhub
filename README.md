@@ -21,7 +21,7 @@
 - Có thông báo khi add, đánh giá, đăng kí/đăng nhập.
 - Tương thích cho desktop.
 ### 📄 Các trang chính:
-<br> ➡️ Trang chủ:
+<br> ➡️ **Trang chủ**:
 <br> • Banner hình ảnh các món ăn. 
 <br> • List các địa điểm quán ăn.
 <br> • List các quán ăn đang có sale.
