@@ -6,25 +6,25 @@ export default function Banner() {
   const [transition, setTransition] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // 👉 data banner (PHẢI nằm trong component)
+  //data banner
   const banners = [
     { id: 1, img: "https://picsum.photos/1200/300?1" },
     { id: 2, img: "https://picsum.photos/1200/300?2" },
     { id: 3, img: "https://picsum.photos/1200/300?3" },
   ];
 
-  // 👉 clone
+  //clone
   const loopBanners = [
     banners[banners.length - 1],
     ...banners,
     banners[0],
   ];
 
-  // 👉 nút điều khiển
+  //nút điều khiển
   const nextSlide = () => setCurrent((prev) => prev + 1);
   const prevSlide = () => setCurrent((prev) => prev - 1);
 
-  // 👉 auto chạy
+  //auto chạy
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
@@ -32,7 +32,7 @@ export default function Banner() {
     return () => clearInterval(interval);
   }, []);
 
-  // 👉 xử lý loop
+  //xử lý loop
   useEffect(() => {
     if (current === loopBanners.length - 1) {
       setTimeout(() => {
@@ -55,7 +55,7 @@ export default function Banner() {
   return (
     <div
       style={{
-        background: "#f5f5f5",
+        background: "#e3e3e3",
         display: "flex",
         justifyContent: "center",
         padding: "20px 0",
@@ -69,7 +69,7 @@ export default function Banner() {
           position: "relative",
         }}
       >
-        {/* 🔹 Slider */}
+        {/*Slider*/}
         <div
           ref={sliderRef}
           style={{
@@ -140,7 +140,7 @@ export default function Banner() {
           {">"}
         </button>
 
-        {/* 🔹 Dots */}
+        {/*Dots*/}
         <div
           style={{
             position: "absolute",

@@ -1,82 +1,79 @@
 "use client";
 
-import Image from "next/image";
+type Deal = {
+  id: number;
+  shop: string;
+  name: string;
+  price: number;
+  oldPrice: number;
+  image?: string;
+};
 
-const deals = [
-  {
-    id: 1,
-    name: "Bún bò Huế",
-    price: "30.000đ",
-    oldPrice: "60.000đ",
-    img: "/food1.jpg",
-  },
-  {
-    id: 2,
-    name: "Trà sữa",
-    price: "25.000đ",
-    oldPrice: "50.000đ",
-    img: "/food2.jpg",
-  },
-  {
-    id: 3,
-    name: "Cơm tấm",
-    price: "40.000đ",
-    oldPrice: "80.000đ",
-    img: "/food3.jpg",
-  },
-  {
-    id: 4,
-    name: "Gà rán",
-    price: "35.000đ",
-    oldPrice: "70.000đ",
-    img: "/food4.jpg",
-  },
+const deals: Deal[] = [
+  { id: 1, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
+  { id: 2, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
+  { id: 3, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
+  { id: 4, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
+  { id: 5, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
 ];
+
 export default function DealSection() {
   return (
-    <div className="w-full bg-white">
-      <div className="max-w-[1200px] mx-auto px-4 py-8">
-        
-        <div className="shadow-lg overflow-hidden">
-          
-          {/* HEADER */}
-          <div className="bg-[#2D326F] text-white p-4 flex items-center justify-between">
-            <h2 className="text-lg font-bold">🔥 Deal ngon mỗi ngày</h2>
-            <span className="bg-yellow-400 text-[#C55151] px-3 py-1 rounded-full text-sm font-bold">
-              Giảm đến 50%
-            </span>
+    <div className="w-full flex justify-center px-4 mt-6">
+      <div className="w-full max-w-[1185px] relative">
+
+        {/* HEADER */}
+        <div className="bg-[#2f3478] rounded-xl h-[100px] px-6 flex items-center shadow-md">
+          <div>
+            <h2 className="text-white font-semibold text-lg">
+              Deal ngon quán hời
+            </h2>
+
+            <div className="mt-2 inline-block relative">
+              <span className="bg-yellow-400 text-[#ff0000] font-bold px-4 py-1 text-sm rounded-l-md">
+                Giảm đến 50 %
+              </span>
+              <span className="absolute right-[-8px] top-0.3 w-0 h-0 border-t-[12px] border-b-[14px] border-l-[9px] border-t-transparent border-b-transparent border-l-yellow-400"></span>
+            </div>
           </div>
+        </div>
 
-          {/* LIST */}
-          <div className="flex gap-4 overflow-x-auto p-4">
-            {deals.map((item) => (
+        {/* CARD LIST */}
+        <div className="absolute left-20 right-20 top-[90px] px-2">
+          <div className="flex gap-6 justify-between">
+
+            {deals.map((deal) => (
               <div
-                key={item.id}
-                className="min-w-[140px] bg-gray-50 rounded-xl p-2 hover:scale-105 transition"
+                key={deal.id}
+                className="w-[180px] bg-white rounded-xl shadow-md p-3 hover:shadow-lg transition"
               >
-                <div className="relative w-full h-24 rounded-lg overflow-hidden">
-                  <Image
-                    src={item.img}
-                    alt={item.name}
-                    fill
-                    className="object-cover"
-                  />
+                {/* IMAGE */}
+                <div className="w-full h-[110px] bg-blue-400 rounded-lg flex items-center justify-center text-black font-bold">
+                  IMG
                 </div>
-
-                <p className="text-sm mt-2 line-clamp-1">{item.name}</p>
-
-                <p className="text-red-500 font-bold text-sm">
-                  {item.price}
+                {/* SHOP */}
+                <p className="text-gray-400 text-sm mt-2">
+                  {deal.shop}
                 </p>
-
-                <p className="text-gray-400 text-xs line-through">
-                  {item.oldPrice}
+                {/* NAME */}
+                <p className="text-black font-semibold text-sm leading-tight">
+                  {deal.name}
                 </p>
+                {/* PRICE */}
+                <div className="mt-1">
+                  <p className="text-red-500 font-bold">
+                    {deal.price.toLocaleString()}đ
+                  </p>
+                  <p className="text-gray-400 text-sm line-through">
+                    {deal.oldPrice.toLocaleString()}đ
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-
+        {/* SPACING dưới để tránh bị đè */}
+        <div className="h-[250px]"></div>
       </div>
     </div>
   );

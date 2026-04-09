@@ -2,34 +2,25 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LocationSelect from "./LocaSelect";
+import NightModeButton from "./NightModeButton";
 
 export default function Navbar() {
-  const router = useRouter();
-
   const [activeTab, setActiveTab] = useState("explore");
   const [search, setSearch] = useState("");
-  const [dark, setDark] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [lang, setLang] = useState("vi");
-
   const [foods, setFoods] = useState<string[]>([]);
-  const [result, setResult] = useState<string[]>([]);
-  const [searched, setSearched] = useState(false);
+  const router = useRouter();
 
   const data = ["Phở", "Bún bò", "Cơm tấm"];
 
   const handleSearch = () => {
-    const res = data.filter(item =>
-      item.toLowerCase().includes(search.toLowerCase())
-    );
-    setResult(res);
-    setSearched(true);
+    if (!search.trim()) return;
   };
 
   const flags: any = {
     vi: "🇻🇳",
     en: "🇺🇸",
-    jp: "🇯🇵"
   };
 
   return (
@@ -78,13 +69,10 @@ export default function Navbar() {
       </div>
 
       {/* 🔹 Main header */}
-      <div style={{
-        background: dark ? "#1e1e1e" : "#e9e9e9",
-        display: "flex",
-        justifyContent: "center",
-        color: dark ? "#ddd" : "black",
-        position: "relative"
-      }}>
+      <div
+        className="flex justify-center bg-gray-200 dark:bg-#e9e9e9 text-black dark:text-black"
+        style={{ position: "relative" }}
+      >
         <div style={{
           display: "flex",
           alignItems: "center",
@@ -109,6 +97,9 @@ export default function Navbar() {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
             placeholder="Địa điểm, món ăn..."
             style={{
               flex: 1,
@@ -122,22 +113,20 @@ export default function Navbar() {
 
           <button onClick={handleSearch}>🔍</button>
 
-          {/* ⚙️ FILTER */}
+          {/*FILTER*/}
           <button onClick={() => setShowFilter(!showFilter)}>
             ⚙️ Bộ lọc
           </button>
 
-          {/* LOGIN */}
+          {/*LOGIN*/}
           <button style={{ color: "black" }}>
             Đăng nhập
           </button>
 
-          {/* DARK MODE */}
-          <button onClick={() => setDark(!dark)}>
-            {dark ? "🌙" : "☀️"}
-          </button>
+          {/*DARK MODE*/}
+          <NightModeButton size={0.7} />
 
-          {/* ADD FOOD */}
+          {/*ADD FOOD*/}
           <button onClick={() => {
             const newFood = prompt("Nhập món ăn:");
             if (newFood) setFoods([...foods, newFood]);
@@ -145,7 +134,7 @@ export default function Navbar() {
             ➕
           </button>
 
-          {/* LANGUAGE */}
+          {/*LANGUAGE*/}
           <button onClick={() => {
             const next = lang === "vi" ? "en" : lang === "en" ? "jp" : "vi";
             setLang(next);
