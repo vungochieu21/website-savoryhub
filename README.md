@@ -22,18 +22,18 @@
 - Tương thích cho desktop.
 ### 📄 *Các trang chính:*
 - ➡️ ***Trang chủ:***
-<br> • Banner hình ảnh các món ăn. 
-<br> • List các địa điểm quán ăn.
-<br> • List các quán ăn đang có sale.
+<br> - Banner hình ảnh các món ăn. 
+<br> - List các địa điểm quán ăn.
+<br> - List các quán ăn đang có sale.
 - ➡️ **Setting:**
-<br> • Chuyển đổi ngôn ngữ, xem hồ sơ người dùng.
+<br> - Chuyển đổi ngôn ngữ, xem hồ sơ người dùng.
 - ➡️ ***Giao diện xác thực:***
-<br> • Trang đăng nhập/đăng ký cơ bản.
+<br> - Trang đăng nhập/đăng ký cơ bản.
 - ➡️ ***Quản lý:***
-<br> • Danh mục yêu thích.
-<br> • Lưu trữ tự động.
-<br> • Có localstorage.
-<br> • Lưu dữ liệu người dùng.
+<br> - Danh mục yêu thích.
+<br> - Lưu trữ tự động.
+<br> - Có localstorage.
+<br> - Lưu dữ liệu người dùng.
 ## 📖 Hướng dẫn sử dụng:
 ### 🔐 *Xác thực người dùng:*
 - Ấn vào nút đăng nhập để đăng nhập.
