@@ -39,3 +39,17 @@
 - Ấn vào nút đăng nhập để đăng nhập.
 - Ấn vào nút đăng kí để tạo tài khoản.
 - Lưu dữ liệu bằng localstorage.
+### 📁 *Quản lí sử dụng người dùng:*
+- Thêm địa điểm mới:
+<br> Bước 1: Ấn dấu "+" trên thanh công cụ.
+<br> Bước 2: Nhập thông (tên quán, địa điểm, tên món, ...).
+- Dữ liệu autosave vào localstorage.
+- Sửa địa điểm được thêm:
+<br> Bước 1: Ấn vào dấu "+" trên thanh công cụ.
+<br> Bước 2: Sửa thông tin.
+- Xoá địa điểm được thêm:
+<br> Bước 1: Ấn vào dấu "+" trên thanh công cụ.
+<br> Bước 2: Ấn DEL.
+### ⚙️ Settings:
+- Chế độ sáng/tối.
+- Ngôn ngữ: Anh/Việt.
