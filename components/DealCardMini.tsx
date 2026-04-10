@@ -37,11 +37,9 @@ export default function DealSection() {
             </div>
           </div>
         </div>
-
         {/* CARD LIST */}
         <div className="absolute left-20 right-20 top-[90px] px-2">
           <div className="flex gap-6 justify-between">
-
             {deals.map((deal) => (
               <div
                 key={deal.id}
@@ -62,17 +60,17 @@ export default function DealSection() {
                 {/* PRICE */}
                 <div className="mt-1">
                   <p className="text-red-500 font-bold">
-                    {deal.price.toLocaleString()}đ
+                    {deal.price.toLocaleString("vi-VN")}đ
                   </p>
                   <p className="text-gray-400 text-sm line-through">
-                    {deal.oldPrice.toLocaleString()}đ
+                    {deal.oldPrice.toLocaleString("vi-VN")}đ
                   </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        {/* SPACING dưới để tránh bị đè */}
+        {/* khoang cach */}
         <div className="h-[250px]"></div>
       </div>
     </div>

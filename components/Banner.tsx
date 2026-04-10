@@ -6,33 +6,31 @@ export default function Banner() {
   const [transition, setTransition] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  //data banner
   const banners = [
     { id: 1, img: "https://picsum.photos/1200/300?1" },
     { id: 2, img: "https://picsum.photos/1200/300?2" },
     { id: 3, img: "https://picsum.photos/1200/300?3" },
   ];
 
-  //clone
+  // clone để loop mượt
   const loopBanners = [
     banners[banners.length - 1],
     ...banners,
     banners[0],
   ];
 
-  //nút điều khiển
   const nextSlide = () => setCurrent((prev) => prev + 1);
   const prevSlide = () => setCurrent((prev) => prev - 1);
 
-  //auto chạy
+  // auto chạy
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 10000);
+    }, 5000); // 👉 đổi 5s cho mượt hơn
     return () => clearInterval(interval);
   }, []);
 
-  //xử lý loop
+  // xử lý loop
   useEffect(() => {
     if (current === loopBanners.length - 1) {
       setTimeout(() => {
@@ -48,7 +46,7 @@ export default function Banner() {
       }, 500);
     }
 
-    const t = setTimeout(() => setTransition(true), 50);
+    const t = setTimeout(() => setTransition(true), 20);
     return () => clearTimeout(t);
   }, [current]);
 
@@ -69,7 +67,7 @@ export default function Banner() {
           position: "relative",
         }}
       >
-        {/*Slider*/}
+        {/* Slider */}
         <div
           ref={sliderRef}
           style={{
@@ -87,20 +85,37 @@ export default function Banner() {
                 boxSizing: "border-box",
               }}
             >
-              <img
-                src={banner.img}
+              <div
                 style={{
-                  width: "100%",
-                  height: "300px",
-                  objectFit: "cover",
-                  borderRadius: "12px",
+                  minWidth: "100%",
+                  boxSizing: "border-box",
                 }}
-              />
+              >
+                <div style={{ padding: "0 5px" }}>
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      borderRadius: "12px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src={banner.img}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
-
-        {/* 🔹 Nút trái */}
+        {/*Nút trái*/}
         <button
           onClick={prevSlide}
           style={{
@@ -119,8 +134,7 @@ export default function Banner() {
         >
           {"<"}
         </button>
-
-        {/* 🔹 Nút phải */}
+        {/*Nút phải*/}
         <button
           onClick={nextSlide}
           style={{
@@ -139,7 +153,6 @@ export default function Banner() {
         >
           {">"}
         </button>
-
         {/*Dots*/}
         <div
           style={{
