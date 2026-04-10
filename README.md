@@ -34,3 +34,8 @@
 <br> • Lưu trữ tự động.
 <br> • Có localstorage.
 <br> • Lưu dữ liệu người dùng.
+## 📖 Hướng dẫn sử dụng:
+### 🔐 *Xác thực người dùng:*
+- Ấn vào nút đăng nhập để đăng nhập.
+- Ấn vào nút đăng kí để tạo tài khoản.
+- Lưu dữ liệu bằng localstorage.
