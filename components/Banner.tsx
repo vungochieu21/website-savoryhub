@@ -26,7 +26,7 @@ export default function Banner() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000); // 👉 đổi 5s cho mượt hơn
+    }, 5000); 
     return () => clearInterval(interval);
   }, []);
 

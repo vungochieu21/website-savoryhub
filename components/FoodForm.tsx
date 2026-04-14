@@ -9,6 +9,7 @@ import {
   FaFileAlt,
   FaTimes,
 } from "react-icons/fa";
+
 export default function FoodForm({ onClose, onSave }: any) {
   const [form, setForm] = useState({
     name: "",
@@ -24,6 +25,7 @@ export default function FoodForm({ onClose, onSave }: any) {
     description: "",
     image: "",
   });
+
   const handleImage = (e: any) => {
     const file = e.target.files[0];
     if (file) {
@@ -33,113 +35,141 @@ export default function FoodForm({ onClose, onSave }: any) {
       });
     }
   };
+
   return (
     <div style={overlay}>
-      <div style={modal}>
+      <div style={modal} className="shadow-lg">
+
         {/* Nút X */}
-        <button style={closeBtn} onClick={onClose}>
+        <button style={closeBtn} onClick={onClose} className="btn btn-light">
           <FaTimes />
         </button>
-        <h2>Thông tin bắt buộc</h2>
+
+        <h2 className="mb-4">Thông tin bắt buộc</h2>
+
         {/* Tên */}
         <div style={inputBox}>
           <FaFileAlt />
           <input
+            className="form-control"
             placeholder="Tên địa điểm"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </div>
+
         {/* Địa chỉ */}
         <div style={inputBox}>
           <FaMapMarkerAlt />
           <input
+            className="form-control"
             placeholder="Địa chỉ"
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
           />
         </div>
-        <h3>Chọn tỉnh/ thành phố</h3>
+
+        <h3 className="mt-4">Chọn tỉnh/ thành phố</h3>
+
         <div style={inputBox}>
-          <select>
+          <select className="form-select">
             <option>Vietnam</option>
           </select>
         </div>
+
         <div style={inputBox}>
           <input
+            className="form-control"
             placeholder="Chọn tỉnh..."
             value={form.province}
             onChange={(e) => setForm({ ...form, province: e.target.value })}
           />
         </div>
+
         <div style={inputBox}>
           <input
+            className="form-control"
             placeholder="Chọn quận..."
             value={form.district}
             onChange={(e) => setForm({ ...form, district: e.target.value })}
           />
         </div>
-        <h3>Thông tin khác</h3>
+
+        <h3 className="mt-4">Thông tin khác</h3>
+
         {/* Map */}
         <div style={inputBox}>
           <FaMapMarkerAlt />
           <input
+            className="form-control"
             placeholder="Vị trí bản đồ..."
             value={form.map}
             onChange={(e) => setForm({ ...form, map: e.target.value })}
           />
         </div>
+
         {/* Phone */}
         <div style={inputBox}>
           <FaPhone />
           <input
+            className="form-control"
             placeholder="Số điện thoại..."
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
         </div>
+
         {/* Giờ mở */}
         <div style={timeWrap}>
           <div style={inputBox}>
             <FaClock />
             <input
+              className="form-control"
               type="time"
               value={form.openTime}
               onChange={(e) => setForm({ ...form, openTime: e.target.value })}
             />
           </div>
+
           <div style={inputBox}>
             <FaClock />
             <input
+              className="form-control"
               type="time"
               value={form.closeTime}
               onChange={(e) => setForm({ ...form, closeTime: e.target.value })}
             />
           </div>
         </div>
+
         {/* Giá */}
         <div style={timeWrap}>
           <div style={inputBox}>
             <FaMoneyBill />
             <input
+              className="form-control"
               placeholder="Giá thấp"
               value={form.minPrice}
               onChange={(e) => setForm({ ...form, minPrice: e.target.value })}
             />
           </div>
+
           <div style={inputBox}>
             <FaMoneyBill />
             <input
+              className="form-control"
               placeholder="Giá cao"
               value={form.maxPrice}
               onChange={(e) => setForm({ ...form, maxPrice: e.target.value })}
             />
           </div>
         </div>
+
         {/* Mô tả */}
         <div style={inputBox}>
           <FaFileAlt />
           <textarea
+            className="form-control"
             maxLength={300}
             placeholder="Nhập mô tả (tối đa 300 chữ)"
             value={form.description}
@@ -148,14 +178,20 @@ export default function FoodForm({ onClose, onSave }: any) {
             }
           />
         </div>
+
         {/* Upload ảnh */}
         <div style={inputBox}>
           <FaImage />
-          <input type="file" onChange={handleImage} />
+          <input className="form-control" type="file" onChange={handleImage} />
         </div>
+
         {/* Nút xác nhận */}
         <div style={{ textAlign: "right", marginTop: 20 }}>
-          <button style={saveBtn} onClick={() => onSave(form)}>
+          <button
+            style={saveBtn}
+            className="btn btn-warning"
+            onClick={() => onSave(form)}
+          >
             Xác nhận
           </button>
         </div>
@@ -163,6 +199,7 @@ export default function FoodForm({ onClose, onSave }: any) {
     </div>
   );
 }
+
 /* STYLE */
 const overlay = {
   position: "fixed" as const,
@@ -172,6 +209,7 @@ const overlay = {
   justifyContent: "center",
   alignItems: "center",
 };
+
 const modal = {
   width: "650px",
   maxHeight: "90vh",
@@ -181,12 +219,12 @@ const modal = {
   borderRadius: "15px",
   position: "relative" as const,
 };
+
 const closeBtn = {
   position: "absolute" as const,
   top: 15,
   right: 15,
   border: "none",
-  background: "none",
   fontSize: "20px",
   cursor: "pointer",
 };
@@ -196,19 +234,15 @@ const inputBox = {
   alignItems: "center",
   gap: "10px",
   marginBottom: "15px",
-  border: "1px solid #ddd",
-  padding: "10px",
-  borderRadius: "10px",
 };
+
 const timeWrap = {
   display: "flex",
   gap: "10px",
 };
+
 const saveBtn = {
   padding: "10px 20px",
-  background: "#ff5722",
-  color: "#fff",
-  border: "none",
   borderRadius: "8px",
   cursor: "pointer",
 };

@@ -12,7 +12,6 @@ export default function RestaurantList({ foods, onEdit, onDelete }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  // 👉 đóng menu khi click ra ngoài
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -59,7 +58,7 @@ export default function RestaurantList({ foods, onEdit, onDelete }: Props) {
               position: "absolute",
               top: "6px",
               right: "6px",
-              width: "28px",         // 👈 nhỏ khung
+              width: "28px",         
               height: "28px",
               display: "flex",
               alignItems: "center",
