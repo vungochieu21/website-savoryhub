@@ -1,10 +1,9 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export default function Banner() {
   const [current, setCurrent] = useState(1);
   const [transition, setTransition] = useState(true);
-  const sliderRef = useRef<HTMLDivElement>(null);
 
   const banners = [
     { id: 1, img: "https://picsum.photos/1200/300?1" },
@@ -12,7 +11,6 @@ export default function Banner() {
     { id: 3, img: "https://picsum.photos/1200/300?3" },
   ];
 
-  // clone để loop mượt
   const loopBanners = [
     banners[banners.length - 1],
     ...banners,
@@ -22,15 +20,11 @@ export default function Banner() {
   const nextSlide = () => setCurrent((prev) => prev + 1);
   const prevSlide = () => setCurrent((prev) => prev - 1);
 
-  // auto chạy
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000); 
+    const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  // xử lý loop
   useEffect(() => {
     if (current === loopBanners.length - 1) {
       setTimeout(() => {
@@ -53,23 +47,22 @@ export default function Banner() {
   return (
     <div
       style={{
-        background: "#e3e3e3",
         display: "flex",
         justifyContent: "center",
         padding: "20px 0",
+        marginTop: "85px",
       }}
     >
       <div
         style={{
-          maxWidth: "1200px",
+          maxWidth: "1300px",
           width: "100%",
           overflow: "hidden",
           position: "relative",
+          borderRadius: "30px",
         }}
       >
-        {/* Slider */}
         <div
-          ref={sliderRef}
           style={{
             display: "flex",
             transform: `translateX(-${current * 100}%)`,
@@ -81,100 +74,40 @@ export default function Banner() {
               key={index}
               style={{
                 minWidth: "100%",
-                padding: "0 5px",
                 boxSizing: "border-box",
               }}
             >
-              <div
+              <img
+                src={banner.img}
                 style={{
-                  minWidth: "100%",
-                  boxSizing: "border-box",
+                  width: "100%",
+                  height: "300px",
+                  objectFit: "cover",
+                  borderRadius: "30px",
+                  display: "block",
                 }}
-              >
-                <div style={{ padding: "0 5px" }}>
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "300px",
-                      borderRadius: "12px",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <img
-                      src={banner.img}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           ))}
         </div>
-        {/*Nút trái*/}
-        <button
-          onClick={prevSlide}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "10px",
-            transform: "translateY(-50%)",
-            background: "rgba(0,0,0,0.4)",
-            color: "white",
-            border: "none",
-            borderRadius: "50%",
-            width: "35px",
-            height: "35px",
-            cursor: "pointer",
-          }}
-        >
+
+        <button onClick={prevSlide} style={arrowLeft}>
           {"<"}
         </button>
-        {/*Nút phải*/}
-        <button
-          onClick={nextSlide}
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "10px",
-            transform: "translateY(-50%)",
-            background: "rgba(0,0,0,0.4)",
-            color: "white",
-            border: "none",
-            borderRadius: "50%",
-            width: "35px",
-            height: "35px",
-            cursor: "pointer",
-          }}
-        >
+
+        <button onClick={nextSlide} style={arrowRight}>
           {">"}
         </button>
-        {/*Dots*/}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "15px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            gap: "8px",
-          }}
-        >
+
+        <div style={dotsWrap}>
           {banners.map((_, index) => (
             <div
               key={index}
               onClick={() => setCurrent(index + 1)}
               style={{
-                width: "10px",
-                height: "10px",
-                borderRadius: "50%",
+                ...dotStyle,
                 background:
                   current === index + 1 ? "#1f4e79" : "#ccc",
-                cursor: "pointer",
               }}
             />
           ))}
@@ -183,3 +116,39 @@ export default function Banner() {
     </div>
   );
 }
+
+const arrowLeft = {
+  position: "absolute" as const,
+  top: "50%",
+  left: "30px",
+  transform: "translateY(-50%)",
+  background: "rgba(0,0,0,0.4)",
+  color: "white",
+  border: "none",
+  borderRadius: "50%",
+  width: "35px",
+  height: "35px",
+  cursor: "pointer",
+};
+
+const arrowRight = {
+  ...arrowLeft,
+  left: "auto",
+  right: "30px",
+};
+
+const dotsWrap = {
+  position: "absolute" as const,
+  bottom: "15px",
+  left: "50%",
+  transform: "translateX(-50%)",
+  display: "flex",
+  gap: "8px",
+};
+
+const dotStyle = {
+  width: "10px",
+  height: "10px",
+  borderRadius: "50%",
+  cursor: "pointer",
+};

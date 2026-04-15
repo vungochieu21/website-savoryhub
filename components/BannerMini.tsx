@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+
 export default function Banner() {
   const [current, setCurrent] = useState(0);
   const [transition, setTransition] = useState(true);
@@ -11,67 +12,82 @@ export default function Banner() {
     { id: 5, img: "https://picsum.photos/300/150?5" },
   ];
   const loopBanners = [...banners, ...banners];
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => prev + 1);
-    }, 5000);
+    }, 3000);
+
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
-    if (current >= banners.length) {
-      setTimeout(() => {
+    if (current === banners.length) {
+      const timeout = setTimeout(() => {
         setTransition(false);
         setCurrent(0);
-      }, 500);
+      }, 600);
+
+      return () => clearTimeout(timeout);
     }
+
     const t = setTimeout(() => setTransition(true), 50);
     return () => clearTimeout(t);
   }, [current]);
+
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        padding: "20px 0",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1190px",
-          width: "100%",
-          overflow: "hidden",
-        }}
-      >
+    <div className="flex justify-center mt-[130px] py-6">
+      
+      {/* OUTER WRAPPER (BO GÓC ỔN ĐỊNH) */}
+      <div className="w-full max-w-[1430px] px-1">
+        
         <div
           style={{
-            display: "flex",
-            gap: "10px",
-            transform: `translateX(-${current * 310}px)`,
-            transition: transition ? "0.5s ease" : "none",
+            overflow: "hidden",
+            borderRadius: "30px",
           }}
         >
-          {loopBanners.map((banner, index) => (
-            <div
-              key={index}
-              style={{
-                width: "300px",
-                height: "150px",
-                borderRadius: "10px",
-                overflow: "hidden", //QUAN TRỌNG
-                flexShrink: 0,
-              }}
-            >
-              <img
-                src={banner.img}
+          
+          {/* TRACK */}
+          <div
+            style={{
+              display: "flex",
+              transform: `translateX(-${current * 25}%)`,
+              transition: transition ? "0.6s ease" : "none",
+            }}
+          >
+            {loopBanners.map((banner, index) => (
+              
+              <div
+                key={index}
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block", //fix bug lệch layout
+                  flex: "0 0 25%",
+                  padding: "10px",
+                  boxSizing: "border-box",
                 }}
-              />
-            </div>
-          ))}
+              >
+                
+                {/* CARD */}
+                <div
+                  style={{
+                    height: "140px",
+                    borderRadius: "25px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={banner.img}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

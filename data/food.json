@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Phở Thìn Hà Nội",
+    "address": "12 Nguyễn Huệ, Q1",
+    "image": "https://picsum.photos/300/200?1",
+    "rating": 4.8,
+    "comments": 120,
+    "photos": 45
+  },
+  {
+    "name": "Bún Bò Huế O Lan",
+    "address": "45 Lê Lợi, Q3",
+    "image": "https://picsum.photos/300/200?2",
+    "rating": 4.6,
+    "comments": 88,
+    "photos": 22
+  },
+  {
+    "name": "Pizza House",
+    "address": "99 Võ Văn Tần",
+    "image": "https://picsum.photos/300/200?3",
+    "rating": 4.7,
+    "comments": 54,
+    "photos": 19
+  },
+  {
+    "name": "Trà Sữa Mixue",
+    "address": "21 Trần Hưng Đạo",
+    "image": "https://picsum.photos/300/200?4",
+    "rating": 4.5,
+    "comments": 31,
+    "photos": 12
+  },
+  {
+    "name": "Bún Đậu Mắm Tôm Cô Ba",
+    "address": "45 Đường Yersin, Phú Cường, Thủ Dầu Một, Bình Dương",
+    "image": "/images/bundau.jpg",
+    "rating": 4.8,
+    "comments": 124,
+    "photos": 31
+  },
+  {
+    "name": "Lẩu Nướng Seoul Garden",
+    "address": "Tầng 3 AEON Mall, 01 Đại lộ Bình Dương, Thuận Giao, Thuận An, Bình Dương",
+    "image": "/images/seoulgarden.jpg",
+    "rating": 4.7,
+    "comments": 215,
+    "photos": 52
+  },
+  {
+    "name": "Bánh Xèo Miền Tây Út Nhỏ",
+    "address": "78 Nguyễn Văn Tiết, Lái Thiêu, Thuận An, Bình Dương",
+    "image": "/images/banhxeo.jpg",
+    "rating": 4.6,
+    "comments": 98,
+    "photos": 20
+  },
+  {
+    "name": "Phở Bò Hà Nội Gia Truyền",
+    "address": "12 Trần Hưng Đạo, Hiệp Thành, Thủ Dầu Một, Bình Dương",
+    "image": "/images/pho.jpg",
+    "rating": 4.9,
+    "comments": 186,
+    "photos": 40
+  },
+  {
+    "name": "Cơm Tấm Sườn Bì Chả 198",
+    "address": "198 Cách Mạng Tháng 8, Phú Thọ, Thủ Dầu Một, Bình Dương",
+    "image": "/images/comtam.jpg",
+    "rating": 4.5,
+    "comments": 76,
+    "photos": 15
+  },
+  {
+    "name": "Trà Sữa & Ăn Vặt Cheese House",
+    "address": "33 Nguyễn An Ninh, Dĩ An, Bình Dương",
+    "image": "/images/trasua.jpg",
+    "rating": 4.4,
+    "comments": 142,
+    "photos": 26
+  },
+  {
+    "name": "Hải Sản Tươi Sống Biển Đông",
+    "address": "99 ĐT743A, Tân Đông Hiệp, Dĩ An, Bình Dương",
+    "image": "/images/haisan.jpg",
+    "rating": 4.8,
+    "comments": 201,
+    "photos": 48
+  },
+  {
+    "name": "Gà Rán Crunchy Chicken",
+    "address": "25 Huỳnh Văn Lũy, Phú Lợi, Thủ Dầu Một, Bình Dương",
+    "image": "/images/garan.jpg",
+    "rating": 4.6,
+    "comments": 89,
+    "photos": 19
+  }
+]

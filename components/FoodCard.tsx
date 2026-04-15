@@ -1,131 +1,55 @@
 "use client";
 import { useState } from "react";
+import { FaComment, FaCamera, FaHeart } from "react-icons/fa";
 
 type FoodCardProps = {
   name: string;
   address: string;
-  image: string;
-  rating: number;
-  comments: number;
-  photos: number;
-  iconComment?: string;
-  iconPhoto?: string;
-  iconHeart?: string;
+  image?: string | null;
+  rating?: number;
+  comments?: number;
+  photos?: number;
 };
 
 export default function FoodCard({
   name,
   address,
   image,
-  rating,
-  comments,
-  photos,
-  iconComment,
-  iconPhoto,
-  iconHeart,
+  rating = 4.5,
+  comments = 0,
+  photos = 0,
 }: FoodCardProps) {
   const [liked, setLiked] = useState(false);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        borderRadius: "12px",
-        overflow: "hidden",
-        background: "#fff",
-        border: "1px solid #eee",
-        cursor: "pointer",
-        transition: "all 0.2s ease",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-4px)";
-        e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.1)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "none";
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    >
-      {/* IMAGE */}
-      <img
-        src={image}
-        alt={name}
-        style={{
-          width: "100%",
-          height: "140px",
-          objectFit: "cover",
-        }}
-      />
+    <div style={card}>
+      {image ? (
+        <img src={image} alt={name} style={img} />
+      ) : (
+        <div style={noImg}>No Image</div>
+      )}
 
-      {/* CONTENT */}
-      <div style={{ padding: "10px", color: "#000" }}>
-        {/* TÊN QUÁN */}
-        <div
-          style={{
-            fontSize: "15px",
-            fontWeight: "bold",
-            marginBottom: "4px",
-          }}
-        >
-          {name || "Tên quán..."}
-        </div>
+      <div style={{ padding: "10px" }}>
+        <div style={title}>{name || "Tên quán..."}</div>
 
-        {/* ĐỊA CHỈ */}
-        <div
-          style={{
-            fontSize: "13px",
-            color: "#888",
-            marginBottom: "4px",
-          }}
-        >
+        <div style={addressStyle}>
           {address || "Địa chỉ..."}
         </div>
 
-        {/* ⭐ RATING (👉 ĐÃ ĐƯA XUỐNG DƯỚI) */}
-        <div
-          style={{
-            fontSize: "14px",
-            fontWeight: "bold",
-            marginBottom: "8px",
-          }}
-        >
-          ⭐ {rating}
-        </div>
+        <div style={ratingStyle}>⭐ {rating}</div>
 
-        {/* BOTTOM ROW */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontSize: "13px",
-            color: "#555",
-          }}
-        >
-          {/* LEFT */}
+        {/* BOTTOM */}
+        <div style={bottom}>
           <div style={{ display: "flex", gap: "12px" }}>
-            {/* 💬 */}
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              {iconComment ? (
-                <img src={iconComment} width={16} />
-              ) : (
-                <span>💬</span>
-              )}
-              {comments}
+            <div style={iconRow}>
+              <FaComment /> {comments}
             </div>
 
-            {/* 📷 */}
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              {iconPhoto ? (
-                <img src={iconPhoto} width={16} />
-              ) : (
-                <span>📷</span>
-              )}
-              {photos}
+            <div style={iconRow}>
+              <FaCamera /> {photos}
             </div>
           </div>
 
-          {/* ❤️ */}
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -133,16 +57,71 @@ export default function FoodCard({
             }}
             style={{
               cursor: "pointer",
-              fontSize: "16px",
-              transform: liked ? "scale(1.5)" : "scale(1.5)",
               color: liked ? "red" : "#999",
-              transition: "0.2s",
+              fontSize: "16px",
             }}
           >
-            {iconHeart ? <img src={iconHeart} width={16} /> : "♥"}
+            <FaHeart />
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+/* STYLE */
+
+const card = {
+  width: "100%",
+  borderRadius: "12px",
+  overflow: "hidden",
+  background: "#fff",
+  border: "1px solid #eee",
+  cursor: "pointer",
+  transition: "0.2s",
+};
+
+const img = {
+  width: "100%",
+  height: "140px",
+  objectFit: "cover" as const,
+};
+
+const noImg = {
+  width: "100%",
+  height: "140px",
+  background: "#eee",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "#888",
+};
+
+const title = {
+  fontSize: "15px",
+  fontWeight: "bold",
+};
+
+const addressStyle = {
+  fontSize: "13px",
+  color: "#888",
+};
+
+const ratingStyle = {
+  fontSize: "14px",
+  fontWeight: "bold",
+  margin: "6px 0",
+};
+
+const bottom = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
+
+const iconRow = {
+  display: "flex",
+  alignItems: "center",
+  gap: "4px",
+  fontSize: "13px",
+};

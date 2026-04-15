@@ -13,65 +13,84 @@ const deals: Deal[] = [
   { id: 1, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
   { id: 2, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
   { id: 3, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
-  { id: 4, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
-  { id: 5, shop: "Quán...", name: "DEAL NGON TÊN MÓN", price: 30000, oldPrice: 70000 },
 ];
 
 export default function DealSection() {
   return (
-    <div className="w-full flex justify-center px-4 mt-6">
-      <div className="w-full max-w-[1185px] relative">
+    <div className="w-full flex justify-center px-4 mt-14">
+      <div className="w-full max-w-[1200px]">
 
         {/* HEADER */}
-        <div className="bg-[#2f3478] rounded-xl h-[100px] px-6 flex items-center shadow-md">
-          <div>
-            <h2 className="text-white font-semibold text-lg">
-              Deal ngon quán hời
-            </h2>
+        <div className="text-center mt-15 mb-12">
+          <h2 className="text-5xl font-bold text-black">
+           ✨ Deal Ngon Mỗi Ngày ✨
+          </h2>
 
-            <div className="mt-2 inline-block relative">
-              <span className="bg-yellow-400 text-[#ff0000] font-bold px-4 py-1 text-sm rounded-l-md">
-                Giảm đến 50 %
-              </span>
-              <span className="absolute right-[-8px] top-0.3 w-0 h-0 border-t-[12px] border-b-[14px] border-l-[9px] border-t-transparent border-b-transparent border-l-yellow-400"></span>
-            </div>
-          </div>
+          <p className="text-gray-500 text-xl mt-4">
+            Ưu đãi có hạn, đừng bỏ lỡ!
+          </p>
         </div>
+
         {/* CARD LIST */}
-        <div className="absolute left-20 right-20 top-[90px] px-2">
-          <div className="flex gap-6 justify-between">
-            {deals.map((deal) => (
-              <div
-                key={deal.id}
-                className="w-[180px] bg-white rounded-xl shadow-md p-3 hover:shadow-lg transition"
-              >
-                {/* IMAGE */}
-                <div className="w-full h-[110px] bg-blue-400 rounded-lg flex items-center justify-center text-black font-bold">
+        <div className="flex gap-8 justify-center flex-wrap">
+          {deals.map((deal) => (
+            <div
+              key={deal.id}
+              className="w-[350px] bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition duration-300"
+            >
+              {/* IMAGE */}
+              <div className="relative">
+                <div className="w-full h-[220px] bg-gray-300 flex items-center justify-center text-gray-500">
                   IMG
                 </div>
-                {/* SHOP */}
-                <p className="text-gray-400 text-sm mt-2">
-                  {deal.shop}
-                </p>
-                {/* NAME */}
-                <p className="text-black font-semibold text-sm leading-tight">
+
+                {/* BADGE */}
+                <span className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-xl">
+                  % GIỚI HẠN
+                </span>
+              </div>
+
+              {/* CONTENT */}
+              <div className="p-6">
+                <h3 className="text-3xl font-bold text-black">
+                  {Math.round(
+                    ((deal.oldPrice - deal.price) / deal.oldPrice) * 100
+                  )}
+                  % OFF
+                </h3>
+
+                <p className="text-gray-700 font-semibold text-xl mt-1">
                   {deal.name}
                 </p>
-                {/* PRICE */}
-                <div className="mt-1">
-                  <p className="text-red-500 font-bold">
-                    {deal.price.toLocaleString("vi-VN")}đ
-                  </p>
-                  <p className="text-gray-400 text-sm line-through">
-                    {deal.oldPrice.toLocaleString("vi-VN")}đ
-                  </p>
+
+                <p className="text-gray-500 mt-4 leading-relaxed">
+                  Ưu đãi hấp dẫn dành riêng cho bạn. Thưởng thức món ngon
+                  với mức giá siêu tiết kiệm hôm nay!
+                </p>
+
+                {/* PROMO BOX */}
+                <div className="bg-gray-100 rounded-2xl p-4 mt-6 flex justify-between items-center">
+                  <div>
+                    <p className="text-gray-400 text-sm">Mã khuyến mãi</p>
+
+                    <p className="font-bold text-xl text-black">
+                      GIAMGIA{deal.id}50
+                    </p>
+                  </div>
+
+                  <button className="border px-4 py-2 rounded-xl hover:bg-gray-200 transition">
+                    Sao chép
+                  </button>
                 </div>
+
+                {/* BUTTON */}
+                <button className="w-full mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold py-4 rounded-2xl transition">
+                  Đặt ngay
+                </button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-        {/* khoang cach */}
-        <div className="h-[250px]"></div>
       </div>
     </div>
   );

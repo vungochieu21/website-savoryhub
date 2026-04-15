@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -26,6 +26,8 @@ export default function FoodForm({ onClose, onSave }: any) {
     image: "",
   });
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const handleImage = (e: any) => {
     const file = e.target.files[0];
     if (file) {
@@ -36,9 +38,26 @@ export default function FoodForm({ onClose, onSave }: any) {
     }
   };
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(e.target as Node)
+      ) {
+        onClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div style={overlay}>
-      <div style={modal} className="shadow-lg">
+    <div style={wrapper}>
+      <div ref={modalRef} style={modal} className="shadow-lg">
 
         {/* Nút X */}
         <button style={closeBtn} onClick={onClose} className="btn btn-light">
@@ -47,7 +66,6 @@ export default function FoodForm({ onClose, onSave }: any) {
 
         <h2 className="mb-4">Thông tin bắt buộc</h2>
 
-        {/* Tên */}
         <div style={inputBox}>
           <FaFileAlt />
           <input
@@ -58,7 +76,6 @@ export default function FoodForm({ onClose, onSave }: any) {
           />
         </div>
 
-        {/* Địa chỉ */}
         <div style={inputBox}>
           <FaMapMarkerAlt />
           <input
@@ -97,7 +114,6 @@ export default function FoodForm({ onClose, onSave }: any) {
 
         <h3 className="mt-4">Thông tin khác</h3>
 
-        {/* Map */}
         <div style={inputBox}>
           <FaMapMarkerAlt />
           <input
@@ -108,7 +124,6 @@ export default function FoodForm({ onClose, onSave }: any) {
           />
         </div>
 
-        {/* Phone */}
         <div style={inputBox}>
           <FaPhone />
           <input
@@ -119,7 +134,6 @@ export default function FoodForm({ onClose, onSave }: any) {
           />
         </div>
 
-        {/* Giờ mở */}
         <div style={timeWrap}>
           <div style={inputBox}>
             <FaClock />
@@ -142,7 +156,6 @@ export default function FoodForm({ onClose, onSave }: any) {
           </div>
         </div>
 
-        {/* Giá */}
         <div style={timeWrap}>
           <div style={inputBox}>
             <FaMoneyBill />
@@ -165,13 +178,12 @@ export default function FoodForm({ onClose, onSave }: any) {
           </div>
         </div>
 
-        {/* Mô tả */}
         <div style={inputBox}>
           <FaFileAlt />
           <textarea
             className="form-control"
             maxLength={300}
-            placeholder="Nhập mô tả (tối đa 300 chữ)"
+            placeholder="Nhập mô tả"
             value={form.description}
             onChange={(e) =>
               setForm({ ...form, description: e.target.value })
@@ -179,13 +191,11 @@ export default function FoodForm({ onClose, onSave }: any) {
           />
         </div>
 
-        {/* Upload ảnh */}
         <div style={inputBox}>
           <FaImage />
           <input className="form-control" type="file" onChange={handleImage} />
         </div>
 
-        {/* Nút xác nhận */}
         <div style={{ textAlign: "right", marginTop: 20 }}>
           <button
             style={saveBtn}
@@ -201,13 +211,13 @@ export default function FoodForm({ onClose, onSave }: any) {
 }
 
 /* STYLE */
-const overlay = {
+const wrapper = {
   position: "fixed" as const,
   inset: 0,
-  background: "rgba(0,0,0,0.5)",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  zIndex: 9999,
 };
 
 const modal = {
@@ -218,12 +228,13 @@ const modal = {
   padding: "25px",
   borderRadius: "15px",
   position: "relative" as const,
+  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
 };
 
 const closeBtn = {
   position: "absolute" as const,
   top: 15,
-  right: 15,
+right: 15,
   border: "none",
   fontSize: "20px",
   cursor: "pointer",

@@ -1,115 +1,111 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import FoodCard from "./FoodCard";
 
+type Food = {
+  name: string;
+  address: string;
+  image?: string;
+  rating?: number;
+  comments?: number;
+  photos?: number;
+};
+
 type Props = {
-  foods: any[];
   onEdit: (index: number) => void;
   onDelete: (index: number) => void;
 };
 
-export default function RestaurantList({ foods, onEdit, onDelete }: Props) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
+export default function RestaurantList({
+  onEdit,
+  onDelete,
+}: Props) {
+  const [foods, setFoods] = useState<Food[]>([]);
+  const [openId, setOpenId] = useState<number | null>(null);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // FETCH API
+  useEffect(() => {
+    fetch("/api/foods")
+      .then((res) => res.json())
+      .then((data) => setFoods(data));
+  }, []);
+
+  // CLICK NGOÀI MENU ĐỂ ĐÓNG
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         wrapperRef.current &&
         !wrapperRef.current.contains(event.target as Node)
       ) {
-        setOpenIndex(null);
+        setOpenId(null);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
   }, []);
 
+  if (foods.length === 0) {
+    return (
+      <p style={emptyText}>
+        Chưa có địa điểm nào.
+      </p>
+    );
+  }
+
   return (
-    <div
-      ref={wrapperRef}
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
-        gap: "16px",
-        marginTop: "20px",
-      }}
-    >
-      {foods.length === 0 && (
-        <div style={{ color: "#888" }}>
-          Chưa có địa điểm nào được thêm vào. Hãy thêm địa điểm đi nào!
-        </div>
-      )}
+    <div ref={wrapperRef} style={grid}>
+      {foods.map((food, index) => (
+        <div key={index} style={cardWrapper}>
+          <FoodCard {...food} />
 
-      {foods.map((item, i) => (
-        <div key={i} style={{ position: "relative" }}>
-          {/* CARD */}
-          <FoodCard {...item} />
-
-          {/* NÚT 3 CHẤM (nhỏ lại) */}
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setOpenIndex(openIndex === i ? null : i);
+              setOpenId(
+                openId === index ? null : index
+              );
             }}
-            style={{
-              position: "absolute",
-              top: "6px",
-              right: "6px",
-              width: "28px",         
-              height: "28px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "#fff",
-              border: "1px solid #ddd",
-              borderRadius: "6px",
-              cursor: "pointer",
-              padding: 0,
-            }}
+            style={menuBtn}
           >
-            <span style={{ fontSize: "18px", lineHeight: 1 }}>⋮</span>
+            ⋮
           </button>
 
-          {/* MENU */}
-          {openIndex === i && (
-            <div
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                position: "absolute",
-                top: "34px",
-                right: "6px",
-                background: "#fff",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                zIndex: 100,
-                minWidth: "140px",
-                overflow: "hidden",
-              }}
-            >
-              {/* EDIT */}
+          {openId === index && (
+            <div style={menuBox}>
               <div
-                onClick={() => {
-                  onEdit(i);
-                  setOpenIndex(null);
-                }}
                 style={menuItem}
+                onClick={() => {
+                  onEdit(index);
+                  setOpenId(null);
+                }}
               >
-                ✏️ Chỉnh sửa
+                <FaEdit />
+                Chỉnh sửa
               </div>
 
-              {/* DELETE */}
               <div
-                onClick={() => {
-                  onDelete(i);
-                  setOpenIndex(null);
+                style={{
+                  ...menuItem,
+                  color: "#ef4444",
+                  borderBottom: "none",
                 }}
-                style={{ ...menuItem, color: "red" }}
+                onClick={() => {
+                  onDelete(index);
+                  setOpenId(null);
+                }}
               >
-                🗑 Xóa
+                <FaTrash />
+                Xóa
               </div>
             </div>
           )}
@@ -118,8 +114,60 @@ export default function RestaurantList({ foods, onEdit, onDelete }: Props) {
     </div>
   );
 }
-const menuItem: React.CSSProperties = {
-  padding: "10px 12px",
+
+/* STYLE */
+
+const grid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(4, 1fr)",
+  gap: "20px",
+  marginTop: "30px",
+};
+
+const cardWrapper = {
+  position: "relative" as const,
+};
+
+const emptyText = {
+  textAlign: "center" as const,
+  marginTop: "30px",
+  color: "#777",
+  fontSize: "16px",
+};
+
+const menuBtn = {
+  position: "absolute" as const,
+  top: "10px",
+  right: "10px",
+  width: "34px",
+  height: "34px",
+  borderRadius: "10px",
+  border: "1px solid #eee",
+  background: "rgba(255,255,255,0.95)",
   cursor: "pointer",
-  borderBottom: "1px solid #eee",
+  fontSize: "18px",
+  fontWeight: "bold",
+  boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+};
+
+const menuBox = {
+  position: "absolute" as const,
+  top: "48px",
+  right: "10px",
+  background: "#fff",
+  borderRadius: "12px",
+  boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
+  zIndex: 100,
+  minWidth: "150px",
+  overflow: "hidden",
+};
+
+const menuItem = {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  padding: "12px 16px",
+  cursor: "pointer",
+  fontSize: "14px",
+  borderBottom: "1px solid #f1f1f1",
 };
