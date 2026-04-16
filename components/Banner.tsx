@@ -107,7 +107,7 @@ export default function Banner() {
               style={{
                 ...dotStyle,
                 background:
-                  current === index + 1 ? "#1f4e79" : "#ccc",
+                  current === index + 1 ? "#b30000" : "#ccc",
               }}
             />
           ))}

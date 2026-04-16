@@ -19,15 +19,33 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
   const [search, setSearch] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [lang, setLang] = useState("vi");
-
-  const handleSearch = () => {
-    if (!search.trim()) return;
-  };
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const flags: any = {
     vi: "🇻🇳",
     en: "🇺🇸",
   };
+
+  const hoverColor = "#b30000";
+
+  const handleSearch = () => {
+    if (!search.trim()) return;
+    router.push("/filter");
+  };
+
+  const getIconBtn = (key: string) => ({
+    background: hovered === key ? hoverColor : "#f5f5f5",
+    border: "none",
+    padding: "12px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "18px",
+    transition: "0.2s",
+    color: hovered === key ? "white" : "black",
+  });
 
   return (
     <div
@@ -55,9 +73,9 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
         }}
       >
         {/* LOGO */}
-        <span 
-        onClick={() => router.push("/")}
-        className="logo-text text-2xl font-bold"
+        <span
+          onClick={() => router.push("/")}
+          className="logo-text text-2xl font-bold cursor-pointer"
         >
           Tastii
         </span>
@@ -79,6 +97,7 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             placeholder="Tìm địa điểm, món ăn..."
             style={{
               flex: 1,
@@ -89,24 +108,49 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
             }}
           />
 
-          <FaSearch color="#888" />
+          {/* SEARCH ICON */}
+          <button
+            onClick={handleSearch}
+            onMouseEnter={() => setHovered("search")}
+            onMouseLeave={() => setHovered(null)}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: hovered === "search" ? hoverColor : "#888",
+              transition: "0.2s",
+            }}
+          >
+            <FaSearch />
+          </button>
         </div>
 
-        {/* FILTER → GO TO PAGE */}
+        {/* FILTER */}
         <button
           onClick={() => router.push("/filter")}
-          style={iconBtn}
+          onMouseEnter={() => setHovered("filter")}
+          onMouseLeave={() => setHovered(null)}
+          style={getIconBtn("filter")}
         >
           <FaFilter />
         </button>
 
         {/* ADD */}
-        <button onClick={onAdd} style={iconBtn}>
+        <button
+          onClick={onAdd}
+          onMouseEnter={() => setHovered("add")}
+          onMouseLeave={() => setHovered(null)}
+          style={getIconBtn("add")}
+        >
           <FaPlus />
         </button>
 
         {/* USER */}
-        <button style={iconBtn}>
+        <button
+          onMouseEnter={() => setHovered("user")}
+          onMouseLeave={() => setHovered(null)}
+          style={getIconBtn("user")}
+        >
           <FaUserCircle size={22} />
         </button>
 
@@ -114,7 +158,9 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
         <div style={{ position: "relative" }}>
           <button
             onClick={() => setShowSettings(!showSettings)}
-            style={iconBtn}
+            onMouseEnter={() => setHovered("settings")}
+            onMouseLeave={() => setHovered(null)}
+            style={getIconBtn("settings")}
           >
             <FaCog />
           </button>
@@ -137,14 +183,32 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
                 onClick={() =>
                   setLang(lang === "vi" ? "en" : "vi")
                 }
-                style={dropdownBtn}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px",
+                  width: "100%",
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                  borderRadius: "10px",
+                }}
               >
                 <FaGlobe />
                 Ngôn ngữ {flags[lang]}
               </button>
 
               {/* DARK MODE */}
-              <div style={dropdownBtn}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px",
+                  width: "100%",
+                }}
+              >
                 <NightModeButton size={0.7} />
                 Chế độ
               </div>
@@ -155,29 +219,3 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
     </div>
   );
 }
-
-/* ICON BUTTON */
-const iconBtn = {
-  background: "#f5f5f5",
-  border: "none",
-  padding: "12px",
-  borderRadius: "50%",
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontSize: "18px",
-};
-
-/* DROPDOWN */
-const dropdownBtn = {
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-  padding: "10px",
-  width: "100%",
-  border: "none",
-  background: "transparent",
-  cursor: "pointer",
-  borderRadius: "10px",
-};
