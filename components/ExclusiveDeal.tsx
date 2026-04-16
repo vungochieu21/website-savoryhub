@@ -74,7 +74,7 @@ export default function ExclusiveDeal() {
                 shadow-md
                 placeholder:text-gray-400
                 focus:ring-4
-                focus:ring-red-200
+                focus:ring-red-500
                 transition
               "
             />
