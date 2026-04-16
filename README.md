@@ -53,7 +53,7 @@
 ### ⚙️ Settings:
 - Chế độ sáng/tối.
 - Ngôn ngữ: Anh/Việt.
-## *Cách tải website-savoryhub:*
+## 📩 Cách tải website-savoryhub:
 - Bước 1: Clone
 ```bash
 git clone <repository-url>
