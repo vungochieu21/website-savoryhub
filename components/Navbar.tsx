@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import NightModeButton from "./NightModeButton";
 
 import {
@@ -13,8 +14,9 @@ import {
 } from "react-icons/fa";
 
 export default function Navbar({ onAdd }: { onAdd: () => void }) {
+  const router = useRouter();
+
   const [search, setSearch] = useState("");
-  const [showFilter, setShowFilter] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [lang, setLang] = useState("vi");
 
@@ -53,7 +55,11 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
         }}
       >
         {/* LOGO */}
-        <span className="logo-text text-2xl font-bold">Tastii
+        <span 
+        onClick={() => router.push("/")}
+        className="logo-text text-2xl font-bold"
+        >
+          Tastii
         </span>
 
         {/* SEARCH */}
@@ -86,19 +92,16 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           <FaSearch color="#888" />
         </div>
 
-        {/* FILTER */}
+        {/* FILTER → GO TO PAGE */}
         <button
-          onClick={() => setShowFilter(!showFilter)}
+          onClick={() => router.push("/filter")}
           style={iconBtn}
         >
           <FaFilter />
         </button>
 
         {/* ADD */}
-        <button
-          onClick={onAdd}
-          style={iconBtn}
-        >
+        <button onClick={onAdd} style={iconBtn}>
           <FaPlus />
         </button>
 
@@ -153,7 +156,7 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
   );
 }
 
-{/* Background icon */}
+/* ICON BUTTON */
 const iconBtn = {
   background: "#f5f5f5",
   border: "none",
@@ -165,7 +168,8 @@ const iconBtn = {
   justifyContent: "center",
   fontSize: "18px",
 };
-{/* dropdown Setting */}
+
+/* DROPDOWN */
 const dropdownBtn = {
   display: "flex",
   alignItems: "center",

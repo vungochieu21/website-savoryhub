@@ -1,5 +1,7 @@
 [
   {
+    "id": 1,
+    "type": "food",
     "name": "Phở Thìn Hà Nội",
     "address": "12 Nguyễn Huệ, Q1",
     "image": "https://picsum.photos/300/200?1",
@@ -8,6 +10,8 @@
     "photos": 45
   },
   {
+    "id": 2,
+    "type": "food",
     "name": "Bún Bò Huế O Lan",
     "address": "45 Lê Lợi, Q3",
     "image": "https://picsum.photos/300/200?2",
@@ -16,6 +20,8 @@
     "photos": 22
   },
   {
+    "id": 3,
+    "type": "food",
     "name": "Pizza House",
     "address": "99 Võ Văn Tần",
     "image": "https://picsum.photos/300/200?3",
@@ -24,6 +30,8 @@
     "photos": 19
   },
   {
+    "id": 4,
+    "type": "drink",
     "name": "Trà Sữa Mixue",
     "address": "21 Trần Hưng Đạo",
     "image": "https://picsum.photos/300/200?4",
@@ -32,6 +40,8 @@
     "photos": 12
   },
   {
+    "id": 5,
+    "type": "food",
     "name": "Bún Đậu Mắm Tôm Cô Ba",
     "address": "45 Đường Yersin, Phú Cường, Thủ Dầu Một, Bình Dương",
     "image": "/images/bundau.jpg",
@@ -40,6 +50,8 @@
     "photos": 31
   },
   {
+    "id": 6,
+    "type": "food",
     "name": "Lẩu Nướng Seoul Garden",
     "address": "Tầng 3 AEON Mall, 01 Đại lộ Bình Dương, Thuận Giao, Thuận An, Bình Dương",
     "image": "/images/seoulgarden.jpg",
@@ -48,6 +60,8 @@
     "photos": 52
   },
   {
+    "id": 7,
+    "type": "food",
     "name": "Bánh Xèo Miền Tây Út Nhỏ",
     "address": "78 Nguyễn Văn Tiết, Lái Thiêu, Thuận An, Bình Dương",
     "image": "/images/banhxeo.jpg",
@@ -56,6 +70,8 @@
     "photos": 20
   },
   {
+    "id": 8,
+    "type": "food",
     "name": "Phở Bò Hà Nội Gia Truyền",
     "address": "12 Trần Hưng Đạo, Hiệp Thành, Thủ Dầu Một, Bình Dương",
     "image": "/images/pho.jpg",
@@ -64,6 +80,8 @@
     "photos": 40
   },
   {
+    "id": 9,
+    "type": "food",
     "name": "Cơm Tấm Sườn Bì Chả 198",
     "address": "198 Cách Mạng Tháng 8, Phú Thọ, Thủ Dầu Một, Bình Dương",
     "image": "/images/comtam.jpg",
@@ -72,6 +90,8 @@
     "photos": 15
   },
   {
+    "id": 10,
+    "type": "food",
     "name": "Trà Sữa & Ăn Vặt Cheese House",
     "address": "33 Nguyễn An Ninh, Dĩ An, Bình Dương",
     "image": "/images/trasua.jpg",
@@ -80,6 +100,8 @@
     "photos": 26
   },
   {
+    "id": 11,
+    "type": "food",
     "name": "Hải Sản Tươi Sống Biển Đông",
     "address": "99 ĐT743A, Tân Đông Hiệp, Dĩ An, Bình Dương",
     "image": "/images/haisan.jpg",
@@ -88,6 +110,8 @@
     "photos": 48
   },
   {
+    "id": 12,
+    "type": "food",
     "name": "Gà Rán Crunchy Chicken",
     "address": "25 Huỳnh Văn Lũy, Phú Lợi, Thủ Dầu Một, Bình Dương",
     "image": "/images/garan.jpg",
