@@ -53,3 +53,22 @@
 ### ⚙️ Settings:
 - Chế độ sáng/tối.
 - Ngôn ngữ: Anh/Việt.
+## *Cách tải website-savoryhub:*
+- Bước 1: Clone
+```bash
+git clone <repository-url>
+cd website-savoryhub
+```
+- Bước 2: Install
+```bash
+npm install
+```
+- Bước 3: Cài map
+```bash
+npm install leaflet react-leaflet
+```
+- Bước 4: Chạy server
+```bash
+npm run dev
+```
+- Bước 5: Mở [http://localhost:3000](http://localhost:3000) trong trình duyệt.
