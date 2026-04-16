@@ -10,6 +10,8 @@ import RestaurantList from "@/components/RestaurantList";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import FoodForm from "@/components/FoodForm";
+import NearbyRestaurant from "@/components/NearbyRestaurant";
+import GoogleMap from "@/components/GoogleMap";
 
 export default function Home() {
   const [foods, setFoods] = useState<any[]>([]);
@@ -54,6 +56,8 @@ export default function Home() {
           }}
         />
         <Testimonials />
+        <NearbyRestaurant />
+        <GoogleMap />
       </div>
       <Footer />
       {showForm && (
