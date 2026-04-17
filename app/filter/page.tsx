@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import FoodCard from "@/components/FoodCard";
 import foodsData from "@/data/food.json";
 
-// ⭐ ADD FONT AWESOME
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,7 +28,6 @@ export default function FilterPage() {
       if (price === "high" && item.price < 150000) return false;
     }
 
-    // rating (giữ nguyên logic mới)
     if (rating !== "all") {
       if (rating === "1-2" && !(item.rating >= 1 && item.rating < 2)) return false;
       if (rating === "2-3" && !(item.rating >= 2 && item.rating < 3)) return false;
@@ -54,14 +52,14 @@ export default function FilterPage() {
       <div className="relative">
         <button
           onClick={() => setOpen(open === id ? null : id)}
-          className="border border-red-500 text-red-500 px-4 py-2 rounded-md min-w-[140px] flex justify-between items-center"
+          className="border border-[#b30000] text-[#b30000] px-4 py-2 rounded-md min-w-[140px] flex justify-between items-center"
         >
           {options.find((o: any) => o.value === value)?.label || label}
           <span>▼</span>
         </button>
 
         <div
-          className={`absolute left-0 mt-2 w-full bg-white border border-red-500 rounded-md shadow-lg overflow-hidden transition-all duration-200 z-50 ${
+          className={`absolute left-0 mt-2 w-full bg-white border border-[#b30000] rounded-md shadow-lg overflow-hidden transition-all duration-200 z-50 ${
             open === id
               ? "max-h-60 opacity-100"
               : "max-h-0 opacity-0 pointer-events-none"
@@ -74,7 +72,7 @@ export default function FilterPage() {
                 setValue(opt.value);
                 setOpen(null);
               }}
-              className="px-3 py-2 hover:bg-red-500 hover:text-white cursor-pointer"
+              className="px-3 py-2 hover:bg-[#b30000] hover:text-white cursor-pointer"
             >
               {opt.label}
             </div>
@@ -103,7 +101,6 @@ export default function FilterPage() {
           className="flex flex-wrap gap-3 p-4 justify-start"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* TYPE */}
           <Dropdown
             id="type"
             value={type}
@@ -118,7 +115,6 @@ export default function FilterPage() {
             ]}
           />
 
-          {/* PRICE */}
           <Dropdown
             id="price"
             value={price}
@@ -132,7 +128,6 @@ export default function FilterPage() {
             ]}
           />
 
-          {/* ⭐ RATING ICON FIX */}
           <Dropdown
             id="rating"
             value={rating}
@@ -140,51 +135,14 @@ export default function FilterPage() {
             label="Rating"
             options={[
               { value: "all", label: "Đánh giá" },
-
-              {
-                value: "1-2",
-                label: (
-                  <span>
-                  <FontAwesomeIcon icon={faStar} /> 1 - 2
-                  </span>
-                ),
-              },
-              {
-                value: "2-3",
-                label: (
-                  <span>
-                   <FontAwesomeIcon icon={faStar} /> 2 - 3
-                  </span>
-                ),
-              },
-              {
-                value: "3-4",
-                label: (
-                  <span>
-                   <FontAwesomeIcon icon={faStar} /> 3 - 4
-                  </span>
-                ),
-              },
-              {
-                value: "4-5",
-                label: (
-                  <span>
-                   <FontAwesomeIcon icon={faStar} /> 4 - 5
-                  </span>
-                ),
-              },
-              {
-                value: "5",
-                label: (
-                  <span>
-                   <FontAwesomeIcon icon={faStar} /> 5
-                  </span>
-                ),
-              },
+              { value: "1-2", label: <span><FontAwesomeIcon icon={faStar} /> 1 - 2</span> },
+              { value: "2-3", label: <span><FontAwesomeIcon icon={faStar} /> 2 - 3</span> },
+              { value: "3-4", label: <span><FontAwesomeIcon icon={faStar} /> 3 - 4</span> },
+              { value: "4-5", label: <span><FontAwesomeIcon icon={faStar} /> 4 - 5</span> },
+              { value: "5", label: <span><FontAwesomeIcon icon={faStar} /> 5</span> },
             ]}
           />
 
-          {/* TAG */}
           <Dropdown
             id="tag"
             value={tag}
@@ -200,7 +158,6 @@ export default function FilterPage() {
           />
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
           {filteredFoods.map((item: any, index: number) => (
             <FoodCard

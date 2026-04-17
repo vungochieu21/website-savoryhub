@@ -1,18 +1,14 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import Script from "next/script";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "SavoryHub",
   description: "Food Map App",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -30,7 +26,12 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body>{children}</body>
+      <body>
+        {children}
+
+        {/* Scroll to top button */}
+        <ScrollToTopButton />
+      </body>
     </html>
   );
 }
