@@ -56,7 +56,7 @@
 ## 📩 Cách tải website-savoryhub:
 - Bước 1: Clone
 ```bash
-git clone <repository-url>
+git clone https://github.com/vungochieu21/website-savoryhub.git
 cd website-savoryhub
 ```
 - Bước 2: Install
