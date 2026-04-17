@@ -63,12 +63,8 @@ cd website-savoryhub
 ```bash
 npm install
 ```
-- Bước 3: Cài map
-```bash
-npm install leaflet react-leaflet
-```
-- Bước 4: Chạy server
+- Bước 3: Chạy server
 ```bash
 npm run dev
 ```
-- Bước 5: Mở [http://localhost:3000](http://localhost:3000) trong trình duyệt.
+- Bước 4: Mở [http://localhost:3000](http://localhost:3000) trong trình duyệt.
