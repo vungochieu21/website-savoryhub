@@ -7,9 +7,9 @@ export default function Banner() {
   const [transition, setTransition] = useState(true);
 
   const banners = [
-    { id: 1, img: "https://picsum.photos/1200/300?1" },
-    { id: 2, img: "https://picsum.photos/1200/300?2" },
-    { id: 3, img: "https://picsum.photos/1200/300?3" },
+    { id: 1, img: "https://cdn.justfly.vn/1170x400/media/fb/56/eb2a-6cf2-4e18-8f76-047ac8653ae3.jpg" },
+    { id: 2, img: "https://wallpapers.com/images/hd/food-4k-3gsi5u6kjma5zkj0.jpg" },
+    { id: 3, img: "https://wallpapersok.com/images/hd/a-large-plate-of-asian-food-spdnpz7bhmx4kv2r.jpg" },
   ];
 
   const loopBanners = [

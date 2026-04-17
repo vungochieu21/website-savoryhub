@@ -6,11 +6,11 @@ export default function BannerMini() {
   const [transition, setTransition] = useState(true);
 
   const banners = [
-    { id: 1, img: "https://picsum.photos/300/150?1" },
-    { id: 2, img: "https://picsum.photos/300/150?2" },
-    { id: 3, img: "https://picsum.photos/300/150?3" },
-    { id: 4, img: "https://picsum.photos/300/150?4" },
-    { id: 5, img: "https://picsum.photos/300/150?5" },
+    { id: 1, img: "https://wallpapercat.com/w/full/0/a/b/610710-3840x2160-desktop-4k-sushi-wallpaper-image.jpg" },
+    { id: 2, img: "https://images.hdqwalls.com/wallpapers/pubg-kfc-lq.jpg" },
+    { id: 3, img: "https://wallpapercat.com/w/full/a/0/a/111828-2048x1536-desktop-hd-starbucks-background.jpg" },
+    { id: 4, img: "https://wallpaperaccess.com/full/767283.jpg" },
+    { id: 5, img: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e14621138253883.622d7b23cc6ea.png" },
   ];
 
   // duplicate để chạy loop mượt
