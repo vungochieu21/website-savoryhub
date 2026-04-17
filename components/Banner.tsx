@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
 export default function Banner() {
@@ -62,6 +63,7 @@ export default function Banner() {
           borderRadius: "30px",
         }}
       >
+        {/* SLIDER */}
         <div
           style={{
             display: "flex",
@@ -91,14 +93,17 @@ export default function Banner() {
           ))}
         </div>
 
+        {/* LEFT ARROW (FIX 100% CENTER) */}
         <button onClick={prevSlide} style={arrowLeft}>
           {"<"}
         </button>
 
+        {/* RIGHT ARROW */}
         <button onClick={nextSlide} style={arrowRight}>
           {">"}
         </button>
 
+        {/* DOTS */}
         <div style={dotsWrap}>
           {banners.map((_, index) => (
             <div
@@ -106,8 +111,7 @@ export default function Banner() {
               onClick={() => setCurrent(index + 1)}
               style={{
                 ...dotStyle,
-                background:
-                  current === index + 1 ? "#b30000" : "#ccc",
+                background: current === index + 1 ? "#b30000" : "#ccc",
               }}
             />
           ))}
@@ -117,33 +121,62 @@ export default function Banner() {
   );
 }
 
-const arrowLeft = {
+/* =========================
+   ARROW FIX 100% CENTER PERFECT
+========================= */
+const arrowBase = {
   position: "absolute" as const,
   top: "50%",
-  left: "30px",
   transform: "translateY(-50%)",
-  background: "rgba(0,0,0,0.4)",
-  color: "white",
-  border: "none",
+
+  zIndex: 20,
+
+  width: "42px",
+  height: "42px",
+
   borderRadius: "50%",
-  width: "35px",
-  height: "35px",
+  border: "none",
+
+  background: "rgba(0,0,0,0.5)",
+  color: "white",
+
   cursor: "pointer",
+
+  /* 🔥 KEY FIX: ép tâm tuyệt đối */
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  /* 🔥 FIX font lệch tâm */
+  fontSize: "17px",
+  lineHeight: "1",
+  padding: 0,
+};
+
+const arrowLeft = {
+  ...arrowBase,
+  left: "15px",
 };
 
 const arrowRight = {
-  ...arrowLeft,
-  left: "auto",
-  right: "30px",
+  ...arrowBase,
+  right: "15px",
 };
 
+/* =========================
+   DOT FIX CENTER
+========================= */
 const dotsWrap = {
   position: "absolute" as const,
   bottom: "15px",
   left: "50%",
   transform: "translateX(-50%)",
+
   display: "flex",
+  alignItems: "center",
   gap: "8px",
+
+  zIndex: 20,
 };
 
 const dotStyle = {

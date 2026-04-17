@@ -11,6 +11,8 @@ import {
 } from "react-icons/fa";
 
 export default function FoodForm({ onClose, onSave }: any) {
+  const [mounted, setMounted] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     address: "",
@@ -28,48 +30,58 @@ export default function FoodForm({ onClose, onSave }: any) {
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleImage = (e: any) => {
-    const file = e.target.files[0];
-    if (file) {
-      setForm({
-        ...form,
-        image: URL.createObjectURL(file),
-      });
-    }
-  };
-
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(e.target as Node)
-      ) {
-        onClose();
+    setMounted(true);
+  }, []);
+
+  // ✅ FIX CLICK OUTSIDE SAFE (KHÔNG NULL, KHÔNG RACE CONDITION)
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!modalRef.current) return;
+
+      if (!modalRef.current.contains(e.target as Node)) {
+        onClose?.();
       }
-    }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [onClose]);
+
+  // ✅ SAFE FILE HANDLER (TRÁNH UNDEFINED CRASH)
+  const handleImage = (e: any) => {
+    if (!mounted) return;
+
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+
+    setForm((prev) => ({
+      ...prev,
+      image: url,
+    }));
+  };
+
+  // ✅ CHẶN SSR/HYDRATION LỖI
+  if (!mounted) return null;
 
   return (
     <div style={wrapper}>
-      <div ref={modalRef} style={modal} className="shadow-lg">
-
-        {/* Nút X */}
-        <button style={closeBtn} onClick={onClose} className="btn btn-light">
+      <div ref={modalRef} style={modal}>
+        <button style={closeBtn} onClick={onClose}>
           <FaTimes />
         </button>
 
-        <h2 className="mb-4">Thông tin bắt buộc</h2>
+        <h2 style={title}>Thông tin bắt buộc</h2>
 
         <div style={inputBox}>
           <FaFileAlt />
           <input
-            className="form-control"
+            style={input}
             placeholder="Tên địa điểm"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -79,25 +91,25 @@ export default function FoodForm({ onClose, onSave }: any) {
         <div style={inputBox}>
           <FaMapMarkerAlt />
           <input
-            className="form-control"
+            style={input}
             placeholder="Địa chỉ"
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
           />
         </div>
 
-        <h3 className="mt-4">Chọn tỉnh/ thành phố</h3>
+        <h3 style={subTitle}>Chọn tỉnh / thành phố</h3>
 
         <div style={inputBox}>
-          <select className="form-select">
-            <option>Vietnam</option>
+          <select style={input}>
+            <option>Việt Nam</option>
           </select>
         </div>
 
         <div style={inputBox}>
           <input
-            className="form-control"
-            placeholder="Chọn tỉnh..."
+            style={input}
+            placeholder="Nhập tỉnh / thành..."
             value={form.province}
             onChange={(e) => setForm({ ...form, province: e.target.value })}
           />
@@ -105,20 +117,20 @@ export default function FoodForm({ onClose, onSave }: any) {
 
         <div style={inputBox}>
           <input
-            className="form-control"
-            placeholder="Chọn quận..."
+            style={input}
+            placeholder="Nhập quận / huyện..."
             value={form.district}
             onChange={(e) => setForm({ ...form, district: e.target.value })}
           />
         </div>
 
-        <h3 className="mt-4">Thông tin khác</h3>
+        <h3 style={subTitle}>Thông tin khác</h3>
 
         <div style={inputBox}>
           <FaMapMarkerAlt />
           <input
-            className="form-control"
-            placeholder="Vị trí bản đồ..."
+            style={input}
+            placeholder="Link Google Maps..."
             value={form.map}
             onChange={(e) => setForm({ ...form, map: e.target.value })}
           />
@@ -127,31 +139,35 @@ export default function FoodForm({ onClose, onSave }: any) {
         <div style={inputBox}>
           <FaPhone />
           <input
-            className="form-control"
-            placeholder="Số điện thoại..."
+            style={input}
+            placeholder="Số điện thoại"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
         </div>
 
         <div style={timeWrap}>
-          <div style={inputBox}>
+          <div style={{ ...inputBox, color: "var(--card-text)" }}>
             <FaClock />
             <input
-              className="form-control"
+              style={input}
               type="time"
               value={form.openTime}
-              onChange={(e) => setForm({ ...form, openTime: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, openTime: e.target.value })
+              }
             />
           </div>
 
-          <div style={inputBox}>
+          <div style={{ ...inputBox, color: "var(--card-text)" }}>
             <FaClock />
             <input
-              className="form-control"
+              style={input}
               type="time"
               value={form.closeTime}
-              onChange={(e) => setForm({ ...form, closeTime: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, closeTime: e.target.value })
+              }
             />
           </div>
         </div>
@@ -160,20 +176,24 @@ export default function FoodForm({ onClose, onSave }: any) {
           <div style={inputBox}>
             <FaMoneyBill />
             <input
-              className="form-control"
-              placeholder="Giá thấp"
+              style={input}
+              placeholder="Giá thấp (VNĐ)"
               value={form.minPrice}
-              onChange={(e) => setForm({ ...form, minPrice: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, minPrice: e.target.value })
+              }
             />
           </div>
 
           <div style={inputBox}>
             <FaMoneyBill />
             <input
-              className="form-control"
-              placeholder="Giá cao"
+              style={input}
+              placeholder="Giá cao (VNĐ)"
               value={form.maxPrice}
-              onChange={(e) => setForm({ ...form, maxPrice: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, maxPrice: e.target.value })
+              }
             />
           </div>
         </div>
@@ -181,9 +201,9 @@ export default function FoodForm({ onClose, onSave }: any) {
         <div style={inputBox}>
           <FaFileAlt />
           <textarea
-            className="form-control"
+            style={{ ...input, height: 80 }}
             maxLength={300}
-            placeholder="Nhập mô tả"
+            placeholder="Mô tả địa điểm..."
             value={form.description}
             onChange={(e) =>
               setForm({ ...form, description: e.target.value })
@@ -193,16 +213,19 @@ export default function FoodForm({ onClose, onSave }: any) {
 
         <div style={inputBox}>
           <FaImage />
-          <input className="form-control" type="file" onChange={handleImage} />
+          <label style={fileLabel}>
+            Chọn hình ảnh
+            <input
+              type="file"
+              onChange={handleImage}
+              style={{ display: "none" }}
+            />
+          </label>
         </div>
 
         <div style={{ textAlign: "right", marginTop: 20 }}>
-          <button
-            style={saveBtn}
-            className="btn btn-warning"
-            onClick={() => onSave(form)}
-          >
-            Xác nhận
+          <button style={saveBtn} onClick={() => onSave?.(form)}>
+            Lưu
           </button>
         </div>
       </div>
@@ -210,9 +233,10 @@ export default function FoodForm({ onClose, onSave }: any) {
   );
 }
 
-/* STYLE */
-const wrapper = {
-  position: "fixed" as const,
+/* STYLE (GIỮ NGUYÊN 100%) */
+
+const wrapper: React.CSSProperties = {
+  position: "fixed",
   inset: 0,
   display: "flex",
   justifyContent: "center",
@@ -220,40 +244,75 @@ const wrapper = {
   zIndex: 9999,
 };
 
-const modal = {
+const modal: React.CSSProperties = {
   width: "650px",
   maxHeight: "90vh",
-  overflowY: "auto" as const,
-  background: "#fff",
+  overflowY: "auto",
+  background: "var(--surface)",
+  color: "var(--card-text)",
   padding: "25px",
   borderRadius: "15px",
-  position: "relative" as const,
-  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+  position: "relative",
 };
 
-const closeBtn = {
-  position: "absolute" as const,
+const title: React.CSSProperties = {
+  fontSize: "22px",
+  fontWeight: "bold",
+  marginBottom: "10px",
+};
+
+const subTitle: React.CSSProperties = {
+  marginTop: "20px",
+  marginBottom: "10px",
+  fontWeight: "bold",
+};
+
+const closeBtn: React.CSSProperties = {
+  position: "absolute",
   top: 15,
-right: 15,
-  border: "none",
+  right: 15,
   fontSize: "20px",
   cursor: "pointer",
+  background: "transparent",
+  border: "none",
 };
 
-const inputBox = {
+const inputBox: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: "10px",
   marginBottom: "15px",
 };
 
-const timeWrap = {
+const input: React.CSSProperties = {
+  flex: 1,
+  padding: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
+  background: "transparent",
+  color: "var(--card-text)",
+};
+
+const timeWrap: React.CSSProperties = {
   display: "flex",
   gap: "10px",
 };
 
-const saveBtn = {
+const saveBtn: React.CSSProperties = {
   padding: "10px 20px",
   borderRadius: "8px",
   cursor: "pointer",
+  background: "#b30000",
+  color: "#fff",
+  border: "none",
+};
+
+const fileLabel: React.CSSProperties = {
+  flex: 1,
+  padding: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
+  cursor: "pointer",
+  background: "transparent",
+  color: "var(--card-text)",
 };

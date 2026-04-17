@@ -38,7 +38,6 @@ export default function FoodCard({
 
         <div style={ratingStyle}>⭐ {rating}</div>
 
-        {/* BOTTOM */}
         <div style={bottom}>
           <div style={{ display: "flex", gap: "12px" }}>
             <div style={iconRow}>
@@ -75,7 +74,8 @@ const card = {
   width: "100%",
   borderRadius: "12px",
   overflow: "hidden",
-  background: "#fff",
+  background: "var(--card)", // ✅ FIX
+  color: "var(--card-text)", // ✅ FIX
   border: "1px solid #eee",
   cursor: "pointer",
   transition: "0.2s",
@@ -100,17 +100,20 @@ const noImg = {
 const title = {
   fontSize: "15px",
   fontWeight: "bold",
+  color: "var(--card-text)", // ✅ FIX
 };
 
 const addressStyle = {
   fontSize: "13px",
-  color: "#888",
+  color: "var(--card-text)",
+  opacity: 0.7,
 };
 
 const ratingStyle = {
   fontSize: "14px",
   fontWeight: "bold",
   margin: "6px 0",
+  color: "var(--card-text)", // ✅ FIX
 };
 
 const bottom = {
@@ -124,4 +127,5 @@ const iconRow = {
   alignItems: "center",
   gap: "4px",
   fontSize: "13px",
+  color: "var(--card-text)", // ✅ FIX
 };

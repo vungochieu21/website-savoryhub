@@ -4,13 +4,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 export default function NightModeButton({ size = 1 }) {
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark";
-    }
-    return false;
-  });
+  const [dark, setDark] = useState(false);
 
+  // ✅ FIX: sync theme khi load page (QUAN TRỌNG)
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+
+    if (saved === "dark") {
+      setDark(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setDark(false);
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  // ✅ FIX: sync DOM + storage mỗi lần đổi state
   useEffect(() => {
     if (dark) {
       document.documentElement.classList.add("dark");
@@ -23,7 +32,7 @@ export default function NightModeButton({ size = 1 }) {
 
   return (
     <div
-      onClick={() => setDark(!dark)}
+      onClick={() => setDark((prev) => !prev)}
       className="relative flex items-center cursor-pointer"
       style={{
         width: 60 * size,
@@ -65,18 +74,16 @@ export default function NightModeButton({ size = 1 }) {
         />
       </div>
 
-      {/* 🔥 SMOOTH SLIDER KNOB */}
+      {/* SLIDER */}
       <div
         className="bg-white rounded-full shadow-md absolute"
         style={{
           width: 24 * size,
           height: 24 * size,
           top: "50%",
-
           transform: dark
             ? `translate3d(${(60 - 21 - 6) * size}px, -50%, 0)`
             : `translate3d(3px, -50%, 0)`,
-
           transition: "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       />

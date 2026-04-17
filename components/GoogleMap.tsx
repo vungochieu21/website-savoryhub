@@ -1,23 +1,11 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useState, useEffect } from "react";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-/* FIX ICON MARKER (Next.js) */
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-});
-
-/* DATA */
+/* =========================
+   DATA
+========================= */
 const places = [
   { name: "Phở Hòa Pasteur", lat: 10.7829, lng: 106.6963, open: "06:00", close: "22:00" },
   { name: "Bún Bò Huế Đông Ba", lat: 10.7765, lng: 106.7009, open: "07:00", close: "21:00" },
@@ -43,18 +31,50 @@ function isOpen(open: string, close: string) {
   return current >= openTime && current <= closeTime;
 }
 
-export default function MapFoodFree() {
-  const [mounted, setMounted] = useState(false);
-  const [selected, setSelected] = useState<any>(null);
+/* =========================
+   MAP INNER
+========================= */
+function MapInner() {
+  const [Leaflet, setLeaflet] = useState<any>(null);
 
   useEffect(() => {
-    setMounted(true);
+    Promise.all([
+      import("leaflet"),
+      import("react-leaflet"),
+      import("leaflet/dist/leaflet.css"),
+    ]).then(([L, RL]) => {
+      // FIX ICON
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl:
+          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+        iconUrl:
+          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+        shadowUrl:
+          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      });
+
+      setLeaflet({
+        L,
+        ...RL,
+      });
+    });
   }, []);
 
-  if (!mounted) return null; // 👈 QUAN TRỌNG FIX SSR window error
+  if (!Leaflet) return null;
+
+  const { MapContainer, TileLayer, Marker, Popup } = Leaflet;
 
   return (
-    <section style={{ padding: "60px 40px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <section
+      style={{
+        padding: "60px 40px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <h2 style={{ fontSize: "32px", fontWeight: 700, marginBottom: 20 }}>
         🍜 Bản đồ quán ăn
       </h2>
@@ -72,24 +92,15 @@ export default function MapFoodFree() {
           center={[10.7769, 106.7009]}
           zoom={13}
           style={{ height: "500px", width: "100%" }}
-          attributionControl={false}
+          attributionControl={false} // 👈 tắt logo góc phải
         >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution=""
-          />
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           {places.map((place, i) => {
             const open = isOpen(place.open, place.close);
 
             return (
-              <Marker
-                key={i}
-                position={[place.lat, place.lng]}
-                eventHandlers={{
-                  click: () => setSelected(place),
-                }}
-              >
+              <Marker key={i} position={[place.lat, place.lng]}>
                 <Popup>
                   <div style={{ fontSize: "14px" }}>
                     <b>{place.name}</b>
@@ -108,11 +119,17 @@ export default function MapFoodFree() {
         </MapContainer>
       </div>
 
-      <style jsx global>{`
-        .leaflet-control-attribution {
-          display: none !important;
-        }
-      `}</style>
+      {/* 👇 Attribution hợp lệ (thay cho logo bị ẩn) */}
+      <p style={{ fontSize: "12px", marginTop: "8px", opacity: 0.6 }}>
+        © OpenStreetMap contributors
+      </p>
     </section>
   );
 }
+
+/* =========================
+   EXPORT (NO SSR)
+========================= */
+export default dynamic(() => Promise.resolve(MapInner), {
+  ssr: false,
+});

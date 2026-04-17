@@ -34,8 +34,8 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
   };
 
   const getIconBtn = (key: string) => ({
-    background: hovered === key ? hoverColor : "#f5f5f5",
-    border: "none",
+    background: hovered === key ? hoverColor : "var(--surface)",
+    border: "1px solid var(--border)",
     padding: "12px",
     borderRadius: "50%",
     cursor: "pointer",
@@ -44,7 +44,7 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
     justifyContent: "center",
     fontSize: "18px",
     transition: "0.2s",
-    color: hovered === key ? "white" : "black",
+    color: hovered === key ? "white" : "var(--navbar-text)",
   });
 
   return (
@@ -56,10 +56,10 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
         zIndex: 9999,
         display: "flex",
         justifyContent: "center",
-        background: "rgb(255, 255, 255)",
-        backdropFilter: "blur(12px)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-        borderBottom: "1px solid #eee",
+        background: "var(--navbar-bg)",
+        color: "var(--navbar-text)",
+        borderBottom: "1px solid var(--border)",
+        boxShadow: "0 4px 18px rgba(0,0,0,0.18)",
       }}
     >
       <div
@@ -75,7 +75,12 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
         {/* LOGO */}
         <span
           onClick={() => router.push("/")}
-          className="logo-text text-2xl font-bold cursor-pointer"
+          style={{
+            fontSize: "22px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            color: "var(--navbar-text)",
+          }}
         >
           Tastii
         </span>
@@ -87,10 +92,10 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
             marginLeft: "auto",
             display: "flex",
             alignItems: "center",
-            background: "#f5f5f5",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
             padding: "10px 18px",
             borderRadius: "999px",
-            border: "1px solid #ddd",
             gap: "10px",
           }}
         >
@@ -102,23 +107,20 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
             style={{
               flex: 1,
               border: "none",
-              background: "transparent",
               outline: "none",
+              background: "transparent",
+              color: "var(--navbar-text)",
               fontSize: "15px",
             }}
           />
 
-          {/* SEARCH ICON */}
           <button
             onClick={handleSearch}
-            onMouseEnter={() => setHovered("search")}
-            onMouseLeave={() => setHovered(null)}
             style={{
               background: "transparent",
               border: "none",
               cursor: "pointer",
-              color: hovered === "search" ? hoverColor : "#888",
-              transition: "0.2s",
+              color: "var(--navbar-text)",
             }}
           >
             <FaSearch />
@@ -151,7 +153,7 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           onMouseLeave={() => setHovered(null)}
           style={getIconBtn("user")}
         >
-          <FaUserCircle size={22} />
+          <FaUserCircle size={20} />
         </button>
 
         {/* SETTINGS */}
@@ -171,42 +173,45 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
                 position: "absolute",
                 top: "55px",
                 right: 0,
-                background: "white",
-                borderRadius: "14px",
-                padding: "12px",
-                boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: "12px",
+                padding: "10px",
                 minWidth: "180px",
+                boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+                color: "var(--navbar-text)",
               }}
             >
               {/* LANGUAGE */}
               <button
-                onClick={() =>
-                  setLang(lang === "vi" ? "en" : "vi")
-                }
+                onClick={() => setLang(lang === "vi" ? "en" : "vi")}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
-                  padding: "10px",
                   width: "100%",
+                  padding: "10px",
                   border: "none",
                   background: "transparent",
                   cursor: "pointer",
-                  borderRadius: "10px",
+                  color: "var(--navbar-text)",
+                  fontSize: "16px", // 👈 TO BẰNG CHẾ ĐỘ
                 }}
               >
-                <FaGlobe />
-                Ngôn ngữ {flags[lang]}
+                <FaGlobe style={{ fontSize: "16px" }} />
+                <span style={{ fontSize: "16px" }}>
+                  Ngôn ngữ {flags[lang]}
+                </span>
               </button>
 
-              {/* DARK MODE */}
+              {/* MODE */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
                   padding: "10px",
-                  width: "100%",
+                  color: "var(--navbar-text)",
                 }}
               >
                 <NightModeButton size={0.7} />
