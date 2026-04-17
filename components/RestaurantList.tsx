@@ -4,6 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import FoodCard from "./FoodCard";
 
+/* THEME (CHỈNH MÀU 1 CHỖ) */
+const theme = {
+  bg: "#000000",
+  card: "#333333",
+  text: "#ffffff",
+  border: "#333333",
+  hover: "#999999",
+  danger: "#ff0000",
+  shadow: "0 10px 25px rgba(0,0,0,0.25)",
+};
+
+/* TYPES */
 type Food = {
   name: string;
   address: string;
@@ -27,14 +39,14 @@ export default function RestaurantList({
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // FETCH API
+  /* FETCH API */
   useEffect(() => {
     fetch("/api/foods")
       .then((res) => res.json())
       .then((data) => setFoods(data));
   }, []);
 
-  // CLICK NGOÀI MENU ĐỂ ĐÓNG
+  /* CLICK OUTSIDE */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -46,20 +58,12 @@ export default function RestaurantList({
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () =>
-      document.removeEventListener(
-        "mousedown",
-        handleClickOutside
-      );
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   if (foods.length === 0) {
-    return (
-      <p style={emptyText}>
-        Chưa có địa điểm nào.
-      </p>
-    );
+    return <p style={emptyText}>Chưa có địa điểm nào.</p>;
   }
 
   return (
@@ -68,26 +72,33 @@ export default function RestaurantList({
         <div key={index} style={cardWrapper}>
           <FoodCard {...food} />
 
+          {/* MENU BUTTON */}
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setOpenId(
-                openId === index ? null : index
-              );
+              setOpenId(openId === index ? null : index);
             }}
             style={menuBtn}
           >
             ⋮
           </button>
 
+          {/* DROPDOWN */}
           {openId === index && (
             <div style={menuBox}>
+              
               <div
                 style={menuItem}
                 onClick={() => {
                   onEdit(index);
                   setOpenId(null);
                 }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = theme.hover)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
               >
                 <FaEdit />
                 Chỉnh sửa
@@ -96,13 +107,19 @@ export default function RestaurantList({
               <div
                 style={{
                   ...menuItem,
-                  color: "#ef4444",
+                  color: theme.danger,
                   borderBottom: "none",
                 }}
                 onClick={() => {
                   onDelete(index);
                   setOpenId(null);
                 }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "#999999")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
               >
                 <FaTrash />
                 Xóa
@@ -116,7 +133,6 @@ export default function RestaurantList({
 }
 
 /* STYLE */
-
 const grid = {
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",
@@ -131,43 +147,68 @@ const cardWrapper = {
 const emptyText = {
   textAlign: "center" as const,
   marginTop: "30px",
-  color: "#777",
+  color: "#000000",
   fontSize: "16px",
 };
 
+/* MENU BUTTON (GLASS STYLE) */
 const menuBtn = {
   position: "absolute" as const,
   top: "10px",
   right: "10px",
-  width: "34px",
-  height: "34px",
-  borderRadius: "10px",
-  border: "1px solid #eee",
-  background: "rgba(255,255,255,0.95)",
+
+  width: "20px",
+  height: "29px",
+
+  borderRadius: "7px",
+  border: `1px solid ${theme.border}`,
+
+  background: "#333333",
+  color: theme.text,
+
   cursor: "pointer",
+
+  backdropFilter: "blur(6px)",
+
   fontSize: "18px",
   fontWeight: "bold",
-  boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  boxShadow: theme.shadow,
 };
 
+/*  DROPDOWN */
 const menuBox = {
   position: "absolute" as const,
   top: "48px",
   right: "10px",
-  background: "#fff",
+
+  background: theme.card,
+  color: theme.text,
+
   borderRadius: "12px",
-  boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
+  boxShadow: theme.shadow,
+
   zIndex: 100,
   minWidth: "150px",
   overflow: "hidden",
+  border: `1px solid ${theme.border}`,
 };
 
+/* ITEM */
 const menuItem = {
   display: "flex",
   alignItems: "center",
   gap: "10px",
+
   padding: "12px 16px",
   cursor: "pointer",
+
   fontSize: "14px",
-  borderBottom: "1px solid #f1f1f1",
+
+  borderBottom: `1px solid ${theme.border}`,
+  transition: "0.2s",
 };

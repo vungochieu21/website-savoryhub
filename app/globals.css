@@ -10,26 +10,46 @@ html, body {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* LIGHT */
+/* Main */
 :root {
-  --background: #f2f4f8;
-  --foreground: #171717;
-
+  --background: #e5e5e5;
+  --foreground: #000000;
+  
   --navbar-bg: #ffffff;
-  --navbar-text: #171717;
+  --navbar-text: #000000;
 
   --surface: #ffffff;
-  --border: #e5e7eb;
+  --border: #ffffff;
 }
 
-/* DARK */
 .dark {
-  --background: #0f1115;
-  --foreground: #f5f5f5;
+  --background: #000000;
+  --foreground: #ffffff;
 
-  --navbar-bg: #1f232b;
-  --navbar-text: #f5f5f5;
+  --navbar-bg: #333333;
+  --navbar-text: #ffffff;
 
-  --surface: #2a2f3a;
-  --border: #3a3f4b;
+  --surface: #333333;
+  --border: #333333;
+}
+
+/* Main Card */
+:root {
+  --card: #ffffff;
+  --card-text: #000000;
+  --border: #ffffff;
+  --muted-text: #888888;
+  --no-img-bg: #888888;
+  --like: #ff0000;
+  --shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.dark {
+  --card: #333333;
+  --card-text: #ffffff;
+  --border: #333333;
+  --muted-text: #888888;
+  --no-img-bg: #888888;
+  --like: #ff0000;
+  --shadow: 0 4px 10px rgba(0,0,0,0.4);
 }

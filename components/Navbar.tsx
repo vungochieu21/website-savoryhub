@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NightModeButton from "./NightModeButton";
-
 import {
   FaSearch,
   FaFilter,
@@ -19,201 +18,68 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
   const [search, setSearch] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [lang, setLang] = useState("vi");
-  const [hovered, setHovered] = useState<string | null>(null);
 
   const flags: any = {
     vi: "🇻🇳",
     en: "🇺🇸",
   };
 
-  const hoverColor = "#b30000";
-
   const handleSearch = () => {
     if (!search.trim()) return;
     router.push("/filter");
   };
 
-  const getIconBtn = (key: string) => ({
-    background: hovered === key ? hoverColor : "var(--surface)",
-    border: "1px solid var(--border)",
-    padding: "12px",
-    borderRadius: "50%",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "18px",
-    transition: "0.2s",
-    color: hovered === key ? "white" : "var(--navbar-text)",
-  });
-
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-        zIndex: 9999,
-        display: "flex",
-        justifyContent: "center",
-        background: "var(--navbar-bg)",
-        color: "var(--navbar-text)",
-        borderBottom: "1px solid var(--border)",
-        boxShadow: "0 4px 18px rgba(0,0,0,0.18)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "14px 24px",
-          gap: "10px",
-          width: "100%",
-          maxWidth: "1400px",
-        }}
-      >
+    <div className="navbar">
+      <div className="nav-inner">
         {/* LOGO */}
-        <span
-          onClick={() => router.push("/")}
-          style={{
-            fontSize: "22px",
-            fontWeight: "bold",
-            cursor: "pointer",
-            color: "var(--navbar-text)",
-          }}
-        >
+        <span className="logo" onClick={() => router.push("/")}>
           Tastii
         </span>
 
         {/* SEARCH */}
-        <div
-          style={{
-            width: "460px",
-            marginLeft: "auto",
-            display: "flex",
-            alignItems: "center",
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            padding: "10px 18px",
-            borderRadius: "999px",
-            gap: "10px",
-          }}
-        >
+        <div className="search-box">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             placeholder="Tìm địa điểm, món ăn..."
-            style={{
-              flex: 1,
-              border: "none",
-              outline: "none",
-              background: "transparent",
-              color: "var(--navbar-text)",
-              fontSize: "15px",
-            }}
           />
 
-          <button
-            onClick={handleSearch}
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              color: "var(--navbar-text)",
-            }}
-          >
+          <button onClick={handleSearch} className="search-btn">
             <FaSearch />
           </button>
         </div>
 
-        {/* FILTER */}
-        <button
-          onClick={() => router.push("/filter")}
-          onMouseEnter={() => setHovered("filter")}
-          onMouseLeave={() => setHovered(null)}
-          style={getIconBtn("filter")}
-        >
+        {/* ICON BUTTONS */}
+        <button className="icon-btn" onClick={() => router.push("/filter")}>
           <FaFilter />
         </button>
 
-        {/* ADD */}
-        <button
-          onClick={onAdd}
-          onMouseEnter={() => setHovered("add")}
-          onMouseLeave={() => setHovered(null)}
-          style={getIconBtn("add")}
-        >
+        <button className="icon-btn" onClick={onAdd}>
           <FaPlus />
         </button>
 
-        {/* USER */}
-        <button
-          onMouseEnter={() => setHovered("user")}
-          onMouseLeave={() => setHovered(null)}
-          style={getIconBtn("user")}
-        >
+        <button className="icon-btn">
           <FaUserCircle size={20} />
         </button>
 
         {/* SETTINGS */}
-        <div style={{ position: "relative" }}>
+        <div className="settings">
           <button
+            className="icon-btn"
             onClick={() => setShowSettings(!showSettings)}
-            onMouseEnter={() => setHovered("settings")}
-            onMouseLeave={() => setHovered(null)}
-            style={getIconBtn("settings")}
           >
             <FaCog />
           </button>
 
           {showSettings && (
-            <div
-              style={{
-                position: "absolute",
-                top: "55px",
-                right: 0,
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: "12px",
-                padding: "10px",
-                minWidth: "180px",
-                boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
-                color: "var(--navbar-text)",
-              }}
-            >
-              {/* LANGUAGE */}
-              <button
-                onClick={() => setLang(lang === "vi" ? "en" : "vi")}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  width: "100%",
-                  padding: "10px",
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  color: "var(--navbar-text)",
-                  fontSize: "16px", // 👈 TO BẰNG CHẾ ĐỘ
-                }}
-              >
-                <FaGlobe style={{ fontSize: "16px" }} />
-                <span style={{ fontSize: "16px" }}>
-                  Ngôn ngữ {flags[lang]}
-                </span>
+            <div className="dropdown">
+              <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
+                <FaGlobe /> Ngôn ngữ {flags[lang]}
               </button>
 
-              {/* MODE */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  padding: "10px",
-                  color: "var(--navbar-text)",
-                }}
-              >
+              <div className="mode">
                 <NightModeButton size={0.7} />
                 Chế độ
               </div>
@@ -221,6 +87,145 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           )}
         </div>
       </div>
+
+      {/* STYLE */}
+      <style jsx>{`
+        .navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          background: var(--navbar-bg);
+          color: var(--navbar-text);
+          border-bottom: 1px solid var(--border);
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+          z-index: 9999;
+        }
+
+        .nav-inner {
+          display: flex;
+          align-items: center;
+          padding: 14px 24px;
+          gap: 10px;
+          width: 100%;
+          max-width: 1400px;
+        }
+
+        .logo {
+          font-size: 22px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        /* SEARCH */
+        .search-box {
+          width: 460px;
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 999px;
+          padding: 6px 10px 6px 18px;
+          gap: 10px;
+          transition: 0.2s;
+        }
+
+        .search-box:focus-within {
+          box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.75);
+        }
+
+        .search-box input {
+          flex: 1;
+          border: none;
+          outline: none;
+          background: transparent;
+          color: var(--navbar-text);
+          font-size: 15px;
+        }
+
+        /* SEARCH BUTTON */
+        .search-btn {
+          width: 34px;
+          height: 34px;
+          border: none;
+          background: transparent;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--navbar-text);
+          transition: 0.2s;
+        }
+
+        .search-btn:hover {
+          background: #b30000;
+          color: white;
+          transform: scale(1.1);
+        }
+
+        /* ICON BUTTON */
+        .icon-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          border: 1px solid var(--border);
+          background: var(--surface);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: 0.2s;
+          color: var(--navbar-text);
+        }
+
+        .icon-btn:hover {
+          background: #b30000;
+          color: white;
+        }
+
+        /* SETTINGS */
+        .settings {
+          position: relative;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 55px;
+          right: 0;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 10px;
+          min-width: 180px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .dropdown button {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          padding: 10px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          color: var(--navbar-text);
+        }
+
+        .dropdown button:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        .mode {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px;
+        }
+      `}</style>
     </div>
   );
 }

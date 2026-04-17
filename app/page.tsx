@@ -13,7 +13,6 @@ import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import NearbyRestaurant from "@/components/NearbyRestaurant";
 
-/* 🔥 FIX SSR COMPONENT */
 const FoodForm = dynamic(() => import("@/components/FoodForm"), {
   ssr: false,
 });
@@ -40,7 +39,6 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
-  // 🔥 CHẶN HYDRATION
   if (!mounted) return null;
 
   return (

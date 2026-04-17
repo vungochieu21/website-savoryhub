@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "SavoryHub",
@@ -13,13 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-
-      {/* ✅ FIX: đảm bảo theme sync khi reload */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script id="theme-script" strategy="beforeInteractive">
+          {`
             (function () {
               const theme = localStorage.getItem("theme");
               if (theme === "dark") {
@@ -28,9 +26,11 @@ export default function RootLayout({
                 document.documentElement.classList.remove("dark");
               }
             })();
-          `,
-        }}
-      />
+          `}
+        </Script>
+      </head>
+
+      <body>{children}</body>
     </html>
   );
 }

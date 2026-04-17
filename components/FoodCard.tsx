@@ -23,13 +23,15 @@ export default function FoodCard({
 
   return (
     <div style={card}>
+      {/* IMAGE */}
       {image ? (
         <img src={image} alt={name} style={img} />
       ) : (
         <div style={noImg}>No Image</div>
       )}
 
-      <div style={{ padding: "10px" }}>
+      {/* CONTENT */}
+      <div style={{ padding: "12px" }}>
         <div style={title}>{name || "Tên quán..."}</div>
 
         <div style={addressStyle}>
@@ -49,6 +51,7 @@ export default function FoodCard({
             </div>
           </div>
 
+          {/* LIKE */}
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -56,8 +59,10 @@ export default function FoodCard({
             }}
             style={{
               cursor: "pointer",
-              color: liked ? "red" : "#999",
+              color: liked ? "var(--like)" : "var(--muted-text)",
               fontSize: "16px",
+              transition: "0.2s",
+              transform: liked ? "scale(1.2)" : "scale(1)",
             }}
           >
             <FaHeart />
@@ -67,53 +72,54 @@ export default function FoodCard({
     </div>
   );
 }
-
-/* STYLE */
-
+  
+{/* STYPE */}
 const card = {
   width: "100%",
-  borderRadius: "12px",
+  borderRadius: "14px",
   overflow: "hidden",
-  background: "var(--card)", // ✅ FIX
-  color: "var(--card-text)", // ✅ FIX
-  border: "1px solid #eee",
+  background: "var(--card)",
+  color: "var(--card-text)",
+  border: "1px solid var(--border)",
   cursor: "pointer",
-  transition: "0.2s",
+  transition: "0.25s",
+  boxShadow: "var(--shadow)",
 };
 
 const img = {
   width: "100%",
-  height: "140px",
+  height: "150px",
   objectFit: "cover" as const,
 };
 
 const noImg = {
   width: "100%",
-  height: "140px",
-  background: "#eee",
+  height: "150px",
+  background: "var(--no-img-bg)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "#888",
+  color: "var(--muted-text)",
+  fontSize: "13px",
 };
 
 const title = {
   fontSize: "15px",
-  fontWeight: "bold",
-  color: "var(--card-text)", // ✅ FIX
+  fontWeight: "600",
+  color: "var(--card-text)",
 };
 
 const addressStyle = {
   fontSize: "13px",
-  color: "var(--card-text)",
-  opacity: 0.7,
+  color: "var(--muted-text)",
+  marginTop: "2px",
 };
 
 const ratingStyle = {
   fontSize: "14px",
-  fontWeight: "bold",
+  fontWeight: "600",
   margin: "6px 0",
-  color: "var(--card-text)", // ✅ FIX
+  color: "var(--card-text)",
 };
 
 const bottom = {
@@ -127,5 +133,5 @@ const iconRow = {
   alignItems: "center",
   gap: "4px",
   fontSize: "13px",
-  color: "var(--card-text)", // ✅ FIX
+  color: "var(--muted-text)",
 };

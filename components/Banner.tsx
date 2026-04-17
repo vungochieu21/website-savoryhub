@@ -46,23 +46,9 @@ export default function Banner() {
   }, [current]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        padding: "20px 0",
-        marginTop: "85px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1300px",
-          width: "100%",
-          overflow: "hidden",
-          position: "relative",
-          borderRadius: "30px",
-        }}
-      >
+    <div style={{ display: "flex", justifyContent: "center", padding: "20px 0", marginTop: "85px" }}>
+      <div style={container}>
+        
         {/* SLIDER */}
         <div
           style={{
@@ -72,35 +58,20 @@ export default function Banner() {
           }}
         >
           {loopBanners.map((banner, index) => (
-            <div
-              key={index}
-              style={{
-                minWidth: "100%",
-                boxSizing: "border-box",
-              }}
-            >
-              <img
-                src={banner.img}
-                style={{
-                  width: "100%",
-                  height: "300px",
-                  objectFit: "cover",
-                  borderRadius: "30px",
-                  display: "block",
-                }}
-              />
+            <div key={index} style={{ minWidth: "100%" }}>
+              <img src={banner.img} style={imgStyle} />
             </div>
           ))}
         </div>
 
-        {/* LEFT ARROW (FIX 100% CENTER) */}
+        {/* LEFT */}
         <button onClick={prevSlide} style={arrowLeft}>
-          {"<"}
+          <span style={iconStyle}>{"<"}</span>
         </button>
 
-        {/* RIGHT ARROW */}
+        {/* RIGHT */}
         <button onClick={nextSlide} style={arrowRight}>
-          {">"}
+          <span style={iconStyle}>{">"}</span>
         </button>
 
         {/* DOTS */}
@@ -121,35 +92,36 @@ export default function Banner() {
   );
 }
 
-/* =========================
-   ARROW FIX 100% CENTER PERFECT
-========================= */
+/* STYLE */
+const container = {
+  maxWidth: "1300px",
+  width: "100%",
+  overflow: "hidden",
+  position: "relative" as const,
+  borderRadius: "30px",
+};
+
+const imgStyle = {
+  width: "100%",
+  height: "300px",
+  objectFit: "cover" as const,
+  borderRadius: "30px",
+  display: "block",
+};
+
+/* Circle */
 const arrowBase = {
   position: "absolute" as const,
   top: "50%",
   transform: "translateY(-50%)",
-
   zIndex: 20,
-
   width: "42px",
   height: "42px",
-
   borderRadius: "50%",
   border: "none",
-
   background: "rgba(0,0,0,0.5)",
   color: "white",
-
   cursor: "pointer",
-
-  /* 🔥 KEY FIX: ép tâm tuyệt đối */
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-
-  /* 🔥 FIX font lệch tâm */
-  fontSize: "17px",
-  lineHeight: "1",
   padding: 0,
 };
 
@@ -163,19 +135,25 @@ const arrowRight = {
   right: "15px",
 };
 
-/* =========================
-   DOT FIX CENTER
-========================= */
+const iconStyle = {
+  position: "absolute" as const,
+  top: "50%",
+  left: "50%",
+
+  /* custom button right*/
+  transform: "translate(-40%, -59%) translate(-1px, 0px)", 
+
+  fontSize: "18px",
+  lineHeight: "1",
+};
+/* 3 DOT */
 const dotsWrap = {
   position: "absolute" as const,
   bottom: "15px",
   left: "50%",
   transform: "translateX(-50%)",
-
   display: "flex",
-  alignItems: "center",
   gap: "8px",
-
   zIndex: 20,
 };
 

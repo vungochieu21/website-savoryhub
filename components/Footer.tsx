@@ -1,66 +1,127 @@
-import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { Mail, Phone, MapPin } from "lucide-react";
+
+const ICON_COLOR = "#b30000";
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Main Grid */}
+    <footer className="bg-black text-white">
+      <div className="max-w-[1325px] mx-auto px-3 py-20">
+        
+        {/* MAIN */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-8">
           
-          {/* Restaurant Info + Social */}
+          {/* INFO */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <span className="logo-text text-xl font-bold">Tastii</span>
-            <p className="text-sm leading-relaxed mb-4">
-              Đây là Tastii, chúng tôi tin rằng mỗi món ăn ngon đều mang đến những trải nghiệm đáng nhớ. Tastii được tạo ra để giúp bạn khám phá những địa điểm ăn uống hấp dẫn, quán ngon nổi bật và hương vị đặc sắc ngay tại khu vực của mình.
+            <span className="text-xl font-bold">Tastii</span>
+
+            <p className="text-sm leading-relaxed mt-3 mb-5 text-gray-300">
+              Đây là Tastii, chúng tôi tin rằng mỗi món ăn ngon đều mang đến
+              những trải nghiệm đáng nhớ.
             </p>
-            
-            {/* Social Icons */}
-            <div>
-              <h4 className="text-white font-semibold mb-3 text-sm uppercase">Theo dõi</h4>
-              <div className="flex gap-3">
-                <a href="#" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <FaFacebook size={18} />
-                </a>
-                <a href="#" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <FaInstagram size={18} />
-                </a>
-                <a href="https://wa.me/231XXXXXXXXXX" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <FaWhatsapp size={18} />
-                </a>
-              </div>
+
+            {/* SOCIAL */}
+            <h4 className="text-sm font-semibold uppercase mb-3">
+              Theo dõi tại
+            </h4>
+
+            <div className="flex gap-3">
+              <a
+                href="#"
+                className="social-btn"
+                style={{ color: ICON_COLOR }}
+              >
+                <FaFacebook size={18} />
+              </a>
+
+              <a
+                href="#"
+                className="social-btn"
+                style={{ color: ICON_COLOR }}
+              >
+                <FaInstagram size={18} />
+              </a>
+
+              <a
+                href="https://wa.me/231XXXXXXXXXX"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-btn"
+                style={{ color: ICON_COLOR }}
+              >
+                <FaWhatsapp size={18} />
+              </a>
             </div>
           </div>
-          
-          {/* Contact Info */}
+
+          {/* CONTACT */}
           <div>
-            <h3 className="text-white font-bold mb-4 uppercase text-sm">Liên hệ</h3>
-            <ul className="space-y-3 text-sm">
+            <h3 className="text-sm font-bold uppercase mb-4">
+              Liên hệ tại
+            </h3>
+
+            <ul className="space-y-3 text-sm text-gray-300">
+              
               <li className="flex items-start gap-2">
-                <MapPin size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                <span>29/2B, tổ 42A, khu phố 8, phường Tân Phong, Biên Hoà, Đồng Nai</span>
+                <MapPin size={18} style={{ color: ICON_COLOR }} />
+                <span>
+                  29/2B, khu phố 8, phường Tân Phong, Biên Hoà, Đồng Nai
+                </span>
               </li>
+
               <li className="flex items-center gap-2">
-                <Phone size={20} className="text-primary flex-shrink-0" />
-                <a href="tel:+231XXXXXXXXXX" className="hover:text-primary transition">+84 0398 328 506</a>
+                <Phone size={18} style={{ color: ICON_COLOR }} />
+                <a href="tel:+840398328506" className="hover:text-red-500">
+                  +84 0398 328 506
+                </a>
               </li>
+
               <li className="flex items-center gap-2">
-                <Mail size={20} className="text-primary flex-shrink-0" />
-                <a href="mailto:info@cozytable.com" className="hover:text-primary transition">vungochieu2120006@gmail.com</a>
+                <Mail size={18} style={{ color: ICON_COLOR }} />
+                <a
+                  href="mailto:info@gmail.com"
+                  className="hover:text-red-500"
+                >
+                  vungochieu2120006@gmail.com
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* LINE */}
         <hr className="border-gray-800 mb-6" />
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Tastii. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition">Terms of Service</a>
-            <a href="#" className="hover:text-primary transition">Privacy Policy</a>
+
+        {/* BOTTOM */}
+        <div className="flex flex-col md:flex-row justify-between text-sm text-gray-400">
+          <p>© {new Date().getFullYear()} Tastii. All rights reserved.</p>
+
+          <div className="flex gap-6 mt-2 md:mt-0">
+            <a className="hover:text-red-500">Terms of Service</a>
+            <a className="hover:text-red-500">Privacy Policy</a>
           </div>
         </div>
       </div>
+
+      {/* STYLE */}
+      <style jsx>{`
+        .social-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 999px;
+          background: #1f1f1f;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: 0.2s;
+        }
+
+        .social-btn:hover {
+          background: #b30000;
+          color: white !important;
+          transform: scale(1.1);
+        }
+      `}</style>
     </footer>
-  )
+  );
 }
