@@ -6,7 +6,6 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 export default function NightModeButton({ size = 1 }) {
   const [dark, setDark] = useState(false);
 
-  // ✅ FIX: sync theme khi load page (QUAN TRỌNG)
   useEffect(() => {
     const saved = localStorage.getItem("theme");
 
@@ -19,7 +18,6 @@ export default function NightModeButton({ size = 1 }) {
     }
   }, []);
 
-  // ✅ FIX: sync DOM + storage mỗi lần đổi state
   useEffect(() => {
     if (dark) {
       document.documentElement.classList.add("dark");
@@ -42,7 +40,7 @@ export default function NightModeButton({ size = 1 }) {
       {/* Background */}
       <div
         className={`absolute w-full h-full rounded-full transition-colors duration-500 ${
-          dark ? "bg-gray-800" : "bg-gray-200"
+          dark ? "bg-gray-900" : "bg-gray-200"
         }`}
       />
 
@@ -54,7 +52,7 @@ export default function NightModeButton({ size = 1 }) {
         <FontAwesomeIcon
           icon={faSun}
           style={{
-            color: dark ? "#facc15" : "#111111",
+            color: dark ? "#ffffff" : "#000000",
             transition: "color 0.4s ease",
           }}
         />
