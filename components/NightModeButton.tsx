@@ -1,15 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 export default function NightModeButton({ size = 1 }) {
   const [dark, setDark] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") === "dark";
     }
-  return false;
+    return false;
   });
-  
-  // apply dark mode
+
   useEffect(() => {
     if (dark) {
       document.documentElement.classList.add("dark");
@@ -31,28 +32,52 @@ export default function NightModeButton({ size = 1 }) {
     >
       {/* Background */}
       <div
-        className={`absolute w-full h-full rounded-full transition ${
-          dark ? "bg-gray-300" : "bg-gray-300"
+        className={`absolute w-full h-full rounded-full transition-colors duration-500 ${
+          dark ? "bg-gray-800" : "bg-gray-200"
         }`}
       />
 
-      {/* Icons */}
-      <div className="absolute left-2 text-sm" style={{ fontSize: 12 * size }}>
-        ☀️
-      </div>
-      <div className="absolute right-2 text-sm" style={{ fontSize: 12 * size }}>
-        🌙
+      {/* ICON LEFT */}
+      <div
+        className="absolute left-2 flex items-center justify-center"
+        style={{ fontSize: 12 * size }}
+      >
+        <FontAwesomeIcon
+          icon={faSun}
+          style={{
+            color: dark ? "#facc15" : "#111111",
+            transition: "color 0.4s ease",
+          }}
+        />
       </div>
 
-      {/* Toggle circle */}
+      {/* ICON RIGHT */}
       <div
-        className={`bg-white rounded-full shadow-md transform transition absolute`}
+        className="absolute right-2 flex items-center justify-center"
+        style={{ fontSize: 12 * size }}
+      >
+        <FontAwesomeIcon
+          icon={faMoon}
+          style={{
+            color: dark ? "#ffffff" : "#111111",
+            transition: "color 0.4s ease",
+          }}
+        />
+      </div>
+
+      {/* 🔥 SMOOTH SLIDER KNOB */}
+      <div
+        className="bg-white rounded-full shadow-md absolute"
         style={{
           width: 24 * size,
           height: 24 * size,
+          top: "50%",
+
           transform: dark
-            ? `translateX(${(60 - 21 - 6) * size}px)`
-            : `translateX(3px)`
+            ? `translate3d(${(60 - 21 - 6) * size}px, -50%, 0)`
+            : `translate3d(3px, -50%, 0)`,
+
+          transition: "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       />
     </div>

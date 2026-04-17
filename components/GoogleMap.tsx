@@ -1,7 +1,7 @@
 "use client";
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -26,7 +26,6 @@ const places = [
   { name: "Lẩu Dê", lat: 10.7802, lng: 106.6905, open: "17:00", close: "02:00" },
 ];
 
-/* CHECK OPEN */
 function isOpen(open: string, close: string) {
   const now = new Date();
   const current = now.getHours() * 60 + now.getMinutes();
@@ -45,24 +44,18 @@ function isOpen(open: string, close: string) {
 }
 
 export default function MapFoodFree() {
+  const [mounted, setMounted] = useState(false);
   const [selected, setSelected] = useState<any>(null);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // 👈 QUAN TRỌNG FIX SSR window error
+
   return (
-    <section
-      style={{
-        padding: "60px 40px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <h2
-        style={{
-          fontSize: "32px",
-          fontWeight: 700,
-          marginBottom: 20,
-        }}
-      >
+    <section style={{ padding: "60px 40px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <h2 style={{ fontSize: "32px", fontWeight: 700, marginBottom: 20 }}>
         🍜 Bản đồ quán ăn
       </h2>
 
@@ -79,11 +72,11 @@ export default function MapFoodFree() {
           center={[10.7769, 106.7009]}
           zoom={13}
           style={{ height: "500px", width: "100%" }}
-          attributionControl={false} // 👈 tắt control mặc định
+          attributionControl={false}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution="" // 👈 quan trọng: xoá attribution text
+            attribution=""
           />
 
           {places.map((place, i) => {
@@ -115,7 +108,6 @@ export default function MapFoodFree() {
         </MapContainer>
       </div>
 
-      {/* CSS HIDE TRIỆT ĐỂ (backup) */}
       <style jsx global>{`
         .leaflet-control-attribution {
           display: none !important;
