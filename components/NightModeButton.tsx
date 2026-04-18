@@ -6,32 +6,45 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 export default function NightModeButton({ size = 1 }) {
   const [dark, setDark] = useState(false);
 
+  // INIT ONLY 1 TIME
   useEffect(() => {
     const saved = localStorage.getItem("theme");
+    const isDark = saved === "dark";
 
-    if (saved === "dark") {
-      setDark(true);
+    setDark(isDark);
+
+    if (isDark) {
       document.documentElement.classList.add("dark");
     } else {
-      setDark(false);
       document.documentElement.classList.remove("dark");
     }
   }, []);
 
+  // APPLY THEME ONLY WHEN STATE CHANGES
   useEffect(() => {
+    const root = document.documentElement;
+
     if (dark) {
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
       localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
   }, [dark]);
 
+  // 🔥 FIX: chống double toggle bằng event lock
+  const handleToggle = (e: any) => {
+    e?.stopPropagation();
+
+    // tránh double click event trong cùng frame
+    setDark((prev) => !prev);
+  };
+
   return (
     <div
-      onClick={() => setDark((prev) => !prev)}
-      className="relative flex items-center cursor-pointer"
+      onClick={handleToggle}
+      className="relative flex items-center cursor-pointer select-none"
       style={{
         width: 60 * size,
         height: 30 * size,
@@ -44,7 +57,7 @@ export default function NightModeButton({ size = 1 }) {
         }`}
       />
 
-      {/* ICON LEFT */}
+      {/* SUN */}
       <div
         className="absolute left-2 flex items-center justify-center"
         style={{ fontSize: 12 * size }}
@@ -52,13 +65,13 @@ export default function NightModeButton({ size = 1 }) {
         <FontAwesomeIcon
           icon={faSun}
           style={{
-            color: dark ? "#ffffff" : "#000000",
-            transition: "color 0.4s ease",
+            color: dark ? "#fff" : "#000",
+            transition: "0.3s",
           }}
         />
       </div>
 
-      {/* ICON RIGHT */}
+      {/* MOON */}
       <div
         className="absolute right-2 flex items-center justify-center"
         style={{ fontSize: 12 * size }}
@@ -66,8 +79,8 @@ export default function NightModeButton({ size = 1 }) {
         <FontAwesomeIcon
           icon={faMoon}
           style={{
-            color: dark ? "#ffffff" : "#111111",
-            transition: "color 0.4s ease",
+            color: dark ? "#fff" : "#111",
+            transition: "0.3s",
           }}
         />
       </div>
@@ -82,7 +95,7 @@ export default function NightModeButton({ size = 1 }) {
           transform: dark
             ? `translate3d(${(60 - 21 - 6) * size}px, -50%, 0)`
             : `translate3d(3px, -50%, 0)`,
-          transition: "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)",
+          transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       />
     </div>

@@ -10,13 +10,22 @@ import {
   FaPlus,
   FaCog,
   FaGlobe,
+  FaSignInAlt,
+  FaUserPlus,
+  FaHeart,
 } from "react-icons/fa";
 
-export default function Navbar({ onAdd }: { onAdd: () => void }) {
+type NavbarProps = {
+  onAdd: () => void;
+};
+
+export default function Navbar({ onAdd }: NavbarProps) {
   const router = useRouter();
 
   const [search, setSearch] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [lang, setLang] = useState("vi");
 
   const flags: any = {
@@ -27,6 +36,14 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
   const handleSearch = () => {
     if (!search.trim()) return;
     router.push("/filter");
+  };
+
+  const openFavorites = () => {
+    setShowFavorites(true);
+
+    setTimeout(() => {
+      setShowFavorites(false);
+    }, 5000);
   };
 
   return (
@@ -60,21 +77,60 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           <FaPlus />
         </button>
 
-        <button className="icon-btn">
-          <FaUserCircle size={20} />
-        </button>
+        {/* USER MENU */}
+        <div className="user-menu">
+          <button
+            className="icon-btn"
+            onClick={() => setShowUserMenu(!showUserMenu)}
+          >
+            <FaUserCircle size={20} />
+          </button>
+
+          {showUserMenu && (
+            <div className="dropdown user-dropdown">
+              <button onClick={() => router.push("/login")}>
+                <FaSignInAlt /> Đăng nhập
+              </button>
+
+              <button onClick={() => router.push("/register")}>
+                <FaUserPlus /> Đăng ký
+              </button>
+
+              <button onClick={openFavorites}>
+                <FaHeart /> Yêu thích
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* FAVORITES POPUP */}
+        {showFavorites && (
+          <div className="favorites-popup">
+            <div className="favorites-header">❤️ Danh sách yêu thích</div>
+
+            <div className="favorites-body">
+              <p>Chưa có món nào được yêu thích</p>
+            </div>
+          </div>
+        )}
 
         {/* SETTINGS */}
         <div className="settings">
           <button
             className="icon-btn"
-            onClick={() => setShowSettings(!showSettings)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowSettings(!showSettings);
+            }}
           >
             <FaCog />
           </button>
 
           {showSettings && (
-            <div className="dropdown">
+            <div
+              className="dropdown"
+              onClick={(e) => e.stopPropagation()} // ✅ FIX CHÍNH Ở ĐÂY
+            >
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
                 <FaGlobe /> Ngôn ngữ {flags[lang]}
               </button>
@@ -118,7 +174,6 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           cursor: pointer;
         }
 
-        /* SEARCH */
         .search-box {
           width: 460px;
           margin-left: auto;
@@ -145,7 +200,6 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           font-size: 15px;
         }
 
-        /* SEARCH BUTTON */
         .search-btn {
           width: 34px;
           height: 34px;
@@ -166,7 +220,6 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           transform: scale(1.1);
         }
 
-        /* ICON BUTTON */
         .icon-btn {
           width: 44px;
           height: 44px;
@@ -186,8 +239,8 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           color: white;
         }
 
-        /* SETTINGS */
-        .settings {
+        .settings,
+        .user-menu {
           position: relative;
         }
 
@@ -213,10 +266,15 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           background: transparent;
           cursor: pointer;
           color: var(--navbar-text);
+          text-align: left;
         }
 
         .dropdown button:hover {
           background: rgba(0, 0, 0, 0.05);
+        }
+
+        .dropdown button svg {
+          margin-right: 8px;
         }
 
         .mode {
@@ -224,6 +282,29 @@ export default function Navbar({ onAdd }: { onAdd: () => void }) {
           align-items: center;
           gap: 10px;
           padding: 10px;
+        }
+
+        .favorites-popup {
+          position: fixed;
+          top: 80px;
+          right: 20px;
+          width: 260px;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+          padding: 12px;
+          z-index: 10000;
+        }
+
+        .favorites-header {
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .favorites-body {
+          font-size: 14px;
+          opacity: 0.8;
         }
       `}</style>
     </div>

@@ -13,15 +13,25 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+
+    /* =========================
+       NEXT.JS PLUGIN (GIỮ NGUYÊN)
+    ========================= */
     "plugins": [
       {
         "name": "next"
       }
     ],
+
+    /* =========================
+       FIX ALIAS IMPORT (QUAN TRỌNG)
+    ========================= */
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }
   },
+
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -30,5 +40,6 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
+
   "exclude": ["node_modules"]
 }

@@ -12,24 +12,33 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* ✅ FIX: chỉ SET INIT 1 LẦN, không override sau khi React chạy */}
         <Script id="theme-script" strategy="beforeInteractive">
           {`
             (function () {
-              const theme = localStorage.getItem("theme");
-              if (theme === "dark") {
-                document.documentElement.classList.add("dark");
-              } else {
-                document.documentElement.classList.remove("dark");
-              }
+              try {
+                const theme = localStorage.getItem("theme");
+
+                // chỉ set khi chưa có class dark/light
+                const root = document.documentElement;
+
+                if (theme === "dark") {
+                  root.classList.add("dark");
+                } else if (theme === "light") {
+                  root.classList.remove("dark");
+                }
+              } catch (e) {}
             })();
           `}
         </Script>
       </head>
 
       <body>
-        {children}
+        {/* ⭐ FIX NAVBAR OVERLAP AWARENESS */}
+        <div style={{ paddingTop: "70px" }}>
+          {children}
+        </div>
 
-        {/* Scroll to top button */}
         <ScrollToTopButton />
       </body>
     </html>
