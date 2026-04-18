@@ -12,14 +12,10 @@ export default function Banner() {
     { id: 3, img: "https://wallpapersok.com/images/hd/a-large-plate-of-asian-food-spdnpz7bhmx4kv2r.jpg" },
   ];
 
-  const loopBanners = [
-    banners[banners.length - 1],
-    ...banners,
-    banners[0],
-  ];
+  const loopBanners = [banners[banners.length - 1], ...banners, banners[0]];
 
-  const nextSlide = () => setCurrent((prev) => prev + 1);
-  const prevSlide = () => setCurrent((prev) => prev - 1);
+  const nextSlide = () => setCurrent((p) => p + 1);
+  const prevSlide = () => setCurrent((p) => p - 1);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
@@ -27,28 +23,29 @@ export default function Banner() {
   }, []);
 
   useEffect(() => {
-    if (current === loopBanners.length - 1) {
-      setTimeout(() => {
+    const timeout1 = setTimeout(() => {
+      if (current === loopBanners.length - 1) {
         setTransition(false);
         setCurrent(1);
-      }, 500);
-    }
+      }
 
-    if (current === 0) {
-      setTimeout(() => {
+      if (current === 0) {
         setTransition(false);
         setCurrent(banners.length);
-      }, 500);
-    }
+      }
+    }, 500);
 
-    const t = setTimeout(() => setTransition(true), 20);
-    return () => clearTimeout(t);
+    const timeout2 = setTimeout(() => setTransition(true), 20);
+
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
   }, [current]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", padding: "20px 0", marginTop: "85px" }}>
+    <div style={wrapper}>
       <div style={container}>
-        
         {/* SLIDER */}
         <div
           style={{
@@ -57,32 +54,31 @@ export default function Banner() {
             transition: transition ? "0.5s ease" : "none",
           }}
         >
-          {loopBanners.map((banner, index) => (
-            <div key={index} style={{ minWidth: "100%" }}>
-              <img src={banner.img} style={imgStyle} />
+          {loopBanners.map((b, i) => (
+            <div key={i} style={{ minWidth: "100%" }}>
+              <img src={b.img} style={imgStyle} />
             </div>
           ))}
         </div>
 
-        {/* LEFT */}
-        <button onClick={prevSlide} style={arrowLeft}>
+        {/* ARROWS */}
+        <button onClick={prevSlide} style={{ ...arrowBase, left: 15 }}>
           <span style={iconStyle}>{"<"}</span>
         </button>
 
-        {/* RIGHT */}
-        <button onClick={nextSlide} style={arrowRight}>
+        <button onClick={nextSlide} style={{ ...arrowBase, right: 15 }}>
           <span style={iconStyle}>{">"}</span>
         </button>
 
         {/* DOTS */}
         <div style={dotsWrap}>
-          {banners.map((_, index) => (
+          {banners.map((_, i) => (
             <div
-              key={index}
-              onClick={() => setCurrent(index + 1)}
+              key={i}
+              onClick={() => setCurrent(i + 1)}
               style={{
                 ...dotStyle,
-                background: current === index + 1 ? "#b30000" : "#ccc",
+                background: current === i + 1 ? "#b30000" : "#ccc",
               }}
             />
           ))}
@@ -93,6 +89,13 @@ export default function Banner() {
 }
 
 /* STYLE */
+const wrapper = {
+  display: "flex",
+  justifyContent: "center",
+  padding: "20px 0",
+  marginTop: "85px",
+};
+
 const container = {
   maxWidth: "1300px",
   width: "100%",
@@ -109,7 +112,6 @@ const imgStyle = {
   display: "block",
 };
 
-/* Circle */
 const arrowBase = {
   position: "absolute" as const,
   top: "50%",
@@ -125,28 +127,15 @@ const arrowBase = {
   padding: 0,
 };
 
-const arrowLeft = {
-  ...arrowBase,
-  left: "15px",
-};
-
-const arrowRight = {
-  ...arrowBase,
-  right: "15px",
-};
-
 const iconStyle = {
   position: "absolute" as const,
   top: "50%",
   left: "50%",
-
-  /* custom button right*/
-  transform: "translate(-40%, -59%) translate(-1px, 0px)", 
-
+  transform: "translate(-40%, -59%)",
   fontSize: "18px",
   lineHeight: "1",
 };
-/* 3 DOT */
+
 const dotsWrap = {
   position: "absolute" as const,
   bottom: "15px",

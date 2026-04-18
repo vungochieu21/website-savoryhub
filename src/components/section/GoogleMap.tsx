@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import styles from "./GoogleMap.module.css";
 
 /* DATA */
 const places = [
@@ -62,32 +63,17 @@ function MapInner() {
   const { MapContainer, TileLayer, Marker, Popup } = Leaflet;
 
   return (
-    <section
-      style={{
-        padding: "60px 40px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <h2 style={{ fontSize: "32px", fontWeight: 700, marginBottom: 20 }}>
+    <section className={styles.wrapper}>
+      <h2 className={styles.title}>
         🍜 Bản đồ quán ăn
       </h2>
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "1000px",
-          borderRadius: "16px",
-          overflow: "hidden",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-        }}
-      >
+      <div className={styles.mapBox}>
         <MapContainer
           center={[10.7769, 106.7009]}
           zoom={13}
-          style={{ height: "500px", width: "100%" }}
-          attributionControl={false} 
+          className={styles.map}
+          attributionControl={false}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -114,8 +100,7 @@ function MapInner() {
         </MapContainer>
       </div>
 
-      {/*  Attribution */}
-      <p style={{ fontSize: "12px", marginTop: "8px", opacity: 0.6 }}>
+      <p className={styles.attribution}>
         © OpenStreetMap contributors
       </p>
     </section>

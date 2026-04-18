@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./DealSection.module.css";
 
 type Deal = {
   id: number;
@@ -58,91 +59,83 @@ export default function DealSection() {
   };
 
   return (
-    <div className="w-full flex justify-center px-4 mt-14">
-      <div className="w-full max-w-[1200px]">
-
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        
         {/* HEADER */}
-        <div className="text-center mt-15 mb-12">
-          <h2 className="text-5xl font-bold text-[var(--foreground)]">
+        <div className={styles.header}>
+          <h2 className={styles.title}>
             ✨ Deal Ngon Mỗi Ngày ✨
           </h2>
 
-          <p className="text-gray-500 text-xl mt-4">
+          <p className={styles.subtitle}>
             Ưu đãi có hạn, đừng bỏ lỡ!
           </p>
         </div>
 
         {/* CARD LIST */}
-        <div className="flex gap-8 justify-center flex-wrap">
+        <div className={styles.list}>
           {deals.map((deal) => (
-            <div
-              key={deal.id}
-              className="w-[350px] bg-[var(--surface)] rounded-3xl shadow-md overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition duration-300"
-            >
+            <div key={deal.id} className={styles.card}>
+              
               {/* IMAGE */}
-              <div className="relative">
+              <div className={styles.imageWrap}>
                 <img
                   src={deal.image}
-                  className="w-full h-[220px] object-cover"
+                  className={styles.image}
                 />
 
-                <span className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-xl">
+                <span className={styles.badge}>
                   % GIỚI HẠN
                 </span>
               </div>
 
               {/* CONTENT */}
-              <div className="p-6">
+              <div className={styles.content}>
+                
+                <p className={styles.shop}>{deal.shop}</p>
 
-                {/* SHOP */}
-                <p className="text-sm text-gray-500">{deal.shop}</p>
-
-                {/* DISCOUNT */}
-                <h3 className="text-3xl font-bold text-[var(--foreground)]">
+                <h3 className={styles.discount}>
                   {Math.round(
                     ((deal.oldPrice - deal.price) / deal.oldPrice) * 100
                   )}
                   % OFF
                 </h3>
 
-                {/* NAME */}
-                <p className="text-[var(--foreground)] opacity-80 font-semibold text-xl mt-1">
-                  {deal.name}
-                </p>
+                <p className={styles.name}>{deal.name}</p>
 
-                {/* DESC (dynamic) */}
-                <p className="text-[var(--foreground)] opacity-60 mt-4 leading-relaxed">
-                  {deal.desc}
-                </p>
+                <p className={styles.desc}>{deal.desc}</p>
 
-                {/* PROMO */}
-                <div className="bg-[var(--border)] rounded-2xl p-4 mt-6 flex justify-between items-center">
+                {/* CODE */}
+                <div className={styles.codeBox}>
                   <div>
-                    <p className="text-[var(--foreground)] opacity-60 text-sm">
+                    <p className={styles.codeLabel}>
                       Mã khuyến mãi
                     </p>
 
-                    <p className="font-bold text-xl text-[var(--foreground)]">
+                    <p className={styles.code}>
                       {deal.code}
                     </p>
                   </div>
 
                   <button
                     onClick={() => handleCopy(deal.code, deal.id)}
-                    className="border px-4 py-2 rounded-xl text-[var(--foreground)] hover:bg-black/10 transition"
+                    className={styles.copyBtn}
                   >
                     {copiedId === deal.id ? "Đã copy!" : "Sao chép"}
                   </button>
                 </div>
 
                 {/* BUTTON */}
-                <button className="w-full mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold py-4 rounded-2xl transition">
+                <button className={styles.btn}>
                   Đặt ngay
                 </button>
+
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );

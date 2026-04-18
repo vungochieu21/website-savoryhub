@@ -1,0 +1,121 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: var(--navbar-bg);
+  color: var(--navbar-text);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+  z-index: 9999;
+}
+
+.navInner {
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+  gap: 10px;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.searchBox {
+  width: 460px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 10px 6px 18px;
+  gap: 10px;
+}
+
+.searchBox input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--navbar-text);
+}
+
+.searchBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.iconBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 180px;
+}
+
+.favoritesPopup {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 260px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  z-index: 10000;
+}
+
+.profilePopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+}
+
+.profileCard {
+  width: 320px;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.passRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.closeBtn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #b30000;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}

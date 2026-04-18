@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import styles from "./Testimonials.module.css";
 
 type Testimonial = {
   name: string;
@@ -45,101 +46,69 @@ const data: Testimonial[] = [
 export default function Testimonials() {
   const [isHover, setIsHover] = useState(false);
 
-  const CARD_WIDTH = 300;
-  const GAP = 24;
-  const ITEM_COUNT = data.length;
-  const scrollWidth = (CARD_WIDTH + GAP) * ITEM_COUNT;
-
   return (
-    <section className="py-16 overflow-hidden">
+    <section className={styles.section}>
+
       {/* TITLE */}
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-10">
+      <div className={styles.titleWrap}>
+        <h2 className={styles.title}>
           Đánh giá khách hàng
         </h2>
       </div>
 
       {/* SCROLL */}
       <div
-        className="overflow-hidden px-10"
+        className={styles.scrollWrapper}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
         <div
-          className="flex gap-6 w-max"
-          style={{
-            animationName: "scroll",
-            animationDuration: "20s",
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-            animationPlayState: isHover ? "paused" : "running",
-          }}
+          className={`${styles.track} ${
+            isHover ? styles.trackPause : ""
+          }`}
         >
           {[...data, ...data, ...data].map((item, index) => (
-            <div
-              key={index}
-              className="w-[300px] flex-shrink-0 bg-white p-6 rounded-2xl shadow-md"
-            >
+            <div key={index} className={styles.card}>
+
               {/* HEADER */}
-              <div className="flex items-center gap-4 mb-4">
+              <div className={styles.header}>
                 <img
                   src={item.avatar}
                   alt={item.name}
                   width={50}
                   height={50}
-                  className="rounded-full"
+                  className={styles.avatar}
                 />
 
                 <div>
-                  <h3 className="font-semibold">{item.name}</h3>
-                  <p className="text-sm text-gray-500">{item.role}</p>
+                  <h3 className={styles.name}>
+                    {item.name}
+                  </h3>
+
+                  <p className={styles.role}>
+                    {item.role}
+                  </p>
                 </div>
               </div>
 
               {/* RATING */}
-              <div className="flex items-center gap-2 mb-2 text-yellow-500 font-semibold">
+              <div className={styles.rating}>
                 <FaStar size={14} />
-                <span className="text-sm">{item.rating}</span>
+                <span className={styles.ratingText}>
+                  {item.rating}
+                </span>
               </div>
 
               {/* CONTENT */}
-              <p className="text-gray-600 text-sm">{item.content}</p>
+              <p className={styles.content}>
+                {item.content}
+              </p>
+
             </div>
           ))}
         </div>
       </div>
 
-      {/* ANIMATION */}
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-${scrollWidth}px);
-          }
-        }
-      `}</style>
-
-      {/* FADE 2 BÊN */}
-      <style jsx>{`
-        section > div:nth-child(2) {
-          mask-image: linear-gradient(
-            to right,
-            transparent,
-            black 10%,
-            black 90%,
-            transparent
-          );
-          -webkit-mask-image: linear-gradient(
-            to right,
-            transparent,
-            black 10%,
-            black 90%,
-            transparent
-          );
-        }
-      `}</style>
     </section>
   );
 }

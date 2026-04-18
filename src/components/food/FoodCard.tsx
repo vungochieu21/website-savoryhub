@@ -1,6 +1,8 @@
 "use client";
+
 import { useState } from "react";
 import { FaComment, FaCamera, FaHeart } from "react-icons/fa";
+import styles from "./FoodCard.module.css";
 
 type FoodCardProps = {
   name: string;
@@ -22,31 +24,31 @@ export default function FoodCard({
   const [liked, setLiked] = useState(false);
 
   return (
-    <div style={card}>
+    <div className={styles.card}>
       {/* IMAGE */}
       {image ? (
-        <img src={image} alt={name} style={img} />
+        <img src={image} alt={name} className={styles.img} />
       ) : (
-        <div style={noImg}>No Image</div>
+        <div className={styles.noImg}>No Image</div>
       )}
 
       {/* CONTENT */}
-      <div style={{ padding: "12px" }}>
-        <div style={title}>{name || "Tên quán..."}</div>
+      <div className={styles.content}>
+        <div className={styles.title}>{name || "Tên quán..."}</div>
 
-        <div style={addressStyle}>
+        <div className={styles.address}>
           {address || "Địa chỉ..."}
         </div>
 
-        <div style={ratingStyle}>⭐ {rating}</div>
+        <div className={styles.rating}>⭐ {rating}</div>
 
-        <div style={bottom}>
+        <div className={styles.bottom}>
           <div style={{ display: "flex", gap: "12px" }}>
-            <div style={iconRow}>
+            <div className={styles.iconRow}>
               <FaComment /> {comments}
             </div>
 
-            <div style={iconRow}>
+            <div className={styles.iconRow}>
               <FaCamera /> {photos}
             </div>
           </div>
@@ -57,13 +59,7 @@ export default function FoodCard({
               e.stopPropagation();
               setLiked(!liked);
             }}
-            style={{
-              cursor: "pointer",
-              color: liked ? "var(--like)" : "var(--muted-text)",
-              fontSize: "16px",
-              transition: "0.2s",
-              transform: liked ? "scale(1.2)" : "scale(1)",
-            }}
+            className={`${styles.like} ${liked ? styles.likeActive : ""}`}
           >
             <FaHeart />
           </div>
@@ -72,66 +68,3 @@ export default function FoodCard({
     </div>
   );
 }
-  
-{/* STYPE */}
-const card = {
-  width: "100%",
-  borderRadius: "14px",
-  overflow: "hidden",
-  background: "var(--card)",
-  color: "var(--card-text)",
-  border: "1px solid var(--border)",
-  cursor: "pointer",
-  transition: "0.25s",
-  boxShadow: "var(--shadow)",
-};
-
-const img = {
-  width: "100%",
-  height: "150px",
-  objectFit: "cover" as const,
-};
-
-const noImg = {
-  width: "100%",
-  height: "150px",
-  background: "var(--no-img-bg)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "var(--muted-text)",
-  fontSize: "13px",
-};
-
-const title = {
-  fontSize: "15px",
-  fontWeight: "600",
-  color: "var(--card-text)",
-};
-
-const addressStyle = {
-  fontSize: "13px",
-  color: "var(--muted-text)",
-  marginTop: "2px",
-};
-
-const ratingStyle = {
-  fontSize: "14px",
-  fontWeight: "600",
-  margin: "6px 0",
-  color: "var(--card-text)",
-};
-
-const bottom = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-};
-
-const iconRow = {
-  display: "flex",
-  alignItems: "center",
-  gap: "4px",
-  fontSize: "13px",
-  color: "var(--muted-text)",
-};

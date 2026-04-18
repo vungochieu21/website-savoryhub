@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import styles from "./ScrollToTopButton.module.css";
 
 export default function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
@@ -23,8 +24,8 @@ export default function ScrollToTopButton() {
 
     const animateScroll = (currentTime) => {
       if (!startTime) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
 
+      const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
 
@@ -38,32 +39,11 @@ export default function ScrollToTopButton() {
     requestAnimationFrame(animateScroll);
   };
 
+  if (!visible) return null;
+
   return (
-    visible && (
-      <button
-        onClick={scrollToTop}
-        style={{
-          position: "fixed",
-          bottom: "28px",
-          right: "28px",
-          width: "64px",        // ⬅️ to hơn
-          height: "64px",       // ⬅️ to hơn
-          borderRadius: "50%",  // ⬅️ hình tròn
-          backgroundColor: "#b30000",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-          display: "flex",      // ⬅️ căn giữa icon
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "30px",
-          zIndex: 9999,
-          boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
-          transition: "all 0.2s ease",
-        }}
-      >
-        <FontAwesomeIcon icon={faArrowUp} />
-      </button>
-    )
+    <button onClick={scrollToTop} className={styles.button}>
+      <FontAwesomeIcon icon={faArrowUp} />
+    </button>
   );
 }

@@ -15,6 +15,10 @@ import {
   FaHeart,
   FaSignOutAlt,
 } from "react-icons/fa";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 import { getCurrentUser, logoutUser } from "src/utils/Storage";
 import { useLanguage } from "src/locales/context/LanguageContext";
 
@@ -30,6 +34,10 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [user, setUser] = useState<any>(null);
+
+  // ✅ ADD
+  const [showProfile, setShowProfile] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
   const { lang, setLang, t } = useLanguage();
 
@@ -118,11 +126,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
                 </>
               ) : (
                 <>
-                  <button
-                    onClick={() =>
-                      alert(`Tên: ${user.name}\nEmail: ${user.email}`)
-                    }
-                  >
+                  <button onClick={() => setShowProfile(true)}>
                     <FaUserCircle /> {t("account")}
                   </button>
 
@@ -156,6 +160,43 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </div>
         )}
 
+        {/* ✅ PROFILE */}
+        {showProfile && (
+          <div
+            className="profile-popup"
+            onClick={() => setShowProfile(false)}
+          >
+            <div
+              className="profile-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="profile-title">👤 {t("account")}</div>
+
+              <p><b>Tài khoản:</b> {user?.name}</p>
+              <p><b>Email:</b> {user?.email}</p>
+              <p><b>Địa chỉ:</b> {user?.address || "Chưa có"}</p>
+
+              <div className="pass-row">
+                <b>Mật khẩu:</b>
+                <span>
+                  {showPass ? user?.password : "••••••••"}
+                </span>
+
+                <button onClick={() => setShowPass(!showPass)}>
+                  <FontAwesomeIcon icon={showPass ? faEyeSlash : faEye} />
+                </button>
+              </div>
+
+              <button
+                className="close-btn"
+                onClick={() => setShowProfile(false)}
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* SETTINGS */}
         <div className="settings">
           <button
@@ -169,12 +210,18 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
 
           {showSettings && (
-            <div className="dropdown">
+            <div
+              className="dropdown"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
                 <FaGlobe /> {t("language")} {flags[lang]}
               </button>
 
-              <div className="mode">
+              <div
+                className="mode"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <NightModeButton size={0.7} />
                 {t("mode")}
               </div>
@@ -214,7 +261,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
         }
 
-        /* 🔥 RESTORE SEARCH EFFECT */
         .search-box {
           width: 460px;
           margin-left: auto;
@@ -242,7 +288,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           font-size: 15px;
         }
 
-        /* 🔥 RESTORE SEARCH BUTTON HOVER EFFECT */
         .search-btn {
           width: 34px;
           height: 34px;
@@ -309,7 +354,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
           color: var(--navbar-text);
           text-align: left;
-          white-space: nowrap; /* 🔥 FIX MODE + TEXT KHÔNG RỚT DÒNG */
+          white-space: nowrap;
         }
 
         .dropdown button:hover {
@@ -321,7 +366,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           gap: 10px;
           padding: 10px;
-          white-space: nowrap; /* 🔥 FIX CHẾ ĐỘ KHÔNG XUỐNG HÀNG */
+          white-space: nowrap;
         }
 
         .favorites-popup {
@@ -345,6 +390,60 @@ export default function Navbar({ onAdd }: NavbarProps) {
         .favorites-body {
           font-size: 14px;
           opacity: 0.8;
+        }
+
+        /* ✅ ADD PROFILE STYLE */
+        .profile-popup {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.45);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10001;
+        }
+
+        .profile-card {
+          width: 320px;
+          background: var(--surface);
+          color: var(--navbar-text);
+          border-radius: 16px;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .profile-title {
+          font-weight: bold;
+          font-size: 16px;
+        }
+
+        .pass-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .pass-row button {
+          margin-left: auto;
+          background: #b30000;
+          color: white;
+          border: none;
+          padding: 6px 10px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+        .close-btn {
+          margin-top: 10px;
+          padding: 10px;
+          background: #b30000;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
         }
       `}</style>
     </div>

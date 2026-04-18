@@ -1,0 +1,35 @@
+.wrapper {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* MAP CONTAINER */
+.mapBox {
+  width: 100%;
+  max-width: 1000px;
+
+  border-radius: 16px;
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.map {
+  height: 500px;
+  width: 100%;
+}
+
+/* FOOTER */
+.attribution {
+  font-size: 12px;
+  margin-top: 8px;
+  opacity: 0.6;
+}

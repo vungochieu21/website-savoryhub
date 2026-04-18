@@ -4,7 +4,7 @@ import { useState } from "react";
 import Navbar from "src/components/layout/Navbar";
 import Footer from "src/components/layout/Footer";
 import FoodCard from "src/components/food/FoodCard";
-import foodsData from "@/data/food.json";
+import foodsData from "src/data/food.json";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
 import {
   FaMapMarkerAlt,
@@ -9,6 +10,8 @@ import {
   FaFileAlt,
   FaTimes,
 } from "react-icons/fa";
+
+import styles from "./FoodForm.module.css";
 
 export default function FoodForm({ onClose, onSave }: any) {
   const [mounted, setMounted] = useState(false);
@@ -67,87 +70,87 @@ export default function FoodForm({ onClose, onSave }: any) {
   if (!mounted) return null;
 
   return (
-    <div style={wrapper}>
-      <div ref={modalRef} style={modal}>
-        <button style={closeBtn} onClick={onClose}>
+    <div className={styles.wrapper}>
+      <div ref={modalRef} className={styles.modal}>
+        <button className={styles.closeBtn} onClick={onClose}>
           <FaTimes />
         </button>
 
-        <h2 style={title}>Thông tin bắt buộc</h2>
+        <h2 className={styles.title}>Thông tin bắt buộc</h2>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <FaFileAlt />
           <input
-            style={input}
+            className={styles.input}
             placeholder="Tên địa điểm"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </div>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <FaMapMarkerAlt />
           <input
-            style={input}
+            className={styles.input}
             placeholder="Địa chỉ"
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
           />
         </div>
 
-        <h3 style={subTitle}>Chọn tỉnh / thành phố</h3>
+        <h3 className={styles.subTitle}>Chọn tỉnh / thành phố</h3>
 
-        <div style={inputBox}>
-          <select style={input}>
+        <div className={styles.inputBox}>
+          <select className={styles.input}>
             <option>Việt Nam</option>
           </select>
         </div>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <input
-            style={input}
+            className={styles.input}
             placeholder="Nhập tỉnh / thành..."
             value={form.province}
             onChange={(e) => setForm({ ...form, province: e.target.value })}
           />
         </div>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <input
-            style={input}
+            className={styles.input}
             placeholder="Nhập quận / huyện..."
             value={form.district}
             onChange={(e) => setForm({ ...form, district: e.target.value })}
           />
         </div>
 
-        <h3 style={subTitle}>Thông tin khác</h3>
+        <h3 className={styles.subTitle}>Thông tin khác</h3>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <FaMapMarkerAlt />
           <input
-            style={input}
+            className={styles.input}
             placeholder="Link Google Maps..."
             value={form.map}
             onChange={(e) => setForm({ ...form, map: e.target.value })}
           />
         </div>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <FaPhone />
           <input
-            style={input}
+            className={styles.input}
             placeholder="Số điện thoại"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
         </div>
 
-        <div style={timeWrap}>
-          <div style={{ ...inputBox, color: "var(--card-text)" }}>
+        <div className={styles.timeWrap}>
+          <div className={styles.inputBox}>
             <FaClock />
             <input
-              style={input}
+              className={styles.input}
               type="time"
               value={form.openTime}
               onChange={(e) =>
@@ -156,10 +159,10 @@ export default function FoodForm({ onClose, onSave }: any) {
             />
           </div>
 
-          <div style={{ ...inputBox, color: "var(--card-text)" }}>
+          <div className={styles.inputBox}>
             <FaClock />
             <input
-              style={input}
+              className={styles.input}
               type="time"
               value={form.closeTime}
               onChange={(e) =>
@@ -169,11 +172,11 @@ export default function FoodForm({ onClose, onSave }: any) {
           </div>
         </div>
 
-        <div style={timeWrap}>
-          <div style={inputBox}>
+        <div className={styles.timeWrap}>
+          <div className={styles.inputBox}>
             <FaMoneyBill />
             <input
-              style={input}
+              className={styles.input}
               placeholder="Giá thấp (VNĐ)"
               value={form.minPrice}
               onChange={(e) =>
@@ -182,10 +185,10 @@ export default function FoodForm({ onClose, onSave }: any) {
             />
           </div>
 
-          <div style={inputBox}>
+          <div className={styles.inputBox}>
             <FaMoneyBill />
             <input
-              style={input}
+              className={styles.input}
               placeholder="Giá cao (VNĐ)"
               value={form.maxPrice}
               onChange={(e) =>
@@ -195,10 +198,11 @@ export default function FoodForm({ onClose, onSave }: any) {
           </div>
         </div>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <FaFileAlt />
           <textarea
-            style={{ ...input, height: 80 }}
+            className={styles.input}
+            style={{ height: 80 }}
             maxLength={300}
             placeholder="Mô tả địa điểm..."
             value={form.description}
@@ -208,9 +212,9 @@ export default function FoodForm({ onClose, onSave }: any) {
           />
         </div>
 
-        <div style={inputBox}>
+        <div className={styles.inputBox}>
           <FaImage />
-          <label style={fileLabel}>
+          <label className={styles.fileLabel}>
             Chọn hình ảnh
             <input
               type="file"
@@ -221,7 +225,10 @@ export default function FoodForm({ onClose, onSave }: any) {
         </div>
 
         <div style={{ textAlign: "right", marginTop: 20 }}>
-          <button style={saveBtn} onClick={() => onSave?.(form)}>
+          <button
+            className={styles.saveBtn}
+            onClick={() => onSave?.(form)}
+          >
             Lưu
           </button>
         </div>
@@ -229,86 +236,3 @@ export default function FoodForm({ onClose, onSave }: any) {
     </div>
   );
 }
-
-/* STYLE */
-const wrapper: React.CSSProperties = {
-  position: "fixed",
-  inset: 0,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 9999,
-};
-
-const modal: React.CSSProperties = {
-  width: "650px",
-  maxHeight: "90vh",
-  overflowY: "auto",
-  background: "var(--surface)",
-  color: "var(--card-text)",
-  padding: "25px",
-  borderRadius: "15px",
-  position: "relative",
-};
-
-const title: React.CSSProperties = {
-  fontSize: "22px",
-  fontWeight: "bold",
-  marginBottom: "10px",
-};
-
-const subTitle: React.CSSProperties = {
-  marginTop: "20px",
-  marginBottom: "10px",
-  fontWeight: "bold",
-};
-
-const closeBtn: React.CSSProperties = {
-  position: "absolute",
-  top: 15,
-  right: 15,
-  fontSize: "20px",
-  cursor: "pointer",
-  background: "transparent",
-  border: "none",
-};
-
-const inputBox: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-  marginBottom: "15px",
-};
-
-const input: React.CSSProperties = {
-  flex: 1,
-  padding: "10px",
-  borderRadius: "8px",
-  border: "1px solid #ccc",
-  background: "transparent",
-  color: "var(--card-text)",
-};
-
-const timeWrap: React.CSSProperties = {
-  display: "flex",
-  gap: "10px",
-};
-
-const saveBtn: React.CSSProperties = {
-  padding: "10px 20px",
-  borderRadius: "8px",
-  cursor: "pointer",
-  background: "#b30000",
-  color: "#fff",
-  border: "none",
-};
-
-const fileLabel: React.CSSProperties = {
-  flex: 1,
-  padding: "10px",
-  borderRadius: "8px",
-  border: "1px solid #ccc",
-  cursor: "pointer",
-  background: "transparent",
-  color: "var(--card-text)",
-};

@@ -1,7 +1,9 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import styles from "./NightModeButton.module.css";
 
 export default function NightModeButton({ size = 1 }) {
   const [dark, setDark] = useState(false);
@@ -33,29 +35,29 @@ export default function NightModeButton({ size = 1 }) {
 
   const handleToggle = (e: any) => {
     e?.stopPropagation();
-
     setDark((prev) => !prev);
   };
+
+  const width = 60 * size;
+  const height = 30 * size;
+  const sliderSize = 24 * size;
 
   return (
     <div
       onClick={handleToggle}
-      className="relative flex items-center cursor-pointer select-none"
-      style={{
-        width: 60 * size,
-        height: 30 * size,
-      }}
+      className={styles.wrapper}
+      style={{ width, height }}
     >
-      {/* Background */}
+      {/* BACKGROUND */}
       <div
-        className={`absolute w-full h-full rounded-full transition-colors duration-500 ${
-          dark ? "bg-gray-900" : "bg-gray-200"
+        className={`${styles.bg} ${
+          dark ? styles.bgDark : styles.bgLight
         }`}
       />
 
       {/* SUN */}
       <div
-        className="absolute left-2 flex items-center justify-center"
+        className={`${styles.icon} ${styles.sun}`}
         style={{ fontSize: 12 * size }}
       >
         <FontAwesomeIcon
@@ -69,7 +71,7 @@ export default function NightModeButton({ size = 1 }) {
 
       {/* MOON */}
       <div
-        className="absolute right-2 flex items-center justify-center"
+        className={`${styles.icon} ${styles.moon}`}
         style={{ fontSize: 12 * size }}
       >
         <FontAwesomeIcon
@@ -83,15 +85,13 @@ export default function NightModeButton({ size = 1 }) {
 
       {/* SLIDER */}
       <div
-        className="bg-white rounded-full shadow-md absolute"
+        className={styles.slider}
         style={{
-          width: 24 * size,
-          height: 24 * size,
-          top: "50%",
+          width: sliderSize,
+          height: sliderSize,
           transform: dark
-            ? `translate3d(${(60 - 21 - 6) * size}px, -50%, 0)`
-            : `translate3d(3px, -50%, 0)`,
-          transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+            ? `translate(${(60 - 21 - 6) * size}px, -50%)`
+            : `translate(3px, -50%)`,
         }}
       />
     </div>
