@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { registerUser } from "@/utils/Storage";
+import { registerUser } from "src/utils/Storage";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -11,14 +12,14 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
+    address: "",
   });
 
   const [error, setError] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
-  // 🔥 CHỈ THÊM CÁI NÀY - KHÔNG ĐỤNG GÌ KHÁC
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -32,7 +33,7 @@ export default function RegisterPage() {
   };
 
   const handleRegister = () => {
-    if (!form.name || !form.email || !form.password) {
+    if (!form.name || !form.email || !form.password || !form.address) {
       setError("Vui lòng nhập đầy đủ thông tin");
       return;
     }
@@ -60,23 +61,29 @@ export default function RegisterPage() {
 
         {error && <p className="error">{error}</p>}
 
-        <input
-          name="name"
-          placeholder="Tên của bạn"
-          onChange={handleChange}
-        />
+        <input name="name" placeholder="Tài khoản" onChange={handleChange} />
+
+        <input name="email" placeholder="Email" onChange={handleChange} />
+
+        <div className="password-wrap">
+          <input
+            name="password"
+            type={showPass ? "text" : "password"}
+            placeholder="Mật khẩu"
+            onChange={handleChange}
+            onKeyDown={(e) => e.key === "Enter" && handleRegister()}
+          />
+
+          <span className="eye" onClick={() => setShowPass(!showPass)}>
+            {showPass ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
         <input
-          name="email"
-          placeholder="Email"
+          name="address"
+          placeholder="Địa chỉ"
           onChange={handleChange}
-        />
-
-        <input
-          name="password"
-          type="password"
-          placeholder="Mật khẩu"
-          onChange={handleChange}
+          onKeyDown={(e) => e.key === "Enter" && handleRegister()}
         />
 
         <button onClick={handleRegister}>
@@ -95,16 +102,18 @@ export default function RegisterPage() {
       <style jsx>{`
         .page {
           min-height: 100vh;
-          width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
           background: linear-gradient(135deg, #f5f5f5, #eaeaea);
         }
 
+        :global(.dark) .page {
+          background: linear-gradient(135deg, #1a1a1a, #111);
+        }
+
         .card {
           width: 480px;
-          max-width: 96%;
           padding: 60px 45px;
           background: white;
           border-radius: 20px;
@@ -113,6 +122,11 @@ export default function RegisterPage() {
           flex-direction: column;
           gap: 16px;
           text-align: center;
+        }
+
+        :global(.dark) .card {
+          background: #1f1f1f;
+          color: white;
         }
 
         .logo {
@@ -131,6 +145,26 @@ export default function RegisterPage() {
           border: 1px solid #ddd;
           border-radius: 10px;
           outline: none;
+          width: 100%;
+        }
+
+        :global(.dark) input {
+          background: #2a2a2a;
+          border: 1px solid #444;
+          color: white;
+        }
+
+        .password-wrap {
+          position: relative;
+        }
+
+        .eye {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          opacity: 0.7;
         }
 
         button {
@@ -145,10 +179,6 @@ export default function RegisterPage() {
 
         .error {
           color: red;
-          font-size: 13px;
-        }
-
-        .footerText {
           font-size: 13px;
         }
 

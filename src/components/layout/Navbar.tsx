@@ -169,12 +169,18 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
 
           {showSettings && (
-            <div className="dropdown">
+            <div
+              className="dropdown"
+              onClick={(e) => e.stopPropagation()} // ⭐ FIX 1
+            >
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
                 <FaGlobe /> {t("language")} {flags[lang]}
               </button>
 
-              <div className="mode">
+              <div
+                className="mode"
+                onClick={(e) => e.stopPropagation()} // ⭐ FIX 2
+              >
                 <NightModeButton size={0.7} />
                 {t("mode")}
               </div>
@@ -214,7 +220,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
         }
 
-        /* 🔥 RESTORE SEARCH EFFECT */
         .search-box {
           width: 460px;
           margin-left: auto;
@@ -242,7 +247,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           font-size: 15px;
         }
 
-        /* 🔥 RESTORE SEARCH BUTTON HOVER EFFECT */
         .search-btn {
           width: 34px;
           height: 34px;
@@ -309,7 +313,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
           color: var(--navbar-text);
           text-align: left;
-          white-space: nowrap; /* 🔥 FIX MODE + TEXT KHÔNG RỚT DÒNG */
+          white-space: nowrap;
         }
 
         .dropdown button:hover {
@@ -321,7 +325,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           gap: 10px;
           padding: 10px;
-          white-space: nowrap; /* 🔥 FIX CHẾ ĐỘ KHÔNG XUỐNG HÀNG */
+          white-space: nowrap;
         }
 
         .favorites-popup {
