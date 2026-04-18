@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
@@ -7,13 +6,11 @@ import styles from "./NightModeButton.module.css";
 
 export default function NightModeButton({ size = 1 }) {
 
-  // ⭐ FIX: init state từ localStorage NGAY TỪ ĐẦU
   const [dark, setDark] = useState(() => {
     if (typeof window === "undefined") return false;
     return localStorage.getItem("theme") === "dark";
   });
 
-  // ⭐ CHỈ GIỮ 1 useEffect này
   useEffect(() => {
     const root = document.documentElement;
 
@@ -31,27 +28,29 @@ export default function NightModeButton({ size = 1 }) {
     setDark((prev) => !prev);
   };
 
-  const width = 60 * size;
-  const height = 30 * size;
-  const sliderSize = 24 * size;
-
   return (
     <div
       onClick={handleToggle}
       className={styles.wrapper}
-      style={{ width, height }}
+      style={{
+        width: 60 * size,
+        height: 30 * size,
+      }}
     >
-      {/* BACKGROUND */}
+      {/* Background */}
       <div
-        className={`${styles.bg} ${
-          dark ? styles.bgDark : styles.bgLight
+        className={`${styles.background} ${
+          dark ? styles.darkBg : styles.lightBg
         }`}
       />
 
       {/* SUN */}
       <div
-        className={`${styles.icon} ${styles.sun}`}
-        style={{ fontSize: 12 * size }}
+        className={styles.icon}
+        style={{
+          left: 8,
+          fontSize: 12 * size,
+        }}
       >
         <FontAwesomeIcon
           icon={faSun}
@@ -64,8 +63,11 @@ export default function NightModeButton({ size = 1 }) {
 
       {/* MOON */}
       <div
-        className={`${styles.icon} ${styles.moon}`}
-        style={{ fontSize: 12 * size }}
+        className={styles.icon}
+        style={{
+          right: 8,
+          fontSize: 12 * size,
+        }}
       >
         <FontAwesomeIcon
           icon={faMoon}
@@ -80,11 +82,11 @@ export default function NightModeButton({ size = 1 }) {
       <div
         className={styles.slider}
         style={{
-          width: sliderSize,
-          height: sliderSize,
+          width: 24 * size,
+          height: 24 * size,
           transform: dark
-            ? `translate(${(60 - 21 - 6) * size}px, -50%)`
-            : `translate(3px, -50%)`,
+            ? `translate3d(${(60 - 21 - 6) * size}px, -50%, 0)`
+            : `translate3d(3px, -50%, 0)`,
         }}
       />
     </div>

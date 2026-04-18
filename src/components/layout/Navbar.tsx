@@ -16,6 +16,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
+// ✅ ADD ICON
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -35,6 +36,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showFavorites, setShowFavorites] = useState(false);
   const [user, setUser] = useState<any>(null);
 
+  // ✅ ADD
   const [showProfile, setShowProfile] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
@@ -159,9 +161,12 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </div>
         )}
 
-        {/* PROFILE */}
+        {/* ✅ PROFILE */}
         {showProfile && (
-          <div className="profile-popup" onClick={() => setShowProfile(false)}>
+          <div
+            className="profile-popup"
+            onClick={() => setShowProfile(false)}
+          >
             <div
               className="profile-card"
               onClick={(e) => e.stopPropagation()}
@@ -174,7 +179,9 @@ export default function Navbar({ onAdd }: NavbarProps) {
 
               <div className="pass-row">
                 <b>Mật khẩu:</b>
-                <span>{showPass ? user?.password : "••••••••"}</span>
+                <span>
+                  {showPass ? user?.password : "••••••••"}
+                </span>
 
                 <button onClick={() => setShowPass(!showPass)}>
                   <FontAwesomeIcon icon={showPass ? faEyeSlash : faEye} />
@@ -225,7 +232,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
 
       </div>
 
-      {/* STYLE */}
+      {/* ================= STYLE FIX ================= */}
       <style jsx>{`
         .navbar {
           position: fixed;
@@ -265,6 +272,12 @@ export default function Navbar({ onAdd }: NavbarProps) {
           border-radius: 999px;
           padding: 6px 10px 6px 18px;
           gap: 10px;
+          transition: 0.2s;
+        }
+
+        .search-box:focus-within {
+          box-shadow: 0 0 0 2px #b30000;
+          transform: scale(1.02);
         }
 
         .search-box input {
@@ -273,6 +286,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           outline: none;
           background: transparent;
           color: var(--navbar-text);
+          font-size: 15px;
         }
 
         .search-btn {
@@ -281,6 +295,18 @@ export default function Navbar({ onAdd }: NavbarProps) {
           border: none;
           background: transparent;
           border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--navbar-text);
+          transition: 0.2s;
+        }
+
+        .search-btn:hover {
+          background: #b30000;
+          color: white;
+          transform: scale(1.15);
         }
 
         .icon-btn {
@@ -293,6 +319,18 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          transition: 0.2s;
+          color: var(--navbar-text);
+        }
+
+        .icon-btn:hover {
+          background: #b30000;
+          color: white;
+        }
+
+        .settings,
+        .user-menu {
+          position: relative;
         }
 
         .dropdown {
@@ -304,6 +342,109 @@ export default function Navbar({ onAdd }: NavbarProps) {
           border-radius: 12px;
           padding: 10px;
           min-width: 180px;
+        }
+
+        .dropdown button {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          padding: 10px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          color: var(--navbar-text);
+          text-align: left;
+          white-space: nowrap;
+        }
+
+        .dropdown button:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        .mode {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px;
+          white-space: nowrap;
+        }
+
+        .favorites-popup {
+          position: fixed;
+          top: 80px;
+          right: 20px;
+          width: 260px;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+          padding: 12px;
+          z-index: 10000;
+        }
+
+        .favorites-header {
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .favorites-body {
+          font-size: 14px;
+          opacity: 0.8;
+        }
+
+        /* ✅ ADD PROFILE STYLE */
+        .profile-popup {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.45);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10001;
+        }
+
+        .profile-card {
+          width: 320px;
+          background: var(--surface);
+          color: var(--navbar-text);
+          border-radius: 16px;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .profile-title {
+          font-weight: bold;
+          font-size: 16px;
+        }
+
+        .pass-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .pass-row button {
+          margin-left: auto;
+          background: #b30000;
+          color: white;
+          border: none;
+          padding: 6px 10px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+        .close-btn {
+          margin-top: 10px;
+          padding: 10px;
+          background: #b30000;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
         }
       `}</style>
     </div>
