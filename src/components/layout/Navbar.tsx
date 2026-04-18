@@ -15,7 +15,8 @@ import {
   FaHeart,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { getCurrentUser, logoutUser } from "@/utils/Storage";
+import { getCurrentUser, logoutUser } from "src/utils/Storage";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 type NavbarProps = {
   onAdd: () => void;
@@ -30,23 +31,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showFavorites, setShowFavorites] = useState(false);
   const [user, setUser] = useState<any>(null);
 
-  const [lang, setLang] = useState("vi");
-
-  const t = (key: string) => {
-    const dict: any = {
-      search: "Tìm kiếm...",
-      login: "Đăng nhập",
-      register: "Đăng ký",
-      account: "Tài khoản",
-      logout: "Đăng xuất",
-      favorites: "Yêu thích",
-      empty_favorite: "Chưa có món nào",
-      language: "Ngôn ngữ",
-      mode: "Chế độ",
-    };
-
-    return dict[key] || key;
-  };
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleAuth = () => {
@@ -199,6 +184,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
 
       </div>
 
+      {/* ================= STYLE FIX ================= */}
       <style jsx>{`
         .navbar {
           position: fixed;
@@ -228,6 +214,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
         }
 
+        /* 🔥 RESTORE SEARCH EFFECT */
         .search-box {
           width: 460px;
           margin-left: auto;
@@ -255,6 +242,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           font-size: 15px;
         }
 
+        /* 🔥 RESTORE SEARCH BUTTON HOVER EFFECT */
         .search-btn {
           width: 34px;
           height: 34px;
@@ -321,7 +309,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
           color: var(--navbar-text);
           text-align: left;
-          white-space: nowrap;
+          white-space: nowrap; /* 🔥 FIX MODE + TEXT KHÔNG RỚT DÒNG */
         }
 
         .dropdown button:hover {
@@ -333,7 +321,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           gap: 10px;
           padding: 10px;
-          white-space: nowrap;
+          white-space: nowrap; /* 🔥 FIX CHẾ ĐỘ KHÔNG XUỐNG HÀNG */
         }
 
         .favorites-popup {

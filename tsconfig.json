@@ -14,15 +14,21 @@
     "jsx": "react-jsx",
     "incremental": true,
 
+    /* =========================
+       NEXT.JS PLUGIN (GIỮ NGUYÊN)
+    ========================= */
     "plugins": [
       {
         "name": "next"
       }
     ],
 
+    /* =========================
+       FIX ALIAS IMPORT (QUAN TRỌNG)
+    ========================= */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./*"]
     }
   },
 
