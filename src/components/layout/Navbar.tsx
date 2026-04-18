@@ -23,27 +23,43 @@ type NavbarProps = {
 
 export default function Navbar({ onAdd }: NavbarProps) {
   const router = useRouter();
+
   const [search, setSearch] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
-  const [lang, setLang] = useState("vi");
   const [user, setUser] = useState<any>(null);
 
+  const [lang, setLang] = useState("vi");
+
+  const t = (key: string) => {
+    const dict: any = {
+      search: "Tìm kiếm...",
+      login: "Đăng nhập",
+      register: "Đăng ký",
+      account: "Tài khoản",
+      logout: "Đăng xuất",
+      favorites: "Yêu thích",
+      empty_favorite: "Chưa có món nào",
+      language: "Ngôn ngữ",
+      mode: "Chế độ",
+    };
+
+    return dict[key] || key;
+  };
+
   useEffect(() => {
-  const handleAuth = () => {
+    const handleAuth = () => {
+      setUser(getCurrentUser());
+    };
+
+    window.addEventListener("authChange", handleAuth);
     setUser(getCurrentUser());
-  };
 
-  window.addEventListener("authChange", handleAuth);
-
-  // 🔥 load lần đầu khi mở trang
-  setUser(getCurrentUser());
-
-  return () => {
-    window.removeEventListener("authChange", handleAuth);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("authChange", handleAuth);
+    };
+  }, []);
 
   const flags: any = {
     vi: "🇻🇳",
@@ -55,18 +71,15 @@ export default function Navbar({ onAdd }: NavbarProps) {
     router.push("/filter");
   };
 
-  // ⭐ ADD ONLY THIS FUNCTION
   const openFavorites = () => {
     setShowFavorites(true);
-
-    setTimeout(() => {
-      setShowFavorites(false);
-    }, 5000); // 5 giây tự tắt
+    setTimeout(() => setShowFavorites(false), 5000);
   };
 
   return (
     <div className="navbar">
       <div className="nav-inner">
+
         {/* LOGO */}
         <span className="logo" onClick={() => router.push("/")}>
           Tastii
@@ -78,7 +91,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            placeholder="Tìm địa điểm, món ăn..."
+            placeholder={t("search")}
           />
 
           <button onClick={handleSearch} className="search-btn">
@@ -86,16 +99,17 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
         </div>
 
-        {/* ICON BUTTONS */}
+        {/* FILTER */}
         <button className="icon-btn" onClick={() => router.push("/filter")}>
           <FaFilter />
         </button>
 
+        {/* ADD */}
         <button className="icon-btn" onClick={onAdd}>
           <FaPlus />
         </button>
 
-        {/* USER MENU */}
+        {/* USER */}
         <div className="user-menu">
           <button
             className="icon-btn"
@@ -105,51 +119,54 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
 
           {showUserMenu && (
-  <div className="dropdown user-dropdown">
+            <div className="dropdown user-dropdown">
 
-    {!user ? (
-      <>
-        <button onClick={() => router.push("/login")}>
-          <FaSignInAlt /> Đăng nhập
-        </button>
+              {!user ? (
+                <>
+                  <button onClick={() => router.push("/login")}>
+                    <FaSignInAlt /> {t("login")}
+                  </button>
 
-        <button onClick={() => router.push("/register")}>
-          <FaUserPlus /> Đăng ký
-        </button>
-      </>
-    ) : (
-      <>
-        <button onClick={() => alert(`Tên: ${user.name}\nEmail: ${user.email}`)}>
-          <FaUserCircle /> Tài khoản
-        </button>
+                  <button onClick={() => router.push("/register")}>
+                    <FaUserPlus /> {t("register")}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() =>
+                      alert(`Tên: ${user.name}\nEmail: ${user.email}`)
+                    }
+                  >
+                    <FaUserCircle /> {t("account")}
+                  </button>
 
-        <button
-          onClick={() => {
-            logoutUser();
-            setUser(null);
-            window.dispatchEvent(new Event("authChange"));
-          }}
-        >
-          <FaSignOutAlt /> Đăng xuất
-        </button>
-      </>
-    )}
+                  <button
+                    onClick={() => {
+                      logoutUser();
+                      setUser(null);
+                      window.dispatchEvent(new Event("authChange"));
+                    }}
+                  >
+                    <FaSignOutAlt /> {t("logout")}
+                  </button>
+                </>
+              )}
 
-    <button onClick={openFavorites}>
-      <FaHeart /> Yêu thích
-    </button>
+              <button onClick={openFavorites}>
+                <FaHeart /> {t("favorites")}
+              </button>
 
-  </div>
-)}
+            </div>
+          )}
         </div>
 
-        {/* FAVORITES POPUP */}
+        {/* FAVORITES */}
         {showFavorites && (
           <div className="favorites-popup">
-            <div className="favorites-header">❤️ Danh sách yêu thích</div>
-
+            <div className="favorites-header">❤️ {t("favorites")}</div>
             <div className="favorites-body">
-              <p>Chưa có món nào được yêu thích</p>
+              <p>{t("empty_favorite")}</p>
             </div>
           </div>
         )}
@@ -159,36 +176,29 @@ export default function Navbar({ onAdd }: NavbarProps) {
           <button
             className="icon-btn"
             onClick={(e) => {
-                e.stopPropagation();
-                setShowSettings((prev) => !prev);
-        }}
+              e.stopPropagation();
+              setShowSettings((prev) => !prev);
+            }}
           >
             <FaCog />
           </button>
 
           {showSettings && (
-<<<<<<< HEAD:components/Navbar.tsx
             <div className="dropdown">
-=======
-            <div
-              className="dropdown"
-              onClick={(e) => e.stopPropagation()}
-            >
->>>>>>> 30b154c (update v3.7):src/components/layout/Navbar.tsx
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
-                <FaGlobe /> Ngôn ngữ {flags[lang]}
+                <FaGlobe /> {t("language")} {flags[lang]}
               </button>
 
               <div className="mode">
                 <NightModeButton size={0.7} />
-                Chế độ
+                {t("mode")}
               </div>
             </div>
           )}
         </div>
+
       </div>
 
-      {/* STYLE */}
       <style jsx>{`
         .navbar {
           position: fixed;
@@ -232,7 +242,8 @@ export default function Navbar({ onAdd }: NavbarProps) {
         }
 
         .search-box:focus-within {
-          box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.75);
+          box-shadow: 0 0 0 2px #b30000;
+          transform: scale(1.02);
         }
 
         .search-box input {
@@ -261,7 +272,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
         .search-btn:hover {
           background: #b30000;
           color: white;
-          transform: scale(1.1);
+          transform: scale(1.15);
         }
 
         .icon-btn {
@@ -297,7 +308,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           border-radius: 12px;
           padding: 10px;
           min-width: 180px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
         }
 
         .dropdown button {
@@ -311,14 +321,11 @@ export default function Navbar({ onAdd }: NavbarProps) {
           cursor: pointer;
           color: var(--navbar-text);
           text-align: left;
+          white-space: nowrap;
         }
 
         .dropdown button:hover {
           background: rgba(0, 0, 0, 0.05);
-        }
-
-        .dropdown button svg {
-          margin-right: 8px;
         }
 
         .mode {
@@ -326,9 +333,9 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           gap: 10px;
           padding: 10px;
+          white-space: nowrap;
         }
 
-        /* FAVORITES POPUP */
         .favorites-popup {
           position: fixed;
           top: 80px;

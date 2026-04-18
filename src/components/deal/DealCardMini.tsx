@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 type Deal = {
   id: number;
   shop: string;
@@ -7,6 +9,8 @@ type Deal = {
   price: number;
   oldPrice: number;
   image?: string;
+  code: string;
+  desc: string;
 };
 
 const deals: Deal[] = [
@@ -17,6 +21,8 @@ const deals: Deal[] = [
     price: 150000,
     oldPrice: 215000,
     image: "https://img.dominos.vn/musttry+(6).jpg",
+    code: "PIZZA30",
+    desc: "Pizza phô mai kéo sợi siêu đã, ăn là ghiền!",
   },
   {
     id: 2,
@@ -24,7 +30,10 @@ const deals: Deal[] = [
     name: "Combo Nhóm 3 Đủ Đầy",
     price: 150000,
     oldPrice: 300000,
-    image: "https://static.kfcvietnam.com.vn/images/items/lg/D.BUCKET2.jpg?v=4BBbw4",
+    image:
+      "https://static.kfcvietnam.com.vn/images/items/lg/D.BUCKET2.jpg?v=4BBbw4",
+    code: "KFCGROUP50",
+    desc: "Combo gà rán cho nhóm bạn, ăn no căng bụng!",
   },
   {
     id: 3,
@@ -32,11 +41,22 @@ const deals: Deal[] = [
     name: "Combo cặp đôi",
     price: 159000,
     oldPrice: 199000,
-    image: "https://burgerking.vn/media/catalog/product/cache/1/small_image/316x/9df78eab33525d08d6e5fb8d27136e95/s/h/sharing_combo_199.jpg",
+    image:
+      "https://burgerking.vn/media/catalog/product/cache/1/small_image/316x/9df78eab33525d08d6e5fb8d27136e95/s/h/sharing_combo_199.jpg",
+    code: "LOVEBK20",
+    desc: "Combo hoàn hảo cho 2 người, vừa ngon vừa tiết kiệm!",
   },
 ];
 
 export default function DealSection() {
+  const [copiedId, setCopiedId] = useState<number | null>(null);
+
+  const handleCopy = (code: string, id: number) => {
+    navigator.clipboard.writeText(code);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 1500);
+  };
+
   return (
     <div className="w-full flex justify-center px-4 mt-14">
       <div className="w-full max-w-[1200px]">
@@ -90,10 +110,9 @@ export default function DealSection() {
                   {deal.name}
                 </p>
 
-                {/* DESC */}
+                {/* DESC (dynamic) */}
                 <p className="text-[var(--foreground)] opacity-60 mt-4 leading-relaxed">
-                  Ưu đãi hấp dẫn dành riêng cho bạn. Thưởng thức món ngon
-                  với giá siêu tiết kiệm!
+                  {deal.desc}
                 </p>
 
                 {/* PROMO */}
@@ -104,12 +123,15 @@ export default function DealSection() {
                     </p>
 
                     <p className="font-bold text-xl text-[var(--foreground)]">
-                      GIAMGIA{deal.id}30
+                      {deal.code}
                     </p>
                   </div>
 
-                  <button className="border px-4 py-2 rounded-xl text-[var(--foreground)] hover:bg-black/10 transition">
-                    Sao chép
+                  <button
+                    onClick={() => handleCopy(deal.code, deal.id)}
+                    className="border px-4 py-2 rounded-xl text-[var(--foreground)] hover:bg-black/10 transition"
+                  >
+                    {copiedId === deal.id ? "Đã copy!" : "Sao chép"}
                   </button>
                 </div>
 

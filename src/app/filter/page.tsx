@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FoodCard from "@/components/FoodCard";
+import Navbar from "src/components/layout/Navbar";
+import Footer from "src/components/layout/Footer";
+import FoodCard from "src/components/food/FoodCard";
 import foodsData from "@/data/food.json";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
