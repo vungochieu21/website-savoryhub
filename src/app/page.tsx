@@ -3,21 +3,21 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-import Navbar from "@/components/Navbar";
-import Banner from "@/components/Banner";
-import DealCardMini from "@/components/DealCardMini";
-import ExclusiveDeal from "@/components/ExclusiveDeal";
-import BannerMini from "@/components/BannerMini";
-import RestaurantList from "@/components/RestaurantList";
-import Testimonials from "@/components/Testimonials";
-import Footer from "@/components/Footer";
-import NearbyRestaurant from "@/components/NearbyRestaurant";
+import Navbar from "src/components/layout/Navbar";
+import Banner from "src/components/layout/Banner";
+import DealCardMini from "src/components/deal/DealCardMini";
+import ExclusiveDeal from "src/components/deal/ExclusiveDeal";
+import BannerMini from "src/components/layout/BannerMini";
+import RestaurantList from "src/components/food/RestaurantList";
+import Testimonials from "src/components/section/Testimonials";
+import Footer from "src/components/layout/Footer";
+import NearbyRestaurant from "src/components/food/NearbyRestaurant";
 
-const FoodForm = dynamic(() => import("@/components/FoodForm"), {
+const FoodForm = dynamic(() => import("src/components/food/FoodForm"), {
   ssr: false,
 });
 
-const GoogleMap = dynamic(() => import("@/components/GoogleMap"), {
+const GoogleMap = dynamic(() => import("src/components/section/GoogleMap"), {
   ssr: false,
 });
 

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import FoodCard from "./FoodCard";
 
-/* THEME (CHỈNH MÀU 1 CHỖ) */
+/* THEME */
 const theme = {
   bg: "#000000",
   card: "#333333",

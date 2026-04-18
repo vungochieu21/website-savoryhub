@@ -1,7 +1,7 @@
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import Script from "next/script";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
+import ScrollToTopButton from "src/components/ui/ScrollToTopButton";
 
 export const metadata = {
   title: "SavoryHub",
@@ -12,7 +12,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* ✅ FIX: chỉ SET INIT 1 LẦN, không override sau khi React chạy */}
         <Script id="theme-script" strategy="beforeInteractive">
           {`
             (function () {
@@ -34,7 +33,6 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>
-        {/* ⭐ FIX NAVBAR OVERLAP AWARENESS */}
         <div style={{ paddingTop: "70px" }}>
           {children}
         </div>

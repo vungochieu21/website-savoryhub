@@ -13,10 +13,8 @@ export default function BannerMini() {
     { id: 5, img: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e14621138253883.622d7b23cc6ea.png" },
   ];
 
-  // duplicate để chạy loop mượt
   const loopBanners = [...banners, ...banners];
-
-  const CARD_WIDTH = 33.3333; // 3 card / màn hình
+  const CARD_WIDTH = 33.3333;
 
   useEffect(() => {
     const interval = setInterval(() => {

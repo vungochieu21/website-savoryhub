@@ -3,9 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-/* =========================
-   DATA
-========================= */
+/* DATA */
 const places = [
   { name: "Phở Hòa Pasteur", lat: 10.7829, lng: 106.6963, open: "06:00", close: "22:00" },
   { name: "Bún Bò Huế Đông Ba", lat: 10.7765, lng: 106.7009, open: "07:00", close: "21:00" },
@@ -31,9 +29,7 @@ function isOpen(open: string, close: string) {
   return current >= openTime && current <= closeTime;
 }
 
-/* =========================
-   MAP INNER
-========================= */
+/* MAP INNER */
 function MapInner() {
   const [Leaflet, setLeaflet] = useState<any>(null);
 
@@ -43,7 +39,6 @@ function MapInner() {
       import("react-leaflet"),
       import("leaflet/dist/leaflet.css"),
     ]).then(([L, RL]) => {
-      // FIX ICON
       delete (L.Icon.Default.prototype as any)._getIconUrl;
 
       L.Icon.Default.mergeOptions({
@@ -92,7 +87,7 @@ function MapInner() {
           center={[10.7769, 106.7009]}
           zoom={13}
           style={{ height: "500px", width: "100%" }}
-          attributionControl={false} // 👈 tắt logo góc phải
+          attributionControl={false} 
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -119,7 +114,7 @@ function MapInner() {
         </MapContainer>
       </div>
 
-      {/* 👇 Attribution hợp lệ (thay cho logo bị ẩn) */}
+      {/*  Attribution */}
       <p style={{ fontSize: "12px", marginTop: "8px", opacity: 0.6 }}>
         © OpenStreetMap contributors
       </p>
@@ -127,9 +122,7 @@ function MapInner() {
   );
 }
 
-/* =========================
-   EXPORT (NO SSR)
-========================= */
+/* EXPORT */
 export default dynamic(() => Promise.resolve(MapInner), {
   ssr: false,
 });

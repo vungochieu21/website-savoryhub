@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import NightModeButton from "./NightModeButton";
+import NightModeButton from "../ui/NightModeButton";
 import {
   FaSearch,
   FaFilter,
@@ -23,7 +23,6 @@ type NavbarProps = {
 
 export default function Navbar({ onAdd }: NavbarProps) {
   const router = useRouter();
-
   const [search, setSearch] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -168,7 +167,14 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
 
           {showSettings && (
+<<<<<<< HEAD:components/Navbar.tsx
             <div className="dropdown">
+=======
+            <div
+              className="dropdown"
+              onClick={(e) => e.stopPropagation()}
+            >
+>>>>>>> 30b154c (update v3.7):src/components/layout/Navbar.tsx
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
                 <FaGlobe /> Ngôn ngữ {flags[lang]}
               </button>

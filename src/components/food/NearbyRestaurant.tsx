@@ -160,10 +160,9 @@ export default function NearbyFood() {
 
       {/* CSS */}
       <style jsx>{`
-        /* 🔥 CHỈ NỚI NGANG – KHÔNG ĐỔI GRID */
         .container {
           width: 100%;
-          max-width: 1600px; /* 👈 NỚI RA BẰNG TRÊN */
+          max-width: 1600px;
           margin: auto;
           padding: 0 40px;
         }
@@ -189,7 +188,6 @@ export default function NearbyFood() {
           justify-content: center;
         }
 
-        /* 🔥 GIỮ 3 CARD / HÀNG */
         .grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);

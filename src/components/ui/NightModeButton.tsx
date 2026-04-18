@@ -6,7 +6,6 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 export default function NightModeButton({ size = 1 }) {
   const [dark, setDark] = useState(false);
 
-  // INIT ONLY 1 TIME
   useEffect(() => {
     const saved = localStorage.getItem("theme");
     const isDark = saved === "dark";
@@ -20,7 +19,6 @@ export default function NightModeButton({ size = 1 }) {
     }
   }, []);
 
-  // APPLY THEME ONLY WHEN STATE CHANGES
   useEffect(() => {
     const root = document.documentElement;
 
@@ -33,11 +31,9 @@ export default function NightModeButton({ size = 1 }) {
     }
   }, [dark]);
 
-  // 🔥 FIX: chống double toggle bằng event lock
   const handleToggle = (e: any) => {
     e?.stopPropagation();
 
-    // tránh double click event trong cùng frame
     setDark((prev) => !prev);
   };
 

@@ -34,7 +34,6 @@ export default function FoodForm({ onClose, onSave }: any) {
     setMounted(true);
   }, []);
 
-  // ✅ FIX CLICK OUTSIDE SAFE (KHÔNG NULL, KHÔNG RACE CONDITION)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!modalRef.current) return;
@@ -51,7 +50,6 @@ export default function FoodForm({ onClose, onSave }: any) {
     };
   }, [onClose]);
 
-  // ✅ SAFE FILE HANDLER (TRÁNH UNDEFINED CRASH)
   const handleImage = (e: any) => {
     if (!mounted) return;
 
@@ -66,7 +64,6 @@ export default function FoodForm({ onClose, onSave }: any) {
     }));
   };
 
-  // ✅ CHẶN SSR/HYDRATION LỖI
   if (!mounted) return null;
 
   return (
@@ -233,8 +230,7 @@ export default function FoodForm({ onClose, onSave }: any) {
   );
 }
 
-/* STYLE (GIỮ NGUYÊN 100%) */
-
+/* STYLE */
 const wrapper: React.CSSProperties = {
   position: "fixed",
   inset: 0,
