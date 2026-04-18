@@ -11,7 +11,9 @@ export const registerUser = (user) => {
   if (exists) return { success: false, message: "Email đã tồn tại" };
 
   users.push(user);
-  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("currentUser", JSON.stringify(user));
+
+  window.dispatchEvent(new Event("authChange"));
 
   return { success: true };
 };
@@ -27,11 +29,14 @@ export const loginUser = (email, password) => {
 
   localStorage.setItem("currentUser", JSON.stringify(user));
 
+  // 🔥 notify toàn app
+  window.dispatchEvent(new Event("authChange"));
+
   return { success: true, user };
 };
 
 /* =========================
-   WRAPPER (CHO UI FORM)
+   WRAPPER
 ========================= */
 
 export const loginUserSafe = ({ email, password }) => {
@@ -40,6 +45,9 @@ export const loginUserSafe = ({ email, password }) => {
 
 export const logoutUser = () => {
   localStorage.removeItem("currentUser");
+
+  // 🔥 notify toàn app
+  window.dispatchEvent(new Event("authChange"));
 };
 
 export const getCurrentUser = () => {

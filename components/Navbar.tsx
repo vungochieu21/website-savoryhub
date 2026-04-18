@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import NightModeButton from "./NightModeButton";
 import {
@@ -13,7 +13,9 @@ import {
   FaSignInAlt,
   FaUserPlus,
   FaHeart,
+  FaSignOutAlt,
 } from "react-icons/fa";
+import { getCurrentUser, logoutUser } from "@/utils/Storage";
 
 type NavbarProps = {
   onAdd: () => void;
@@ -27,6 +29,22 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [lang, setLang] = useState("vi");
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+  const handleAuth = () => {
+    setUser(getCurrentUser());
+  };
+
+  window.addEventListener("authChange", handleAuth);
+
+  // 🔥 load lần đầu khi mở trang
+  setUser(getCurrentUser());
+
+  return () => {
+    window.removeEventListener("authChange", handleAuth);
+  };
+}, []);
 
   const flags: any = {
     vi: "🇻🇳",
@@ -38,12 +56,13 @@ export default function Navbar({ onAdd }: NavbarProps) {
     router.push("/filter");
   };
 
+  // ⭐ ADD ONLY THIS FUNCTION
   const openFavorites = () => {
     setShowFavorites(true);
 
     setTimeout(() => {
       setShowFavorites(false);
-    }, 5000);
+    }, 5000); // 5 giây tự tắt
   };
 
   return (
@@ -87,20 +106,42 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
 
           {showUserMenu && (
-            <div className="dropdown user-dropdown">
-              <button onClick={() => router.push("/login")}>
-                <FaSignInAlt /> Đăng nhập
-              </button>
+  <div className="dropdown user-dropdown">
 
-              <button onClick={() => router.push("/register")}>
-                <FaUserPlus /> Đăng ký
-              </button>
+    {!user ? (
+      <>
+        <button onClick={() => router.push("/login")}>
+          <FaSignInAlt /> Đăng nhập
+        </button>
 
-              <button onClick={openFavorites}>
-                <FaHeart /> Yêu thích
-              </button>
-            </div>
-          )}
+        <button onClick={() => router.push("/register")}>
+          <FaUserPlus /> Đăng ký
+        </button>
+      </>
+    ) : (
+      <>
+        <button onClick={() => alert(`Tên: ${user.name}\nEmail: ${user.email}`)}>
+          <FaUserCircle /> Tài khoản
+        </button>
+
+        <button
+          onClick={() => {
+            logoutUser();
+            setUser(null);
+            window.dispatchEvent(new Event("authChange"));
+          }}
+        >
+          <FaSignOutAlt /> Đăng xuất
+        </button>
+      </>
+    )}
+
+    <button onClick={openFavorites}>
+      <FaHeart /> Yêu thích
+    </button>
+
+  </div>
+)}
         </div>
 
         {/* FAVORITES POPUP */}
@@ -119,18 +160,15 @@ export default function Navbar({ onAdd }: NavbarProps) {
           <button
             className="icon-btn"
             onClick={(e) => {
-              e.stopPropagation();
-              setShowSettings(!showSettings);
-            }}
+                e.stopPropagation();
+                setShowSettings((prev) => !prev);
+        }}
           >
             <FaCog />
           </button>
 
           {showSettings && (
-            <div
-              className="dropdown"
-              onClick={(e) => e.stopPropagation()} // ✅ FIX CHÍNH Ở ĐÂY
-            >
+            <div className="dropdown">
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
                 <FaGlobe /> Ngôn ngữ {flags[lang]}
               </button>
@@ -284,6 +322,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           padding: 10px;
         }
 
+        /* FAVORITES POPUP */
         .favorites-popup {
           position: fixed;
           top: 80px;
