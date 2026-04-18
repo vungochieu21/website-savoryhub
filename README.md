@@ -12,6 +12,7 @@
 -  Tìm kiếm và lọc các địa điểm, món ăn
 ### 💎 *Trải nghiệm người dùng:* 
 - Đăng ký/đăng nhập bằng localstorage.
+- Xem thông tin người dùng trong tài khoản.
 - Hỗ trợ Dark Mode.
 - Giao diện dark mode mượt.
 - Hỗ trợ Tiếng Việt & Tiếng Anh.

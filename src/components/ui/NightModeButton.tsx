@@ -6,21 +6,14 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import styles from "./NightModeButton.module.css";
 
 export default function NightModeButton({ size = 1 }) {
-  const [dark, setDark] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const isDark = saved === "dark";
+  // ⭐ FIX: init state từ localStorage NGAY TỪ ĐẦU
+  const [dark, setDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("theme") === "dark";
+  });
 
-    setDark(isDark);
-
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
+  // ⭐ CHỈ GIỮ 1 useEffect này
   useEffect(() => {
     const root = document.documentElement;
 

@@ -2,19 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/utils/Storage";
+import { loginUser } from "src/utils/Storage";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const [form, setForm] = useState({
-    email: "",
+    name: "",
     password: "",
   });
 
   const [error, setError] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
-  // 🔥 FIX SCROLL (CHỈ THÊM, KHÔNG ĐỤNG GÌ KHÁC)
   useEffect(() => {
     document.body.classList.add("no-scroll");
     document.body.style.overflow = "hidden";
@@ -33,15 +34,15 @@ export default function LoginPage() {
   };
 
   const handleLogin = () => {
-    if (!form.email || !form.password) {
+    if (!form.name || !form.password) {
       setError("Vui lòng nhập đầy đủ thông tin");
       return;
     }
 
-    const res = loginUser(form.email, form.password);
+    const res = loginUser(form.name, form.password);
 
     if (!res.success) {
-      setError("Sai email hoặc mật khẩu");
+      setError("Sai tài khoản hoặc mật khẩu");
       return;
     }
 
@@ -58,17 +59,28 @@ export default function LoginPage() {
         {error && <p className="error">{error}</p>}
 
         <input
-          name="email"
-          placeholder="Email"
+          name="name"
+          placeholder="Tài khoản"
           onChange={handleChange}
+          onKeyDown={(e) => e.key === "Enter" && handleLogin()}
         />
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Mật khẩu"
-          onChange={handleChange}
-        />
+        <div className="password-wrap">
+          <input
+            name="password"
+            type={showPass ? "text" : "password"}
+            placeholder="Mật khẩu"
+            onChange={handleChange}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+          />
+
+          <span
+            className="eye"
+            onClick={() => setShowPass(!showPass)}
+          >
+            {showPass ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
         <button onClick={handleLogin}>
           Đăng nhập
@@ -86,16 +98,18 @@ export default function LoginPage() {
       <style jsx>{`
         .page {
           min-height: 100vh;
-          width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
           background: linear-gradient(135deg, #f5f5f5, #eaeaea);
         }
 
+        :global(.dark) .page {
+          background: linear-gradient(135deg, #1a1a1a, #111);
+        }
+
         .card {
           width: 480px;
-          max-width: 96%;
           padding: 60px 45px;
           background: white;
           border-radius: 20px;
@@ -104,6 +118,11 @@ export default function LoginPage() {
           flex-direction: column;
           gap: 16px;
           text-align: center;
+        }
+
+        :global(.dark) .card {
+          background: #1f1f1f;
+          color: white;
         }
 
         .logo {
@@ -122,6 +141,26 @@ export default function LoginPage() {
           border: 1px solid #ddd;
           border-radius: 10px;
           outline: none;
+          width: 100%;
+        }
+
+        :global(.dark) input {
+          background: #2a2a2a;
+          border: 1px solid #444;
+          color: white;
+        }
+
+        .password-wrap {
+          position: relative;
+        }
+
+        .eye {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          opacity: 0.7;
         }
 
         button {
@@ -136,10 +175,6 @@ export default function LoginPage() {
 
         .error {
           color: red;
-          font-size: 13px;
-        }
-
-        .footerText {
           font-size: 13px;
         }
 
