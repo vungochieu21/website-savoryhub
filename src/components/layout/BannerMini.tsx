@@ -14,7 +14,6 @@ export default function BannerMini() {
   ];
 
   const loopBanners = [...banners, ...banners];
-  const CARD_WIDTH = 33.3333;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,10 +24,10 @@ export default function BannerMini() {
   }, []);
 
   useEffect(() => {
-    if (current === banners.length) {
+    if (current >= banners.length) {
       const timeout = setTimeout(() => {
         setTransition(false);
-        setCurrent(0);
+        setCurrent((prev) => prev - banners.length); // 👈 FIX MƯỢT
       }, 600);
 
       return () => clearTimeout(timeout);
@@ -39,7 +38,7 @@ export default function BannerMini() {
   }, [current]);
 
   return (
-    <div className="mt-[120px] flex justify-center">
+    <div className="mt-[120px] mb-[120px] flex justify-center">
       <div className="w-full max-w-[1400px] px-1">
 
         {/* OUTER CLIP */}
@@ -66,7 +65,7 @@ export default function BannerMini() {
 
                 {/* CARD WRAPPER */}
                 <div style={{
-                  margin: "0 10px",   
+                  margin: "0 10px",
                   borderRadius: "30px",
                   overflow: "hidden",
                   height: "160px",
@@ -81,6 +80,7 @@ export default function BannerMini() {
                     }}
                   />
                 </div>
+
               </div>
             ))}
           </div>

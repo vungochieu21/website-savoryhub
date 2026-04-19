@@ -9,6 +9,8 @@ import {
   FaStar,
 } from "react-icons/fa";
 
+import styles from "./NearbyRestaurant.module.css";
+
 type Place = {
   name: string;
   address: string;
@@ -76,7 +78,7 @@ const data: Place[] = [
   },
 ];
 
-export default function NearbyFood() {
+export default function NearbyRestaurant() {
   const [filter, setFilter] = useState("all");
   const [ratings, setRatings] = useState<string[]>([]);
 
@@ -93,230 +95,74 @@ export default function NearbyFood() {
       : data.filter((item) => item.city === filter);
 
   return (
-    <section style={{ padding: "60px 0" }}>
-      
+    <section className={styles.section}>
       {/* HEADER */}
-      <div className="container header">
+      <div className={`${styles.container} ${styles.header}`}>
         <h2>Tìm quán ăn gần bạn</h2>
         <p>Địa điểm ăn uống xung quanh bạn</p>
 
-        <div className="filter">
+        <div className={styles.filter}>
           {["all", "hcm", "other"].map((key) => (
             <button
               key={key}
               onClick={() => setFilter(key)}
-              className="filter-btn"
+              className={`${styles["filter-btn"]} ${
+                filter === key ? styles.active : ""
+              }`}
             >
-              {key === "all" ? "Tất cả" : key === "hcm" ? "TP.HCM" : "Khác"}
+              {key === "all"
+                ? "Tất cả"
+                : key === "hcm"
+                ? "TP.HCM"
+                : "Khác"}
             </button>
           ))}
         </div>
       </div>
 
       {/* GRID */}
-      <div className="container grid">
+      <div className={`${styles.container} ${styles.grid}`}>
         {filtered.map((item, i) => (
-          <div key={i} className="card">
-            
-            <div className="distance">{item.distance}</div>
+          <div key={i} className={styles.card}>
+            <div className={styles.distance}>{item.distance}</div>
 
             <h3>{item.name}</h3>
 
-            <div className="rating">
+            <div className={styles.rating}>
               <FaStar />
               <span>{ratings[i] || "4.5"}</span>
             </div>
 
-            <p className="info">
+            <p className={styles.info}>
               <FaMapMarkerAlt /> {item.address}
             </p>
 
-            <p className="info">
+            <p className={styles.info}>
               <FaPhone /> {item.phone}
             </p>
 
-            <p className="info">
+            <p className={styles.info}>
               <FaClock /> {item.time}
             </p>
 
-            <div className="tags">
+            <div className={styles.tags}>
               {item.tags.map((tag, idx) => (
                 <span key={idx}>{tag}</span>
               ))}
             </div>
 
-            <div className="actions">
-              <button className="btn-outline">
+            <div className={styles.actions}>
+              <button className={styles["btn-outline"]}>
                 <FaDirections /> Chỉ đường
               </button>
 
-              <button className="btn-primary">
+              <button className={styles["btn-primary"]}>
                 <FaPhone /> Gọi
               </button>
             </div>
           </div>
         ))}
       </div>
-
-      {/* CSS */}
-      <style jsx>{`
-        .container {
-          width: 100%;
-          max-width: 1600px;
-          margin: auto;
-          padding: 0 40px;
-        }
-
-        .header {
-          text-align: center;
-          margin-bottom: 40px;
-        }
-
-        .header h2 {
-          font-size: 32px;
-          font-weight: bold;
-        }
-
-        .header p {
-          color: #666;
-        }
-
-        .filter {
-          margin-top: 20px;
-          display: flex;
-          gap: 12px;
-          justify-content: center;
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 32px;
-        }
-
-        .card {
-          background: #fff;
-          padding: 22px;
-          border-radius: 12px;
-          border: 1px solid #eee;
-          position: relative;
-          transition: 0.25s;
-        }
-
-        .card:hover {
-          border: 1px solid red;
-          transform: translateY(-5px);
-        }
-
-        .distance {
-          position: absolute;
-          top: 15px;
-          right: 15px;
-          border: 1px solid red;
-          color: red;
-          padding: 2px 8px;
-          border-radius: 999px;
-          font-size: 12px;
-        }
-
-        .info {
-          display: flex;
-          gap: 8px;
-          color: #555;
-          margin-bottom: 4px;
-        }
-
-        .rating {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          color: orange;
-          margin: 6px 0;
-          line-height: 1;
-        }
-
-        .rating svg {
-          font-size: 14px;
-        }
-
-        .rating span {
-          font-size: 14px;
-        }
-
-        .tags {
-          margin-top: 12px;
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-
-        .tags span {
-          background: #000;
-          color: #fff;
-          padding: 3px 8px;
-          border-radius: 6px;
-          font-size: 12px;
-        }
-
-        .actions {
-          display: flex;
-          gap: 10px;
-          margin-top: 14px;
-        }
-
-        .btn-outline {
-          flex: 1;
-          border: 1px solid red;
-          color: red;
-          background: white;
-          padding: 6px 8px;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 13px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
-        }
-
-        .btn-outline:hover {
-          background: red;
-          color: white;
-        }
-
-        .btn-primary {
-          flex: 1;
-          background: red;
-          color: white;
-          border: none;
-          padding: 6px 8px;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 13px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
-        }
-
-        .btn-primary:hover {
-          background: #b30000;
-        }
-
-        .filter-btn {
-          padding: 6px 14px;
-          border-radius: 8px;
-          border: 1px solid red;
-          background: white;
-          color: red;
-          cursor: pointer;
-        }
-
-        .filter-btn:hover {
-          background: red;
-          color: white;
-        }
-      `}</style>
     </section>
   );
 }

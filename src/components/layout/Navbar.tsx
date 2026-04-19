@@ -17,7 +17,7 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
   FaLock,
-  FaUtensils, // Icon logo mới liên quan món ăn
+  FaUtensils, 
 } from "react-icons/fa";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -72,7 +72,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
     <div className="navbar">
       <div className="nav-inner">
 
-        {/* LOGO CUSTOM SVG DESIGNED */}
+        {/* LOGO */}
         <div className="logo-wrapper" onClick={() => router.push("/")}>
           <svg 
             width="40" 
@@ -82,9 +82,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
             xmlns="http://www.w3.org/2000/svg"
             className="custom-svg-logo"
           >
-            {/* Vòng tròn nền cách điệu */}
             <path d="M20 50C20 33.4315 33.4315 20 50 20C66.5685 20 80 33.4315 80 50" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
-            {/* Biểu tượng cái dĩa và làn khói hình trái tim */}
             <path d="M40 45V65M50 45V75M60 45V65" stroke="#b30000" strokeWidth="6" strokeLinecap="round" className="logo-icon-detail"/>
             <path d="M50 35C55 25 65 25 65 35C65 45 50 50 50 50C50 50 35 45 35 35C35 25 45 25 50 35Z" fill="#b30000" className="heart-steam"/>
           </svg>
@@ -334,7 +332,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           display: flex;
           align-items: center;
           background: var(--surface);
-          border: 1px solid var(--border);
+          border: 1px solid #444444;
           border-radius: 999px;
           padding: 6px 10px 6px 18px;
           gap: 10px;

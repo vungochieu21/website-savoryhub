@@ -23,7 +23,7 @@ const deals: Deal[] = [
     oldPrice: 215000,
     image: "https://img.dominos.vn/musttry+(6).jpg",
     code: "PIZZA30",
-    desc: "Pizza phô mai kéo sợi siêu đã, ăn là ghiền!",
+    desc: "Pizza vị phô mai kéo sợi siêu đã, ăn là ghiền!",
   },
   {
     id: 2,

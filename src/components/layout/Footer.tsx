@@ -1,11 +1,13 @@
+"use client";
+
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { Mail, Phone, MapPin } from "lucide-react";
 
-const ICON_COLOR = "#b30000";
+import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className={styles.footer}>
       <div className="max-w-[1325px] mx-auto px-3 py-20">
         
         {/* MAIN */}
@@ -20,25 +22,16 @@ export default function Footer() {
               những trải nghiệm đáng nhớ.
             </p>
 
-            {/* SOCIAL */}
             <h4 className="text-sm font-semibold uppercase mb-3">
               Theo dõi tại
             </h4>
 
             <div className="flex gap-3">
-              <a
-                href="#"
-                className="social-btn"
-                style={{ color: ICON_COLOR }}
-              >
+              <a href="#" className={styles.socialBtn}>
                 <FaFacebook size={18} />
               </a>
 
-              <a
-                href="#"
-                className="social-btn"
-                style={{ color: ICON_COLOR }}
-              >
+              <a href="#" className={styles.socialBtn}>
                 <FaInstagram size={18} />
               </a>
 
@@ -46,8 +39,7 @@ export default function Footer() {
                 href="https://wa.me/231XXXXXXXXXX"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-btn"
-                style={{ color: ICON_COLOR }}
+                className={styles.socialBtn}
               >
                 <FaWhatsapp size={18} />
               </a>
@@ -63,24 +55,24 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-300">
               
               <li className="flex items-start gap-2">
-                <MapPin size={18} style={{ color: ICON_COLOR }} />
+                <MapPin size={18} className={styles.icon} />
                 <span>
                   29/2B, khu phố 8, phường Tân Phong, Biên Hoà, Đồng Nai
                 </span>
               </li>
 
               <li className="flex items-center gap-2">
-                <Phone size={18} style={{ color: ICON_COLOR }} />
-                <a href="tel:+840398328506" className="hover:text-red-500">
+                <Phone size={18} className={styles.icon} />
+                <a href="tel:+840398328506" className={styles.link}>
                   +84 0398 328 506
                 </a>
               </li>
 
               <li className="flex items-center gap-2">
-                <Mail size={18} style={{ color: ICON_COLOR }} />
+                <Mail size={18} className={styles.icon} />
                 <a
                   href="mailto:info@gmail.com"
-                  className="hover:text-red-500"
+                  className={styles.link}
                 >
                   vungochieu2120006@gmail.com
                 </a>
@@ -89,39 +81,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* LINE */}
         <hr className="border-gray-800 mb-6" />
 
-        {/* BOTTOM */}
         <div className="flex flex-col md:flex-row justify-between text-sm text-gray-400">
           <p>© {new Date().getFullYear()} Tastii. All rights reserved.</p>
 
           <div className="flex gap-6 mt-2 md:mt-0">
-            <a className="hover:text-red-500">Terms of Service</a>
-            <a className="hover:text-red-500">Privacy Policy</a>
+            <a className={styles.link}>Terms of Service</a>
+            <a className={styles.link}>Privacy Policy</a>
           </div>
         </div>
       </div>
-
-      {/* STYLE */}
-      <style jsx>{`
-        .social-btn {
-          width: 36px;
-          height: 36px;
-          border-radius: 999px;
-          background: #1f1f1f;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: 0.2s;
-        }
-
-        .social-btn:hover {
-          background: #b30000;
-          color: white !important;
-          transform: scale(1.1);
-        }
-      `}</style>
     </footer>
   );
 }

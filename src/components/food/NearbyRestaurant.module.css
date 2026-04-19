@@ -1,0 +1,158 @@
+.section {
+  padding: 60px 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+  padding: 0 40px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h2 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.header p {
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.filter {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.card {
+  background: var(--card);
+  padding: 22px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: 0.25s;
+}
+
+.card:hover {
+  border: 1px solid var(--primary);
+  transform: translateY(-5px);
+}
+
+.distance {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.info {
+  display: flex;
+  gap: 8px;
+  color: var(--text);
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: orange;
+  margin: 6px 0;
+}
+
+.tags {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tags span {
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* ✅ FIX chuẩn + vẫn theo theme */
+.btn-outline {
+  flex: 1;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: var(--card);
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary {
+  flex: 1;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--primary);
+  background: var(--card);
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}

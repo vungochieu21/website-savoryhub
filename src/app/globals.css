@@ -53,3 +53,39 @@ html, body {
   --like: #ff0000;
   --shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
+
+/* NearbyRestaurant */
+:root {
+  --text: #000000;
+  --card: #ffffff;
+  --primary: #b30000;
+  --primary-hover: #b30000;
+  --tag-bg: #000000;
+  --tag-text: #ffffff;
+}
+
+.dark {
+  --text: #ffffff;
+  --card: #000000;
+  --primary: #b30000;
+  --primary-hover: #b30000;
+  --tag-bg: #888888;
+  --tag-text: #000000;
+}
+
+/* Footer */
+:root {
+  --primary: #b30000;
+
+  --footer-bg: #333333;
+  --footer-text: #ffffff;
+  --footer-icon-bg: #222222;
+}
+
+.dark {
+  --primary: #b30000;
+
+  --footer-bg: #333333;
+  --footer-text: #ffffff;
+  --footer-icon-bg: #222222;
+}

@@ -12,7 +12,7 @@
 .emptyText {
   text-align: center;
   margin-top: 30px;
-  color: #000;
+  color: var(--text);
   font-size: 16px;
 }
 
@@ -26,10 +26,10 @@
   height: 29px;
 
   border-radius: 7px;
-  border: 1px solid #333;
+  border: 1px solid var(--border);
 
-  background: #333;
-  color: #fff;
+  background: var(--card);
+  color: var(--text);
 
   cursor: pointer;
 
@@ -51,8 +51,8 @@
   top: 48px;
   right: 10px;
 
-  background: #333;
-  color: #fff;
+  background: var(--card);
+  color: var(--text);
 
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
@@ -60,7 +60,7 @@
   z-index: 100;
   min-width: 150px;
   overflow: hidden;
-  border: 1px solid #333;
+  border: 1px solid var(--border);
 }
 
 /* ITEM */
@@ -74,19 +74,19 @@
 
   font-size: 14px;
 
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border);
   transition: 0.2s;
 }
 
 .menuItem:hover {
-  background: #999;
+  background: var(--hover);
 }
 
 .menuItemDanger {
-  color: red;
+  color: var(--danger);
   border-bottom: none;
 }
 
 .menuItemDanger:hover {
-  background: #999;
+  background: var(--hover);
 }
