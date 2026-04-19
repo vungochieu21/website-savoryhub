@@ -14,9 +14,12 @@ import {
   FaUserPlus,
   FaHeart,
   FaSignOutAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaLock,
+  FaUtensils, // Icon logo mới liên quan món ăn
 } from "react-icons/fa";
 
-// ✅ ADD ICON
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,23 +39,18 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showFavorites, setShowFavorites] = useState(false);
   const [user, setUser] = useState<any>(null);
 
-  // ✅ ADD
   const [showProfile, setShowProfile] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
   const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
-    const handleAuth = () => {
-      setUser(getCurrentUser());
-    };
+    const handleAuth = () => setUser(getCurrentUser());
 
     window.addEventListener("authChange", handleAuth);
     setUser(getCurrentUser());
 
-    return () => {
-      window.removeEventListener("authChange", handleAuth);
-    };
+    return () => window.removeEventListener("authChange", handleAuth);
   }, []);
 
   const flags: any = {
@@ -74,10 +72,24 @@ export default function Navbar({ onAdd }: NavbarProps) {
     <div className="navbar">
       <div className="nav-inner">
 
-        {/* LOGO */}
-        <span className="logo" onClick={() => router.push("/")}>
-          Tastii
-        </span>
+        {/* LOGO CUSTOM SVG DESIGNED */}
+        <div className="logo-wrapper" onClick={() => router.push("/")}>
+          <svg 
+            width="40" 
+            height="40" 
+            viewBox="0 0 100 100" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            className="custom-svg-logo"
+          >
+            {/* Vòng tròn nền cách điệu */}
+            <path d="M20 50C20 33.4315 33.4315 20 50 20C66.5685 20 80 33.4315 80 50" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
+            {/* Biểu tượng cái dĩa và làn khói hình trái tim */}
+            <path d="M40 45V65M50 45V75M60 45V65" stroke="#b30000" strokeWidth="6" strokeLinecap="round" className="logo-icon-detail"/>
+            <path d="M50 35C55 25 65 25 65 35C65 45 50 50 50 50C50 50 35 45 35 35C35 25 45 25 50 35Z" fill="#b30000" className="heart-steam"/>
+          </svg>
+          <span className="logo-text">Tastii</span>
+        </div>
 
         {/* SEARCH */}
         <div className="search-box">
@@ -94,7 +106,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
         </div>
 
         {/* FILTER */}
-        <button className="icon-btn" onClick={() => router.push("/filter")}>
+        <button className="icon-btn filter-btn" onClick={() => router.push("/filter")}>
           <FaFilter />
         </button>
 
@@ -107,14 +119,17 @@ export default function Navbar({ onAdd }: NavbarProps) {
         <div className="user-menu">
           <button
             className="icon-btn"
-            onClick={() => setShowUserMenu(!showUserMenu)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowUserMenu(!showUserMenu);
+              setShowSettings(false);
+            }}
           >
             <FaUserCircle size={20} />
           </button>
 
           {showUserMenu && (
-            <div className="dropdown user-dropdown">
-
+            <div className="dropdown">
               {!user ? (
                 <>
                   <button onClick={() => router.push("/login")}>
@@ -146,12 +161,11 @@ export default function Navbar({ onAdd }: NavbarProps) {
               <button onClick={openFavorites}>
                 <FaHeart /> {t("favorites")}
               </button>
-
             </div>
           )}
         </div>
 
-        {/* FAVORITES */}
+        {/* FAVORITES POPUP (RESTORED) */}
         {showFavorites && (
           <div className="favorites-popup">
             <div className="favorites-header">❤️ {t("favorites")}</div>
@@ -161,35 +175,49 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </div>
         )}
 
-        {/* ✅ PROFILE */}
+        {/* PROFILE POPUP (OPTIMIZED) */}
         {showProfile && (
-          <div
-            className="profile-popup"
-            onClick={() => setShowProfile(false)}
-          >
+          <div className="profile-popup" onClick={() => setShowProfile(false)}>
             <div
               className="profile-card"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="profile-title">👤 {t("account")}</div>
+              <div className="profile-header">
+                <FaUserCircle size={40} color="#b30000" />
+                <h3>{t("account")}</h3>
+              </div>
 
-              <p><b>Tài khoản:</b> {user?.name}</p>
-              <p><b>Email:</b> {user?.email}</p>
-              <p><b>Địa chỉ:</b> {user?.address || "Chưa có"}</p>
+              <div className="profile-info-list">
+                <div className="info-item">
+                   <span className="info-label"><FaUserCircle /> Tài khoản</span>
+                   <span className="info-text">{user?.name}</span>
+                </div>
+                
+                <div className="info-item">
+                   <span className="info-label"><FaEnvelope /> Email</span>
+                   <span className="info-text">{user?.email}</span>
+                </div>
 
-              <div className="pass-row">
-                <b>Mật khẩu:</b>
-                <span>
-                  {showPass ? user?.password : "••••••••"}
-                </span>
+                <div className="info-item">
+                   <span className="info-label"><FaMapMarkerAlt /> Địa chỉ</span>
+                   <span className="info-text">{user?.address || "Chưa có"}</span>
+                </div>
 
-                <button onClick={() => setShowPass(!showPass)}>
-                  <FontAwesomeIcon icon={showPass ? faEyeSlash : faEye} />
-                </button>
+                <div className="info-item">
+                   <span className="info-label"><FaLock /> Mật khẩu</span>
+                   <div className="pass-display">
+                      <span className="pass-dots">
+                        {showPass ? user?.password : "••••••••"}
+                      </span>
+                      <button className="eye-btn" onClick={() => setShowPass(!showPass)}>
+                        <FontAwesomeIcon icon={showPass ? faEyeSlash : faEye} />
+                      </button>
+                   </div>
+                </div>
               </div>
 
               <button
-                className="close-btn"
+                className="close-profile-btn"
                 onClick={() => setShowProfile(false)}
               >
                 Đóng
@@ -204,25 +232,20 @@ export default function Navbar({ onAdd }: NavbarProps) {
             className="icon-btn"
             onClick={(e) => {
               e.stopPropagation();
-              setShowSettings((prev) => !prev);
+              setShowSettings(!showSettings);
+              setShowUserMenu(false);
             }}
           >
             <FaCog />
           </button>
 
           {showSettings && (
-            <div
-              className="dropdown"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="dropdown">
               <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
                 <FaGlobe /> {t("language")} {flags[lang]}
               </button>
 
-              <div
-                className="mode"
-                onClick={(e) => e.stopPropagation()}
-              >
+              <div className="mode">
                 <NightModeButton size={0.7} />
                 {t("mode")}
               </div>
@@ -232,7 +255,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
 
       </div>
 
-      {/* ================= STYLE FIX ================= */}
+      {/* ================= STYLE ================= */}
       <style jsx>{`
         .navbar {
           position: fixed;
@@ -256,10 +279,53 @@ export default function Navbar({ onAdd }: NavbarProps) {
           max-width: 1400px;
         }
 
-        .logo {
-          font-size: 22px;
-          font-weight: bold;
+        /* --- LOGO TASTII CUSTOM DESIGN --- */
+        .logo-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 12px;
           cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          user-select: none;
+        }
+
+        .custom-svg-logo {
+          transition: transform 0.5s ease;
+          color: var(--navbar-text);
+        }
+
+        .logo-text {
+          font-size: 28px;
+          font-weight: 900;
+          font-family: 'Poppins', sans-serif;
+          letter-spacing: -1px;
+          background: linear-gradient(to right, #b30000 50%, var(--navbar-text) 50%);
+          background-size: 200% 100%;
+          background-position: 100% 0;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          transition: background-position 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hiệu ứng khi di chuột */
+        .logo-wrapper:hover {
+          transform: scale(1.08); /* Chữ to lên nhẹ */
+        }
+
+        .logo-wrapper:hover .logo-text {
+          background-position: 0 0; /* Đỏ dần từ trái sang phải */
+        }
+
+        .logo-wrapper:hover .custom-svg-logo {
+          transform: rotate(-10deg); /* Logo hơi nghiêng nghịch ngợm */
+        }
+
+        .heart-steam {
+          transition: transform 0.3s ease;
+        }
+
+        .logo-wrapper:hover .heart-steam {
+          transform: translateY(-5px) scale(1.1); /* Tim bay lên nhẹ */
         }
 
         .search-box {
@@ -272,12 +338,12 @@ export default function Navbar({ onAdd }: NavbarProps) {
           border-radius: 999px;
           padding: 6px 10px 6px 18px;
           gap: 10px;
-          transition: 0.2s;
+          transition: all 0.25s ease;
         }
 
         .search-box:focus-within {
-          box-shadow: 0 0 0 2px #b30000;
-          transform: scale(1.02);
+          box-shadow: 0 0 0 3px #b30000;
+          transform: scale(1.03);
         }
 
         .search-box input {
@@ -300,13 +366,11 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           justify-content: center;
           color: var(--navbar-text);
-          transition: 0.2s;
         }
 
         .search-btn:hover {
           background: #b30000;
           color: white;
-          transform: scale(1.15);
         }
 
         .icon-btn {
@@ -354,12 +418,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           background: transparent;
           cursor: pointer;
           color: var(--navbar-text);
-          text-align: left;
-          white-space: nowrap;
-        }
-
-        .dropdown button:hover {
-          background: rgba(0, 0, 0, 0.05);
         }
 
         .mode {
@@ -367,7 +425,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           align-items: center;
           gap: 10px;
           padding: 10px;
-          white-space: nowrap;
         }
 
         .favorites-popup {
@@ -378,26 +435,14 @@ export default function Navbar({ onAdd }: NavbarProps) {
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: 12px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
           padding: 12px;
-          z-index: 10000;
         }
 
-        .favorites-header {
-          font-weight: bold;
-          margin-bottom: 8px;
-        }
-
-        .favorites-body {
-          font-size: 14px;
-          opacity: 0.8;
-        }
-
-        /* ✅ ADD PROFILE STYLE */
+        /* --- PROFILE POPUP FIX (HẾT LAG) --- */
         .profile-popup {
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.45);
+          background: rgba(0,0,0,0.5);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -405,46 +450,99 @@ export default function Navbar({ onAdd }: NavbarProps) {
         }
 
         .profile-card {
-          width: 320px;
+          width: 340px;
           background: var(--surface);
           color: var(--navbar-text);
           border-radius: 16px;
-          padding: 20px;
+          padding: 24px;
+          border: 1px solid var(--border);
+          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+          animation: popIn 0.2s ease-out;
+          will-change: transform, opacity;
+        }
+
+        @keyframes popIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        .profile-header {
           display: flex;
           flex-direction: column;
+          align-items: center;
           gap: 10px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          margin-bottom: 20px;
         }
 
-        .profile-title {
+        .profile-header h3 {
+          margin: 0;
+          font-size: 18px;
+        }
+
+        .profile-info-list {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .info-item {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .info-label {
+          font-size: 12px;
           font-weight: bold;
-          font-size: 16px;
-        }
-
-        .pass-row {
+          color: #888;
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 6px;
         }
 
-        .pass-row button {
-          margin-left: auto;
-          background: #b30000;
-          color: white;
+        .info-text {
+          font-size: 15px;
+          padding-bottom: 5px;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .pass-display {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 5px;
+        }
+
+        .pass-dots {
+          letter-spacing: 4px;
+          font-weight: bold;
+        }
+
+        .eye-btn {
+          background: transparent;
           border: none;
-          padding: 6px 10px;
-          border-radius: 6px;
+          color: var(--navbar-text);
           cursor: pointer;
+          opacity: 0.6;
         }
 
-        .close-btn {
-          margin-top: 10px;
+        .eye-btn:hover { opacity: 1; }
+
+        .close-profile-btn {
+          width: 100%;
+          margin-top: 20px;
           padding: 10px;
+          border-radius: 8px;
+          border: none;
           background: #b30000;
           color: white;
-          border: none;
-          border-radius: 10px;
+          font-weight: bold;
           cursor: pointer;
+        }
+
+        .close-profile-btn:hover {
+          background: #d40000;
         }
       `}</style>
     </div>

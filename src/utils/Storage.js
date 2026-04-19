@@ -7,10 +7,17 @@
 export const registerUser = (user) => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  const exists = users.find((u) => u.email === user.email);
-  if (exists) return { success: false, message: "Email đã tồn tại" };
+  const exists = users.find((u) => u.name === user.name);
+  if (exists) {
+    return { success: false, message: "Tên tài khoản đã tồn tại" };
+  }
 
   users.push(user);
+
+  // ✅ FIX: phải lưu danh sách users
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // auto login sau khi register
   localStorage.setItem("currentUser", JSON.stringify(user));
 
   window.dispatchEvent(new Event("authChange"));
@@ -18,18 +25,17 @@ export const registerUser = (user) => {
   return { success: true };
 };
 
-export const loginUser = (email, password) => {
+export const loginUser = (name, password) => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
   const user = users.find(
-    (u) => u.email === email && u.password === password
+    (u) => u.name === name && u.password === password
   );
 
   if (!user) return { success: false };
 
   localStorage.setItem("currentUser", JSON.stringify(user));
 
-  // 🔥 notify toàn app
   window.dispatchEvent(new Event("authChange"));
 
   return { success: true, user };
@@ -39,14 +45,12 @@ export const loginUser = (email, password) => {
    WRAPPER
 ========================= */
 
-export const loginUserSafe = ({ email, password }) => {
-  return loginUser(email, password);
+export const loginUserSafe = ({ name, password }) => {
+  return loginUser(name, password);
 };
 
 export const logoutUser = () => {
   localStorage.removeItem("currentUser");
-
-  // 🔥 notify toàn app
   window.dispatchEvent(new Event("authChange"));
 };
 
@@ -58,7 +62,7 @@ export const getCurrentUser = () => {
 };
 
 /* =========================
-   WISHLIST
+   WISHLIST (GIỮ NGUYÊN)
 ========================= */
 
 export const getWishlist = () => {
