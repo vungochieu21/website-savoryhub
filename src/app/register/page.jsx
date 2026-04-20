@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from "src/utils/Storage";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -54,6 +54,12 @@ export default function RegisterPage() {
 
   return (
     <div className="page">
+
+      {/* BACK BUTTON */}
+      <button className="backBtn" onClick={() => router.back()}>
+        <FaArrowLeft /> Quay lại
+      </button>
+
       <div className="card">
 
         <div className="logo">🍜 Tastii</div>
@@ -61,15 +67,15 @@ export default function RegisterPage() {
 
         {error && <p className="error">{error}</p>}
 
-        <input name="name" placeholder="Tài khoản" onChange={handleChange} />
+        <input name="name" placeholder="Tên tài khoản" onChange={handleChange} />
 
-        <input name="email" placeholder="Email" onChange={handleChange} />
+        <input name="email" placeholder="Nhập địa chỉ Email" onChange={handleChange} />
 
         <div className="password-wrap">
           <input
             name="password"
             type={showPass ? "text" : "password"}
-            placeholder="Mật khẩu"
+            placeholder="Nhập mật khẩu"
             onChange={handleChange}
             onKeyDown={(e) => e.key === "Enter" && handleRegister()}
           />
@@ -81,7 +87,7 @@ export default function RegisterPage() {
 
         <input
           name="address"
-          placeholder="Địa chỉ"
+          placeholder="Nhập địa chỉ"
           onChange={handleChange}
           onKeyDown={(e) => e.key === "Enter" && handleRegister()}
         />
@@ -106,6 +112,7 @@ export default function RegisterPage() {
           justify-content: center;
           align-items: center;
           background: linear-gradient(135deg, #f5f5f5, #eaeaea);
+          position: relative; /* QUAN TRỌNG */
         }
 
         :global(.dark) .page {
@@ -186,6 +193,32 @@ export default function RegisterPage() {
           color: #b30000;
           cursor: pointer;
           font-weight: bold;
+        }
+
+        /* BACK BUTTON */
+        .backBtn {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          background: transparent;
+          border: none;
+          color: #333;
+          font-size: 14px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          opacity: 0.7;
+          padding: 6px 8px;
+        }
+
+        .backBtn:hover {
+          opacity: 1;
+          text-decoration: underline;
+        }
+
+        :global(.dark) .backBtn {
+          color: #ccc;
         }
       `}</style>
     </div>

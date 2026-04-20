@@ -1,5 +1,6 @@
 .section {
   padding: 64px 0;
+  margin-top: 70px; /* đẩy thụt xuống */
   overflow: hidden;
 }
 
@@ -15,7 +16,6 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 40px;
-  /* Đã xóa dòng color để nó tự thích nghi với Dark Mode như cũ */
 }
 
 /* SCROLL AREA */
@@ -55,7 +55,7 @@
 .card {
   width: 300px;
   flex-shrink: 0;
-  background: #ffffff; /* Card luôn có nền trắng */
+  background: #ffffff;
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -75,12 +75,12 @@
 
 .name {
   font-weight: 600;
-  color: #111827; /* Giữ màu này để tên không bị mất trên nền trắng của Card */
+  color: #000000;
 }
 
 .role {
   font-size: 14px;
-  color: #6b7280;
+  color: #333333;
 }
 
 /* RATING */

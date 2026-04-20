@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "src/utils/Storage";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -51,6 +51,12 @@ export default function LoginPage() {
 
   return (
     <div className="page">
+
+      {/* BACK BUTTON */}
+      <button className="backBtn" onClick={() => router.back()}>
+        <FaArrowLeft /> Quay lại
+      </button>
+
       <div className="card">
 
         <div className="logo">🍜 Tastii</div>
@@ -60,7 +66,7 @@ export default function LoginPage() {
 
         <input
           name="name"
-          placeholder="Tài khoản"
+          placeholder="Tên tài khoản"
           onChange={handleChange}
           onKeyDown={(e) => e.key === "Enter" && handleLogin()}
         />
@@ -102,6 +108,7 @@ export default function LoginPage() {
           justify-content: center;
           align-items: center;
           background: linear-gradient(135deg, #f5f5f5, #eaeaea);
+          position: relative;
         }
 
         :global(.dark) .page {
@@ -182,6 +189,32 @@ export default function LoginPage() {
           color: #b30000;
           cursor: pointer;
           font-weight: bold;
+        }
+
+        /* STYLE BACK */
+        .backBtn {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          background: transparent;
+          border: none;
+          color: #333;
+          font-size: 14px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          opacity: 0.7;
+          padding: 6px 8px;
+        }
+
+        .backBtn:hover {
+          opacity: 1;
+          text-decoration: underline;
+        }
+
+        :global(.dark) .backBtn {
+          color: #ccc;
         }
       `}</style>
     </div>
