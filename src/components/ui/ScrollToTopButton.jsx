@@ -24,7 +24,6 @@ export default function ScrollToTopButton() {
 
     const animateScroll = (currentTime) => {
       if (!startTime) startTime = currentTime;
-
       const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
@@ -35,14 +34,14 @@ export default function ScrollToTopButton() {
         requestAnimationFrame(animateScroll);
       }
     };
-
     requestAnimationFrame(animateScroll);
   };
 
-  if (!visible) return null;
-
   return (
-    <button onClick={scrollToTop} className={styles.button}>
+    <button
+      onClick={scrollToTop}
+      className={`${styles.button} ${visible ? styles.visible : ""}`}
+    >
       <FontAwesomeIcon icon={faArrowUp} />
     </button>
   );

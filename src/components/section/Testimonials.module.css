@@ -15,6 +15,7 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 40px;
+  /* Đã xóa dòng color để nó tự thích nghi với Dark Mode như cũ */
 }
 
 /* SCROLL AREA */
@@ -22,7 +23,6 @@
   overflow: hidden;
   padding: 0 40px;
 
-  /* FADE 2 BÊN */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent,
@@ -44,8 +44,7 @@
   display: flex;
   gap: 24px;
   width: max-content;
-
-  animation: scroll 20s linear infinite;
+  animation: scroll 30s linear infinite;
 }
 
 .trackPause {
@@ -56,11 +55,10 @@
 .card {
   width: 300px;
   flex-shrink: 0;
-
-  background: #fff;
+  background: #ffffff; /* Card luôn có nền trắng */
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* HEADER */
@@ -77,6 +75,7 @@
 
 .name {
   font-weight: 600;
+  color: #111827; /* Giữ màu này để tên không bị mất trên nền trắng của Card */
 }
 
 .role {
@@ -90,7 +89,6 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-
   color: #facc15;
   font-weight: 600;
 }

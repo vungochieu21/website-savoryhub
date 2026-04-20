@@ -9,6 +9,7 @@ export const texts = {
     language: "Ngôn ngữ",
     mode: "Chế độ",
     empty_favorite: "Chưa có món nào được yêu thích",
+    logout_success: "Đăng xuất thành công!", // Thêm dòng này
   },
 
   en: {
@@ -21,5 +22,6 @@ export const texts = {
     language: "Language",
     mode: "Theme",
     empty_favorite: "No favorite items yet",
+    logout_success: "Logout Successfully!", // Thêm dòng này
   },
 };

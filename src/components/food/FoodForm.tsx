@@ -40,14 +40,12 @@ export default function FoodForm({ onClose, onSave }: any) {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!modalRef.current) return;
-
       if (!modalRef.current.contains(e.target as Node)) {
         onClose?.();
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -55,16 +53,10 @@ export default function FoodForm({ onClose, onSave }: any) {
 
   const handleImage = (e: any) => {
     if (!mounted) return;
-
     const file = e.target.files?.[0];
     if (!file) return;
-
     const url = URL.createObjectURL(file);
-
-    setForm((prev) => ({
-      ...prev,
-      image: url,
-    }));
+    setForm((prev) => ({ ...prev, image: url }));
   };
 
   if (!mounted) return null;
@@ -153,21 +145,16 @@ export default function FoodForm({ onClose, onSave }: any) {
               className={styles.input}
               type="time"
               value={form.openTime}
-              onChange={(e) =>
-                setForm({ ...form, openTime: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, openTime: e.target.value })}
             />
           </div>
-
           <div className={styles.inputBox}>
             <FaClock />
             <input
               className={styles.input}
               type="time"
               value={form.closeTime}
-              onChange={(e) =>
-                setForm({ ...form, closeTime: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, closeTime: e.target.value })}
             />
           </div>
         </div>
@@ -179,21 +166,16 @@ export default function FoodForm({ onClose, onSave }: any) {
               className={styles.input}
               placeholder="Giá thấp (VNĐ)"
               value={form.minPrice}
-              onChange={(e) =>
-                setForm({ ...form, minPrice: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, minPrice: e.target.value })}
             />
           </div>
-
           <div className={styles.inputBox}>
             <FaMoneyBill />
             <input
               className={styles.input}
               placeholder="Giá cao (VNĐ)"
               value={form.maxPrice}
-              onChange={(e) =>
-                setForm({ ...form, maxPrice: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, maxPrice: e.target.value })}
             />
           </div>
         </div>
@@ -201,14 +183,11 @@ export default function FoodForm({ onClose, onSave }: any) {
         <div className={styles.inputBox}>
           <FaFileAlt />
           <textarea
-            className={styles.input}
-            style={{ height: 80 }}
+            className={styles.textarea}
             maxLength={300}
             placeholder="Mô tả địa điểm..."
             value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </div>
 
@@ -216,19 +195,12 @@ export default function FoodForm({ onClose, onSave }: any) {
           <FaImage />
           <label className={styles.fileLabel}>
             Chọn hình ảnh
-            <input
-              type="file"
-              onChange={handleImage}
-              style={{ display: "none" }}
-            />
+            <input type="file" onChange={handleImage} style={{ display: "none" }} />
           </label>
         </div>
 
         <div style={{ textAlign: "right", marginTop: 20 }}>
-          <button
-            className={styles.saveBtn}
-            onClick={() => onSave?.(form)}
-          >
+          <button className={styles.saveBtn} onClick={() => onSave?.(form)}>
             Lưu
           </button>
         </div>
