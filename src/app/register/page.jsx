@@ -62,7 +62,9 @@ export default function RegisterPage() {
 
       <div className="card">
 
-        <div className="logo">🍜 Tastii</div>
+        <div className="logo">
+          <img src="/Logo.png" alt="Tastii" />
+        </div>
         <p className="subtitle">Tạo tài khoản để bắt đầu trải nghiệm</p>
 
         {error && <p className="error">{error}</p>}
@@ -111,12 +113,22 @@ export default function RegisterPage() {
           display: flex;
           justify-content: center;
           align-items: center;
-          background: linear-gradient(135deg, #f5f5f5, #eaeaea);
+          background: linear-gradient(135deg, #ffffff, #fb2121);
           position: relative; /* QUAN TRỌNG */
+        }
+        
+        .logo img {
+          width: 190px;
+          height: auto;
+          object-fit: contain;
+        }
+        .logo {
+          display: flex;
+          justify-content: center;
         }
 
         :global(.dark) .page {
-          background: linear-gradient(135deg, #1a1a1a, #111);
+          background: linear-gradient(135deg, #000000, #fb21219c);
         }
 
         .card {
@@ -124,7 +136,7 @@ export default function RegisterPage() {
           padding: 60px 45px;
           background: white;
           border-radius: 20px;
-          box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+          box-shadow: 0 25px 70px #000000bb;
           display: flex;
           flex-direction: column;
           gap: 16px;
@@ -132,7 +144,7 @@ export default function RegisterPage() {
         }
 
         :global(.dark) .card {
-          background: #1f1f1f;
+          background: #333333;
           color: white;
         }
 
@@ -149,7 +161,7 @@ export default function RegisterPage() {
 
         input {
           padding: 14px;
-          border: 1px solid #ddd;
+          border: 1px solid #dddddd;
           border-radius: 10px;
           outline: none;
           width: 100%;
@@ -202,7 +214,7 @@ export default function RegisterPage() {
           left: 20px;
           background: transparent;
           border: none;
-          color: #333;
+          color: #333333;
           font-size: 14px;
           cursor: pointer;
           display: flex;

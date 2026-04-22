@@ -58,10 +58,9 @@ export default function Navbar({ onAdd }: NavbarProps) {
     setShowUserMenu(false);
     
     setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-      router.push("/");
-    }, 3000);
+    router.push("/");
+  setShowToast(true);
+  setTimeout(() => setShowToast(false), 2000);
   };
 
   const flags: any = { vi: "🇻🇳", en: "🇺🇸" };
@@ -71,12 +70,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
       <div className={styles.navInner}>
         {/* LOGO */}
         <div className={styles.logoWrapper} onClick={() => router.push("/")}>
-          <svg width="40" height="40" viewBox="0 0 100 100" className={styles.logoSvg}>
-            <path d="M20 50C20 33.4315 33.4315 20 50 20C66.5685 20 80 33.4315 80 50" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
-            <path d="M40 45V65M50 45V75M60 45V65" stroke="#b30000" strokeWidth="6" strokeLinecap="round" />
-            <path d="M50 35C55 25 65 25 65 35C65 45 50 50 50 50C50 50 35 45 35 35C35 25 45 25 50 35Z" fill="#b30000" />
-          </svg>
-          <span className={styles.logoText}>Tastii</span>
+          <img src="/Logo.png" alt="Tastii" className={styles.logoImg} />
         </div>
 
         {/* SEARCH */}
@@ -84,7 +78,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           <input 
             value={search} 
             onChange={(e) => setSearch(e.target.value)} 
-            onKeyDown={(e) => e.key === "Enter" && search.trim() && router.push("/filter")}
+            onKeyDown={(e) => e.key === "Enter" && search.trim() && router.push(`/filter?q=${encodeURIComponent(search)}`)}
             placeholder={t("search")} 
           />
           <button onClick={() => search.trim() && router.push("/filter")} className={styles.searchBtn}>
@@ -122,7 +116,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           )}
         </div>
 
-        {/* THÔNG BÁO ĐĂNG XUẤT (ĐÃ CHỈNH VỀ VỊ TRÍ FAV POPUP) */}
+        {/* THÔNG BÁO ĐĂNG XUẤT */}
         {showToast && (
           <div className={styles.favPopup}>
             <div className={styles.favHeader}>
@@ -164,7 +158,9 @@ export default function Navbar({ onAdd }: NavbarProps) {
                 <div className={styles.infoItem}>
                   <span className={styles.infoLabel}><FaLock /> Mật khẩu</span>
                   <div className={styles.passDisplay}>
-                    <span className={styles.passDots}>{showPass ? user?.password : "••••••••"}</span>
+                    <span className={styles.passDots}>
+                      {showPass ? user?.password : "••••••••"}
+                    </span>
                     <button className={styles.eyeBtn} onClick={() => setShowPass(!showPass)}>
                       <FontAwesomeIcon icon={showPass ? faEyeSlash : faEye} />
                     </button>

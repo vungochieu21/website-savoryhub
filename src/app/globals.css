@@ -21,7 +21,6 @@ html, body {
   --surface: #ffffff;
   --border: #ffffff;
 }
-
 .dark {
   --background: #000000;
   --foreground: #ffffff;
@@ -43,7 +42,6 @@ html, body {
   --like: #ff0000;
   --shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-
 .dark {
   --card: #333333;
   --card-text: #ffffff;
@@ -63,7 +61,6 @@ html, body {
   --tag-bg: #000000;
   --tag-text: #ffffff;
 }
-
 .dark {
   --text: #ffffff;
   --card: #000000;
@@ -71,6 +68,24 @@ html, body {
   --primary-hover: #b30000;
   --tag-bg: #888888;
   --tag-text: #000000;
+}
+
+/* Filter advance */
+:root {
+  --btn-bg: #ffffff;
+  --btn-text: #b30000;
+  --dropdown-bg: #ffffff;
+  --dropdown-text: #000000;
+  --hover-bg: #b30000;
+  --hover-text: #ffffff;
+}
+.dark {
+  --btn-bg: #1a1a1a;
+  --btn-text: #ff4d4f;
+  --dropdown-bg: #1a1a1a;
+  --dropdown-text: #ffffff;
+  --hover-bg: #ff4d4f;
+  --hover-text: #000000;
 }
 
 /* Footer */
@@ -81,7 +96,6 @@ html, body {
   --footer-text: #ffffff;
   --footer-icon-bg: #222222;
 }
-
 .dark {
   --primary: #b30000;
 

@@ -2,7 +2,7 @@
 
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { Mail, Phone, MapPin } from "lucide-react";
-
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -15,7 +15,9 @@ export default function Footer() {
           
           {/* INFO */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <span className="text-xl font-bold">Tastii</span>
+            <div className={styles.logo}>
+              <Image src="/Logo.png" alt="Tastii" width={150} height={60} />
+            </div>
 
             <p className="text-sm leading-relaxed mt-3 mb-5 text-gray-300">
               Đây là Tastii, chúng tôi tin rằng mỗi món ăn ngon đều mang đến
@@ -36,7 +38,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://wa.me/231XXXXXXXXXX"
+                href="https://wa.me/84398328506"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialBtn}
@@ -71,7 +73,7 @@ export default function Footer() {
               <li className="flex items-center gap-2">
                 <Mail size={18} className={styles.icon} />
                 <a
-                  href="mailto:info@gmail.com"
+                  href="mailto:vungochieu2120006@gmail.com"
                   className={styles.link}
                 >
                   vungochieu2120006@gmail.com
@@ -87,8 +89,8 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Tastii. All rights reserved.</p>
 
           <div className="flex gap-6 mt-2 md:mt-0">
-            <a className={styles.link}>Terms of Service</a>
-            <a className={styles.link}>Privacy Policy</a>
+            <a href="/terms" className={styles.link}>Terms of Service</a>
+            <a href="/privacy" className={styles.link}>Privacy Policy</a>
           </div>
         </div>
       </div>

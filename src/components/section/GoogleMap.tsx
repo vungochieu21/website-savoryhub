@@ -65,7 +65,7 @@ function MapInner() {
   return (
     <section className={styles.wrapper}>
       <h2 className={styles.title}>
-        🍜 Bản đồ quán ăn
+        Bản đồ quán ăn
       </h2>
 
       <div className={styles.mapBox}>

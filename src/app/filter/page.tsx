@@ -1,89 +1,95 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Navbar from "src/components/layout/Navbar";
 import Footer from "src/components/layout/Footer";
 import FoodCard from "src/components/food/FoodCard";
 import foodsData from "src/data/food.json";
+import Dropdown from "src/components/ui/Dropdown";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+/* TYPES */
+type Food = {
+  id?: number;
+  name: string;
+  type: string;
+  price: number;
+  rating: number;
+  address: string;
+  image: string;
+  comments?: number;
+  photos?: number;
+  tags?: string[];
+};
 
+/* CONSTANT */
+const PRICE_RANGE = {
+  LOW: 50000,
+  HIGH: 150000,
+};
+
+/* COMPONENT */
 export default function FilterPage() {
   const [type, setType] = useState("all");
   const [price, setPrice] = useState("all");
   const [rating, setRating] = useState("all");
   const [tag, setTag] = useState("all");
-
   const [open, setOpen] = useState<string | null>(null);
 
-  const foods = Array.isArray(foodsData) ? foodsData : [];
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const filteredFoods = foods.filter((item: any) => {
-    if (type !== "all" && item.type !== type) return false;
+const foods = (Array.isArray(foodsData) ? foodsData : []) as Food[];
 
-    if (price !== "all") {
-      if (price === "low" && item.price > 50000) return false;
-      if (price === "mid" && (item.price < 50000 || item.price > 150000)) return false;
-      if (price === "high" && item.price < 150000) return false;
-    }
+  /* CLICK OUTSIDE */
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setOpen(null);
+      }
+    };
 
-    if (rating !== "all") {
-      if (rating === "1-2" && !(item.rating >= 1 && item.rating < 2)) return false;
-      if (rating === "2-3" && !(item.rating >= 2 && item.rating < 3)) return false;
-      if (rating === "3-4" && !(item.rating >= 3 && item.rating < 4)) return false;
-      if (rating === "4-5" && !(item.rating >= 4 && item.rating < 5)) return false;
-      if (rating === "5" && item.rating !== 5) return false;
-    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    if (tag !== "all" && !(item.tags || []).includes(tag)) return false;
+  /* FILTER */
+  const filteredFoods = useMemo(() => {
+    return foods.filter((item) => {
+      if (type !== "all" && item.type !== type) return false;
 
-    return true;
-  });
+      if (price !== "all") {
+        if (price === "low" && item.price > PRICE_RANGE.LOW) return false;
+        if (
+          price === "mid" &&
+          (item.price < PRICE_RANGE.LOW || item.price > PRICE_RANGE.HIGH)
+        )
+          return false;
+        if (price === "high" && item.price < PRICE_RANGE.HIGH) return false;
+      }
 
-  const Dropdown = ({
-    label,
-    value,
-    setValue,
-    options,
-    id,
-  }: any) => {
-    return (
-      <div className="relative">
-        <button
-          onClick={() => setOpen(open === id ? null : id)}
-          className="border border-[#b30000] text-[#b30000] px-4 py-2 rounded-md min-w-[140px] flex justify-between items-center"
-        >
-          {options.find((o: any) => o.value === value)?.label || label}
-          <span>▼</span>
-        </button>
+      if (rating !== "all") {
+        if (rating === "1-2" && !(item.rating >= 1 && item.rating < 2))
+          return false;
+        if (rating === "2-3" && !(item.rating >= 2 && item.rating < 3))
+          return false;
+        if (rating === "3-4" && !(item.rating >= 3 && item.rating < 4))
+          return false;
+        if (rating === "4-5" && !(item.rating >= 4 && item.rating < 5))
+          return false;
+        if (rating === "5" && item.rating < 5) return false;
+      }
 
-        <div
-          className={`absolute left-0 mt-2 w-full bg-white border border-[#b30000] rounded-md shadow-lg overflow-hidden transition-all duration-200 z-50 ${
-            open === id
-              ? "max-h-60 opacity-100"
-              : "max-h-0 opacity-0 pointer-events-none"
-          }`}
-        >
-          {options.map((opt: any, index: number) => (
-            <div
-              key={index}
-              onClick={() => {
-                setValue(opt.value);
-                setOpen(null);
-              }}
-              className="px-3 py-2 hover:bg-[#b30000] hover:text-white cursor-pointer"
-            >
-              {opt.label}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+      if (tag !== "all" && !(item.tags || []).includes(tag)) return false;
 
+      return true;
+    });
+  }, [foods, type, price, rating, tag]);
+
+  /* UI */
   return (
-    <div onClick={() => setOpen(null)}>
+    <div ref={wrapperRef}>
       <Navbar />
 
       <div
@@ -97,10 +103,8 @@ export default function FilterPage() {
           Tìm kiếm nâng cao
         </h2>
 
-        <div
-          className="flex flex-wrap gap-3 p-4 justify-start"
-          onClick={(e) => e.stopPropagation()}
-        >
+        {/* FILTER */}
+        <div className="flex flex-wrap gap-3 p-4">
           <Dropdown
             id="type"
             value={type}
@@ -113,6 +117,8 @@ export default function FilterPage() {
               { value: "fastfood", label: "Đồ ăn nhanh" },
               { value: "buffet", label: "Buffet" },
             ]}
+            open={open}
+            setOpen={setOpen}
           />
 
           <Dropdown
@@ -126,6 +132,8 @@ export default function FilterPage() {
               { value: "mid", label: "50k - 150k" },
               { value: "high", label: "Trên 150k" },
             ]}
+            open={open}
+            setOpen={setOpen}
           />
 
           <Dropdown
@@ -135,12 +143,14 @@ export default function FilterPage() {
             label="Rating"
             options={[
               { value: "all", label: "Đánh giá" },
-              { value: "1-2", label: <span><FontAwesomeIcon icon={faStar} /> 1 - 2</span> },
-              { value: "2-3", label: <span><FontAwesomeIcon icon={faStar} /> 2 - 3</span> },
-              { value: "3-4", label: <span><FontAwesomeIcon icon={faStar} /> 3 - 4</span> },
-              { value: "4-5", label: <span><FontAwesomeIcon icon={faStar} /> 4 - 5</span> },
-              { value: "5", label: <span><FontAwesomeIcon icon={faStar} /> 5</span> },
+              { value: "1-2", label: "⭐ 1 - 2" },
+              { value: "2-3", label: "⭐ 2 - 3" },
+              { value: "3-4", label: "⭐ 3 - 4" },
+              { value: "4-5", label: "⭐ 4 - 5" },
+              { value: "5", label: "⭐ 5" },
             ]}
+            open={open}
+            setOpen={setOpen}
           />
 
           <Dropdown
@@ -150,26 +160,35 @@ export default function FilterPage() {
             label="Đặc tính"
             options={[
               { value: "all", label: "Khẩu vị" },
-              { value: "chay", label: "đồ ăn Chay" },
-              { value: "cay", label: "vị Cay" },
-              { value: "mặn", label: "vị Mặn" },
-              { value: "ngọt", label: "vị Ngọt" },
+              { value: "chay", label: "Đồ ăn chay" },
+              { value: "cay", label: "Vị cay" },
+              { value: "mặn", label: "Vị mặn" },
+              { value: "ngọt", label: "Vị ngọt" },
             ]}
+            open={open}
+            setOpen={setOpen}
           />
         </div>
 
+        {/* LIST */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
-          {filteredFoods.map((item: any, index: number) => (
-            <FoodCard
-              key={item.id ?? item.name ?? index}
-              name={item.name}
-              address={item.address}
-              image={item.image}
-              rating={item.rating}
-              comments={item.comments}
-              photos={item.photos}
-            />
-          ))}
+          {filteredFoods.length > 0 ? (
+            filteredFoods.map((item, index) => (
+              <FoodCard
+                key={item.id ?? item.name ?? index}
+                name={item.name}
+                address={item.address}
+                image={item.image}
+                rating={item.rating}
+                comments={item.comments}
+                photos={item.photos}
+              />
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">
+              Không tìm thấy kết quả
+            </p>
+          )}
         </div>
       </div>
 
