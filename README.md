@@ -9,14 +9,14 @@
 -  Người dùng có thể xem địa điểm bằng google map.
 -  Tiêu đề (Tiếng Việt & Tiếng Anh).
 -  Mô tả (Tiếng Việt & Tiếng Anh).
--  Tìm kiếm và lọc các địa điểm, món ăn
+-  Tìm kiếm và lọc các món ăn, loại món ăn.
 ### 💎 *Trải nghiệm người dùng:* 
 - Đăng ký/đăng nhập bằng localstorage.
 - Xem thông tin người dùng trong tài khoản.
 - Hỗ trợ Dark Mode.
 - Giao diện dark mode mượt.
 - Hỗ trợ Tiếng Việt & Tiếng Anh.
-- Có thông báo khi add, đánh giá, đăng kí/đăng nhập.
+- Có thông báo khi add, đánh giá, đăng kí/đăng nhập, yêu thích.
 - Tương thích cho desktop.
 ### 📄 *Các trang chính:*
 - ➡️ ***Trang chủ:***
@@ -24,9 +24,11 @@
 <br> - List các địa điểm quán ăn.
 <br> - List các quán ăn đang có sale.
 - ➡️ **Setting:**
-<br> - Chuyển đổi ngôn ngữ, xem hồ sơ người dùng.
+<br> - Chuyển đổi ngôn ngữ.
+<br> - Chuyển đổi chế độ.
 - ➡️ ***Giao diện xác thực:***
 <br> - Trang đăng nhập/đăng ký cơ bản.
+<br> - Xem thông tin tài khoản.
 - ➡️ ***Quản lý:***
 <br> - Danh mục yêu thích.
 <br> - Lưu trữ tự động.
@@ -39,15 +41,15 @@
 - Lưu dữ liệu bằng localstorage.
 ### 📁 *Quản lí sử dụng người dùng:*
 - Thêm địa điểm mới:
-<br> Bước 1: Ấn dấu "+" trên thanh công cụ.
+<br> Bước 1: Ấn dấu "+".
 <br> Bước 2: Nhập thông tin (tên quán, địa điểm, tên món, ...).
 - Dữ liệu autosave vào localstorage.
 - Sửa địa điểm được thêm:
-<br> Bước 1: Ấn vào dấu "+" trên thanh công cụ.
-<br> Bước 2: Sửa thông tin.
+<br> Bước 1: Ấn vào dấu ba chấm trên card cần sửa.
+<br> Bước 2: Ấn sửa thông tin.
 - Xoá địa điểm được thêm:
-<br> Bước 1: Nhấp vào dấu ba chấm trên card món ăn.
-<br> Bước 2: Chọn xoá.
+<br> Bước 1: Ấn vào dấu ba chấm trên card cần xoá.
+<br> Bước 2: Ấn xoá.
 ### ⚙️ Settings:
 - Chế độ sáng/tối.
 - Ngôn ngữ: Anh/Việt.
