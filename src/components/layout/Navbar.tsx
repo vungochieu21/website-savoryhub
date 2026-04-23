@@ -16,6 +16,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { getCurrentUser, logoutUser } from "src/utils/Storage";
 import { useLanguage } from "src/locales/context/LanguageContext";
+import { useFavorites } from "src/locales/context/FavoriteContext"; // ⭐ thêm
 
 type NavbarProps = { onAdd: () => void; };
 
@@ -29,6 +30,8 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showProfile, setShowProfile] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [showToast, setShowToast] = useState(false);
+
+  const { favorites } = useFavorites(); // ⭐ thêm
 
   const { lang, setLang, t } = useLanguage();
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -59,8 +62,8 @@ export default function Navbar({ onAdd }: NavbarProps) {
     
     setShowToast(true);
     router.push("/");
-  setShowToast(true);
-  setTimeout(() => setShowToast(false), 2000);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   const flags: any = { vi: "🇻🇳", en: "🇺🇸" };
@@ -109,14 +112,27 @@ export default function Navbar({ onAdd }: NavbarProps) {
                   </button>
                 </>
               )}
-              <button onClick={() => { setShowFavorites(true); setTimeout(() => setShowFavorites(false), 4000); setShowUserMenu(false); }}>
+
+              {/* ⭐ SỬA CHỖ NÀY */}
+              <button
+                onClick={() => {
+                  if (favorites.length > 0) {
+                    router.push("/favorites"); // có dữ liệu → đi trang
+                  } else {
+                    setShowFavorites(true); // không có → hiện popup
+                    setTimeout(() => setShowFavorites(false), 4000);
+                  }
+                  setShowUserMenu(false);
+                }}
+              >
                 <FaHeart /> {t("favorites")}
               </button>
+
             </div>
           )}
         </div>
 
-        {/* THÔNG BÁO ĐĂNG XUẤT */}
+        {/* THÔNG BÁO */}
         {showToast && (
           <div className={styles.favPopup}>
             <div className={styles.favHeader}>
@@ -126,7 +142,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </div>
         )}
 
-        {/* FAVORITES */}
+        {/* FAVORITES POPUP */}
         {showFavorites && (
           <div className={styles.favPopup}>
             <div className={styles.favHeader}>❤️ {t("favorites")}</div>

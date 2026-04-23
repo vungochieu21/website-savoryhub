@@ -3,10 +3,13 @@ import "leaflet/dist/leaflet.css";
 import Script from "next/script";
 import ScrollToTopButton from "src/components/ui/ScrollToTopButton";
 import Providers from "@/src/app/provider";
+import { FavoriteProvider } from "src/locales/context/FavoriteContext"; // ⭐ thêm dòng này
 
 export const metadata = {
-  title: "SavoryHub",
-  description: "Food Map App",
+  title: "Tastii",
+  icons: {
+    icon: "/Logo1.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -34,15 +37,17 @@ export default function RootLayout({ children }) {
       </head>
 
       <body>
-        {/* ⭐ WRAP ALL APP WITH PROVIDERS */}
-        <Providers>
-          {/* ⭐ FIX NAVBAR OVERLAP AWARENESS */}
-          <div style={{ paddingTop: "70px" }}>
-            {children}
-          </div>
+        {/* ⭐ THÊM FAVORITE PROVIDER */}
+        <FavoriteProvider>
+          <Providers>
+            {/* ⭐ FIX NAVBAR OVERLAP AWARENESS */}
+            <div style={{ paddingTop: "70px" }}>
+              {children}
+            </div>
 
-          <ScrollToTopButton />
-        </Providers>
+            <ScrollToTopButton />
+          </Providers>
+        </FavoriteProvider>
       </body>
     </html>
   );

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { FaComment, FaCamera, FaHeart } from "react-icons/fa";
 import styles from "./FoodCard.module.css";
+import { useFavorites } from "src/locales/context/FavoriteContext";
 
 type FoodCardProps = {
+  id: string;
   name: string;
   address: string;
   image?: string | null;
@@ -14,6 +15,7 @@ type FoodCardProps = {
 };
 
 export default function FoodCard({
+  id,
   name,
   address,
   image,
@@ -21,7 +23,19 @@ export default function FoodCard({
   comments = 0,
   photos = 0,
 }: FoodCardProps) {
-  const [liked, setLiked] = useState(false);
+  const { toggleFavorite, isFavorite } = useFavorites();
+
+  const liked = isFavorite(id);
+
+  const item = {
+    id,
+    name,
+    address,
+    image,
+    rating,
+    comments,
+    photos,
+  };
 
   return (
     <div className={styles.card}>
@@ -57,7 +71,7 @@ export default function FoodCard({
           <div
             onClick={(e) => {
               e.stopPropagation();
-              setLiked(!liked);
+              toggleFavorite(item);
             }}
             className={`${styles.like} ${liked ? styles.likeActive : ""}`}
           >
