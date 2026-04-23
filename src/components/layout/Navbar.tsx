@@ -16,7 +16,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { getCurrentUser, logoutUser } from "src/utils/Storage";
 import { useLanguage } from "src/locales/context/LanguageContext";
-import { useFavorites } from "src/locales/context/FavoriteContext"; // ⭐ thêm
+import { useFavorites } from "src/locales/context/FavoriteContext";
 
 type NavbarProps = { onAdd: () => void; };
 
@@ -31,9 +31,9 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const [showPass, setShowPass] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  const { favorites } = useFavorites(); // ⭐ thêm
-
+  const { favorites } = useFavorites();
   const { lang, setLang, t } = useLanguage();
+
   const userMenuRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +59,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
     setUser(null);
     window.dispatchEvent(new Event("authChange"));
     setShowUserMenu(false);
-    
+
     setShowToast(true);
     router.push("/");
     setShowToast(true);
@@ -71,12 +71,10 @@ export default function Navbar({ onAdd }: NavbarProps) {
   return (
     <div className={styles.navbar}>
       <div className={styles.navInner}>
-        {/* LOGO */}
         <div className={styles.logoWrapper} onClick={() => router.push("/")}>
           <img src="/Logo.png" alt="Tastii" className={styles.logoImg} />
         </div>
 
-        {/* SEARCH */}
         <div className={styles.searchBox}>
           <input 
             value={search} 
@@ -92,11 +90,11 @@ export default function Navbar({ onAdd }: NavbarProps) {
         <button className={styles.iconBtn} onClick={() => router.push("/filter")}><FaFilter /></button>
         <button className={styles.iconBtn} onClick={onAdd}><FaPlus /></button>
 
-        {/* USER MENU */}
         <div className={styles.userMenu} ref={userMenuRef}>
           <button className={styles.iconBtn} onClick={() => { setShowUserMenu(!showUserMenu); setShowSettings(false); }}>
             <FaUserCircle size={20} />
           </button>
+
           {showUserMenu && (
             <div className={styles.dropdown}>
               {!user ? (
@@ -106,20 +104,21 @@ export default function Navbar({ onAdd }: NavbarProps) {
                 </>
               ) : (
                 <>
-                  <button onClick={() => { setShowProfile(true); setShowUserMenu(false); }}><FaUserCircle /> {t("account")}</button>
+                  <button onClick={() => { setShowProfile(true); setShowUserMenu(false); }}>
+                    <FaUserCircle /> {t("account")}
+                  </button>
                   <button onClick={handleLogout}>
                     <FaSignOutAlt /> {t("logout")}
                   </button>
                 </>
               )}
 
-              {/* ⭐ SỬA CHỖ NÀY */}
               <button
                 onClick={() => {
                   if (favorites.length > 0) {
-                    router.push("/favorites"); // có dữ liệu → đi trang
+                    router.push("/favorites");
                   } else {
-                    setShowFavorites(true); // không có → hiện popup
+                    setShowFavorites(true);
                     setTimeout(() => setShowFavorites(false), 4000);
                   }
                   setShowUserMenu(false);
@@ -127,12 +126,10 @@ export default function Navbar({ onAdd }: NavbarProps) {
               >
                 <FaHeart /> {t("favorites")}
               </button>
-
             </div>
           )}
         </div>
 
-        {/* THÔNG BÁO */}
         {showToast && (
           <div className={styles.favPopup}>
             <div className={styles.favHeader}>
@@ -142,7 +139,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </div>
         )}
 
-        {/* FAVORITES POPUP */}
         {showFavorites && (
           <div className={styles.favPopup}>
             <div className={styles.favHeader}>❤️ {t("favorites")}</div>
@@ -150,7 +146,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </div>
         )}
 
-        {/* PROFILE CARD */}
         {showProfile && (
           <div className={styles.profileOverlay} onClick={() => setShowProfile(false)}>
             <div className={styles.profileCard} onClick={(e) => e.stopPropagation()}>
@@ -158,21 +153,35 @@ export default function Navbar({ onAdd }: NavbarProps) {
                 <FaUserCircle size={40} color="#b30000" />
                 <h3>{t("account")}</h3>
               </div>
+
               <div className={styles.profileInfoList}>
                 <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}><FaUserCircle /> Tài khoản</span>
+                  <span className={styles.infoLabel}>
+                    <FaUserCircle /> {t("account_label")}
+                  </span>
                   <span className={styles.infoText}>{user?.name}</span>
                 </div>
+
                 <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}><FaEnvelope /> Email</span>
+                  <span className={styles.infoLabel}>
+                    <FaEnvelope /> {t("email")}
+                  </span>
                   <span className={styles.infoText}>{user?.email}</span>
                 </div>
+
                 <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}><FaMapMarkerAlt /> Địa chỉ</span>
-                  <span className={styles.infoText}>{user?.address || "Chưa có"}</span>
+                  <span className={styles.infoLabel}>
+                    <FaMapMarkerAlt /> {t("address")}
+                  </span>
+                  <span className={styles.infoText}>
+                    {user?.address || t("no_address")}
+                  </span>
                 </div>
+
                 <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}><FaLock /> Mật khẩu</span>
+                  <span className={styles.infoLabel}>
+                    <FaLock /> {t("password")}
+                  </span>
                   <div className={styles.passDisplay}>
                     <span className={styles.passDots}>
                       {showPass ? user?.password : "••••••••"}
@@ -183,18 +192,27 @@ export default function Navbar({ onAdd }: NavbarProps) {
                   </div>
                 </div>
               </div>
-              <button className={styles.closeBtn} onClick={() => setShowProfile(false)}>Đóng</button>
+
+              <button className={styles.closeBtn} onClick={() => setShowProfile(false)}>
+                {t("close")}
+              </button>
             </div>
           </div>
         )}
 
-        {/* SETTINGS */}
         <div className={styles.settings} ref={settingsRef}>
-          <button className={styles.iconBtn} onClick={() => { setShowSettings(!showSettings); setShowUserMenu(false); }}><FaCog /></button>
+          <button className={styles.iconBtn} onClick={() => { setShowSettings(!showSettings); setShowUserMenu(false); }}>
+            <FaCog />
+          </button>
+
           {showSettings && (
             <div className={styles.dropdown}>
-              <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}><FaGlobe /> {t("language")} {flags[lang]}</button>
-              <div className={styles.modeRow}><NightModeButton size={0.7} /> {t("mode")}</div>
+              <button onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
+                <FaGlobe /> {t("language")} {flags[lang]}
+              </button>
+              <div className={styles.modeRow}>
+                <NightModeButton size={0.7} /> {t("mode")}
+              </div>
             </div>
           )}
         </div>

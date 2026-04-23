@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from "src/utils/Storage";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
+import { useLanguage } from "src/locales/context/LanguageContext"; // ✅ thêm
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { t } = useLanguage(); // ✅ thêm
 
   const [form, setForm] = useState({
     name: "",
@@ -34,7 +36,7 @@ export default function RegisterPage() {
 
   const handleRegister = () => {
     if (!form.name || !form.email || !form.password || !form.address) {
-      setError("Vui lòng nhập đầy đủ thông tin");
+      setError(t("login_error_empty")); // ✅ sửa
       return;
     }
 
@@ -48,16 +50,15 @@ export default function RegisterPage() {
       return;
     }
 
-    alert("Đăng ký thành công!");
+    alert(t("register_success")); // ✅ sửa
     router.push("/login");
   };
 
   return (
     <div className="page">
 
-      {/* BACK BUTTON */}
       <button className="backBtn" onClick={() => router.back()}>
-        <FaArrowLeft /> Quay lại
+        <FaArrowLeft /> {t("back")}
       </button>
 
       <div className="card">
@@ -65,19 +66,20 @@ export default function RegisterPage() {
         <div className="logo">
           <img src="/Logo.png" alt="Tastii" />
         </div>
-        <p className="subtitle">Tạo tài khoản để bắt đầu trải nghiệm</p>
+
+        <p className="subtitle">{t("register_subtitle")}</p>
 
         {error && <p className="error">{error}</p>}
 
-        <input name="name" placeholder="Tên tài khoản" onChange={handleChange} />
+        <input name="name" placeholder={t("username")} onChange={handleChange} />
 
-        <input name="email" placeholder="Nhập địa chỉ Email" onChange={handleChange} />
+        <input name="email" placeholder={t("email")} onChange={handleChange} />
 
         <div className="password-wrap">
           <input
             name="password"
             type={showPass ? "text" : "password"}
-            placeholder="Nhập mật khẩu"
+            placeholder={t("password")}
             onChange={handleChange}
             onKeyDown={(e) => e.key === "Enter" && handleRegister()}
           />
@@ -89,19 +91,19 @@ export default function RegisterPage() {
 
         <input
           name="address"
-          placeholder="Nhập địa chỉ"
+          placeholder={t("address")}
           onChange={handleChange}
           onKeyDown={(e) => e.key === "Enter" && handleRegister()}
         />
 
         <button onClick={handleRegister}>
-          Đăng ký
+          {t("register")}
         </button>
 
         <p className="footerText">
-          Đã có tài khoản?{" "}
+          {t("have_account")}{" "}
           <span onClick={() => router.push("/login")}>
-            Đăng nhập
+            {t("login")}
           </span>
         </p>
 

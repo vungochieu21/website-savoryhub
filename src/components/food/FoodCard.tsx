@@ -3,6 +3,7 @@
 import { FaComment, FaCamera, FaHeart } from "react-icons/fa";
 import styles from "./FoodCard.module.css";
 import { useFavorites } from "src/locales/context/FavoriteContext";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 type FoodCardProps = {
   id: string;
@@ -24,6 +25,7 @@ export default function FoodCard({
   photos = 0,
 }: FoodCardProps) {
   const { toggleFavorite, isFavorite } = useFavorites();
+  const { t } = useLanguage();
 
   const liked = isFavorite(id);
 
@@ -43,15 +45,17 @@ export default function FoodCard({
       {image ? (
         <img src={image} alt={name} className={styles.img} />
       ) : (
-        <div className={styles.noImg}>No Image</div>
+        <div className={styles.noImg}>{t("no_image")}</div>
       )}
 
       {/* CONTENT */}
       <div className={styles.content}>
-        <div className={styles.title}>{name || "Tên quán..."}</div>
+        <div className={styles.title}>
+          {name || t("no_name")}
+        </div>
 
         <div className={styles.address}>
-          {address || "Địa chỉ..."}
+          {address || t("no_address_short")}
         </div>
 
         <div className={styles.rating}>⭐ {rating}</div>

@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "src/utils/Storage";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
+import { useLanguage } from "src/locales/context/LanguageContext"; // ✅ thêm
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useLanguage(); // ✅ thêm
 
   const [form, setForm] = useState({
     name: "",
@@ -35,14 +37,14 @@ export default function LoginPage() {
 
   const handleLogin = () => {
     if (!form.name || !form.password) {
-      setError("Vui lòng nhập đầy đủ thông tin");
+      setError(t("login_error_empty")); // ✅ sửa
       return;
     }
 
     const res = loginUser(form.name, form.password);
 
     if (!res.success) {
-      setError("Sai tài khoản hoặc mật khẩu");
+      setError(t("login_error_invalid")); // ✅ sửa
       return;
     }
 
@@ -52,9 +54,8 @@ export default function LoginPage() {
   return (
     <div className="page">
 
-      {/* BACK BUTTON */}
       <button className="backBtn" onClick={() => router.back()}>
-        <FaArrowLeft /> Quay lại
+        <FaArrowLeft /> {t("back")}
       </button>
 
       <div className="card">
@@ -62,13 +63,14 @@ export default function LoginPage() {
         <div className="logo">
           <img src="/Logo.png" alt="Tastii" />
         </div>
-        <p className="subtitle">Đăng nhập để tiếp tục</p>
+
+        <p className="subtitle">{t("login_subtitle")}</p>
 
         {error && <p className="error">{error}</p>}
 
         <input
           name="name"
-          placeholder="Tên tài khoản"
+          placeholder={t("username")}
           onChange={handleChange}
           onKeyDown={(e) => e.key === "Enter" && handleLogin()}
         />
@@ -77,7 +79,7 @@ export default function LoginPage() {
           <input
             name="password"
             type={showPass ? "text" : "password"}
-            placeholder="Mật khẩu"
+            placeholder={t("password")}
             onChange={handleChange}
             onKeyDown={(e) => e.key === "Enter" && handleLogin()}
           />
@@ -91,13 +93,13 @@ export default function LoginPage() {
         </div>
 
         <button onClick={handleLogin}>
-          Đăng nhập
+          {t("login")}
         </button>
 
         <p className="footerText">
-          Chưa có tài khoản?{" "}
+          {t("no_account")}{" "}
           <span onClick={() => router.push("/register")}>
-            Đăng ký
+            {t("register")}
           </span>
         </p>
 

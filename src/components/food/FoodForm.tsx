@@ -12,8 +12,10 @@ import {
 } from "react-icons/fa";
 
 import styles from "./FoodForm.module.css";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function FoodForm({ onClose, onSave }: any) {
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   const [form, setForm] = useState({
@@ -68,13 +70,13 @@ export default function FoodForm({ onClose, onSave }: any) {
           <FaTimes />
         </button>
 
-        <h2 className={styles.title}>Thông tin bắt buộc</h2>
+        <h2 className={styles.title}>{t("form_required")}</h2>
 
         <div className={styles.inputBox}>
           <FaFileAlt />
           <input
             className={styles.input}
-            placeholder="Tên địa điểm"
+            placeholder={t("place_name")}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
@@ -84,24 +86,24 @@ export default function FoodForm({ onClose, onSave }: any) {
           <FaMapMarkerAlt />
           <input
             className={styles.input}
-            placeholder="Địa chỉ"
+            placeholder={t("address")}
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
           />
         </div>
 
-        <h3 className={styles.subTitle}>Chọn tỉnh / thành phố</h3>
+        <h3 className={styles.subTitle}>{t("select_city")}</h3>
 
         <div className={styles.inputBox}>
           <select className={styles.input}>
-            <option>Việt Nam</option>
+            <option>{t("country")}</option>
           </select>
         </div>
 
         <div className={styles.inputBox}>
           <input
             className={styles.input}
-            placeholder="Nhập tỉnh / thành..."
+            placeholder={t("enter_city")}
             value={form.province}
             onChange={(e) => setForm({ ...form, province: e.target.value })}
           />
@@ -110,19 +112,19 @@ export default function FoodForm({ onClose, onSave }: any) {
         <div className={styles.inputBox}>
           <input
             className={styles.input}
-            placeholder="Nhập quận / huyện..."
+            placeholder={t("enter_district")}
             value={form.district}
             onChange={(e) => setForm({ ...form, district: e.target.value })}
           />
         </div>
 
-        <h3 className={styles.subTitle}>Thông tin khác</h3>
+        <h3 className={styles.subTitle}>{t("other_info")}</h3>
 
         <div className={styles.inputBox}>
           <FaMapMarkerAlt />
           <input
             className={styles.input}
-            placeholder="Link Google Maps..."
+            placeholder={t("map_link")}
             value={form.map}
             onChange={(e) => setForm({ ...form, map: e.target.value })}
           />
@@ -132,7 +134,7 @@ export default function FoodForm({ onClose, onSave }: any) {
           <FaPhone />
           <input
             className={styles.input}
-            placeholder="Số điện thoại"
+            placeholder={t("phone")}
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
@@ -164,7 +166,7 @@ export default function FoodForm({ onClose, onSave }: any) {
             <FaMoneyBill />
             <input
               className={styles.input}
-              placeholder="Giá thấp (VNĐ)"
+              placeholder={t("price_min")}
               value={form.minPrice}
               onChange={(e) => setForm({ ...form, minPrice: e.target.value })}
             />
@@ -173,7 +175,7 @@ export default function FoodForm({ onClose, onSave }: any) {
             <FaMoneyBill />
             <input
               className={styles.input}
-              placeholder="Giá cao (VNĐ)"
+              placeholder={t("price_max")}
               value={form.maxPrice}
               onChange={(e) => setForm({ ...form, maxPrice: e.target.value })}
             />
@@ -185,7 +187,7 @@ export default function FoodForm({ onClose, onSave }: any) {
           <textarea
             className={styles.textarea}
             maxLength={300}
-            placeholder="Mô tả địa điểm..."
+            placeholder={t("description")}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
@@ -194,14 +196,14 @@ export default function FoodForm({ onClose, onSave }: any) {
         <div className={styles.inputBox}>
           <FaImage />
           <label className={styles.fileLabel}>
-            Chọn hình ảnh
+            {t("choose_image")}
             <input type="file" onChange={handleImage} style={{ display: "none" }} />
           </label>
         </div>
 
         <div style={{ textAlign: "right", marginTop: 20 }}>
           <button className={styles.saveBtn} onClick={() => onSave?.(form)}>
-            Lưu
+            {t("save")}
           </button>
         </div>
       </div>

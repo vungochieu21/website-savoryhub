@@ -3,10 +3,12 @@
 import { useFavorites } from "src/locales/context/FavoriteContext";
 import FoodCard from "src/components/food/FoodCard";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function FavoritesPage() {
   const { favorites } = useFavorites();
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
@@ -20,10 +22,10 @@ export default function FavoritesPage() {
           cursor: "pointer",
         }}
       >
-        ← Quay lại
+        ← {t("back")}
       </button>
 
-      <h1>Danh sách yêu thích ❤️</h1>
+      <h1>{t("favorites_title")}</h1>
 
       {/* ❌ không có */}
       {favorites.length === 0 ? (
@@ -38,7 +40,6 @@ export default function FavoritesPage() {
             gap: "16px",
           }}
         >
-          {/* 🖼️ Hình */}
           <img
             src="/empty-favorite.png" 
             alt="No favorites"
@@ -48,9 +49,8 @@ export default function FavoritesPage() {
             }}
           />
 
-          {/* 📄 Text */}
           <p style={{ fontSize: "16px", opacity: 0.8 }}>
-            Chưa có quán nào được thêm vào danh sách yêu thích
+            {t("empty_favorite_full")}
           </p>
         </div>
       ) : (
