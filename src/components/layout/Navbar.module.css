@@ -66,9 +66,19 @@
 .userMenu, .settings { position: relative; }
 
 .dropdown {
-  position: absolute; top: 55px; right: 0; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 12px; padding: 10px; min-width: 180px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2); animation: fadeSlide 0.2s ease-out;
+  position: absolute; top: 55px; right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 180px; /* settings dùng */
+}
+
+.dropdown.userDropdown {
+  min-width: 240px;
+}
+.dropdown.userDropdown button {
+  white-space: nowrap;
 }
 
 .dropdown button {
@@ -143,4 +153,19 @@
 }
 .logoWrapper {
   margin-left: 56px;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.dropdown {
+  animation: dropdownSlide 0.25s ease-out;
+  transform-origin: top;
 }

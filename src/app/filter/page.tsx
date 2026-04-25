@@ -8,6 +8,7 @@ import Footer from "src/components/layout/Footer";
 import FoodCard from "src/components/food/FoodCard";
 import foodsData from "src/data/food.json";
 import Dropdown from "src/components/ui/Dropdown";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 /* TYPES */
 type Food = {
@@ -36,6 +37,8 @@ export default function FilterPage() {
   const [tag, setTag] = useState("all");
   const [region, setRegion] = useState("all");
   const [open, setOpen] = useState<string | null>(null);
+
+  const { t } = useLanguage();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -88,14 +91,12 @@ export default function FilterPage() {
 
       if (tag !== "all" && !(item.tags || []).includes(tag)) return false;
 
-      // REGION FILTER
       if (region !== "all" && item.region !== region) return false;
 
       return true;
     });
   }, [foods, type, price, rating, tag, region]);
 
-  /* check đang filter */
   const isFiltering =
     type !== "all" ||
     price !== "all" ||
@@ -130,12 +131,12 @@ export default function FilterPage() {
             `}
           >
             <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-200 translate-y-1">
-              Tìm kiếm nâng cao
+              {t("filter_title")}
             </h2>
 
             <div className="flex items-center gap-3">
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                {filteredFoods.length} kết quả
+                {filteredFoods.length} {t("results")}
               </span>
 
               {isFiltering && (
@@ -149,7 +150,7 @@ export default function FilterPage() {
                   }}
                   className="text-xs text-red-500 hover:underline"
                 >
-                  Reset
+                  {t("reset")}
                 </button>
               )}
             </div>
@@ -164,13 +165,13 @@ export default function FilterPage() {
               id="type"
               value={type}
               setValue={setType}
-              label="Loại"
+              label={t("type")}
               options={[
-                { value: "all", label: "Tất cả" },
-                { value: "food", label: "Quán ăn" },
-                { value: "drink", label: "Đồ uống" },
-                { value: "fastfood", label: "Đồ ăn nhanh" },
-                { value: "buffet", label: "Buffet" },
+                { value: "all", label: t("all") },
+                { value: "food", label: t("restaurant") },
+                { value: "drink", label: t("drink") },
+                { value: "fastfood", label: t("fastfood") },
+                { value: "buffet", label: t("buffet") },
               ]}
               open={open}
               setOpen={setOpen}
@@ -180,12 +181,12 @@ export default function FilterPage() {
               id="price"
               value={price}
               setValue={setPrice}
-              label="Giá"
+              label={t("price")}
               options={[
-                { value: "all", label: "Giá cả" },
-                { value: "low", label: "Dưới 50k" },
-                { value: "mid", label: "50k - 150k" },
-                { value: "high", label: "Trên 150k" },
+                { value: "all", label: t("price_all") },
+                { value: "low", label: t("under_50k") },
+                { value: "mid", label: t("50_150k") },
+                { value: "high", label: t("over_150k") },
               ]}
               open={open}
               setOpen={setOpen}
@@ -195,9 +196,9 @@ export default function FilterPage() {
               id="rating"
               value={rating}
               setValue={setRating}
-              label="Rating"
+              label={t("rating")}
               options={[
-                { value: "all", label: "Đánh giá" },
+                { value: "all", label: t("rating_all") },
                 { value: "1-2", label: "⭐ 1 - 2" },
                 { value: "2-3", label: "⭐ 2 - 3" },
                 { value: "3-4", label: "⭐ 3 - 4" },
@@ -212,26 +213,25 @@ export default function FilterPage() {
               id="tag"
               value={tag}
               setValue={setTag}
-              label="Đặc tính"
+              label={t("taste")}
               options={[
-                { value: "all", label: "Khẩu vị" },
-                { value: "chay", label: "Đồ ăn chay" },
-                { value: "cay", label: "Vị cay" },
-                { value: "mặn", label: "Vị mặn" },
-                { value: "ngọt", label: "Vị ngọt" },
+                { value: "all", label: t("taste_all") },
+                { value: "chay", label: t("vegetarian") },
+                { value: "cay", label: t("spicy") },
+                { value: "mặn", label: t("salty") },
+                { value: "ngọt", label: t("sweet") },
               ]}
               open={open}
               setOpen={setOpen}
             />
 
-            {/* REGION DROPDOWN */}
             <Dropdown
               id="region"
               value={region}
               setValue={setRegion}
-              label="Khu vực"
+              label={t("region")}
               options={[
-                { value: "all", label: "Tất cả khu vực" },
+                { value: "all", label: t("all_region") },
                 { value: "hcm", label: "TP.HCM" },
                 { value: "ninhbinh", label: "Ninh Bình" },
                 { value: "caobang", label: "Cao Bằng" },
@@ -239,7 +239,7 @@ export default function FilterPage() {
                 { value: "hanoi", label: "Hà Nội" },
                 { value: "danang", label: "Đà Nẵng" },
                 { value: "thanhhoa", label: "Thanh Hóa" },
-                { value: "others", label: "Khác" },
+                { value: "others", label: t("other") },
               ]}
               open={open}
               setOpen={setOpen}
@@ -274,7 +274,7 @@ export default function FilterPage() {
               ))
             ) : (
               <div className="col-span-full text-center py-16 text-gray-500 dark:text-gray-400">
-                😢 Không tìm thấy kết quả
+                {t("no_result")}
               </div>
             )}
           </AnimatePresence>

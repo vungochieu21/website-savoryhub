@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import FoodCard from "./FoodCard";
 import styles from "./RestaurantList.module.css";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 /* TYPES */
 type Food = {
@@ -28,6 +29,7 @@ export default function RestaurantList({
   const [openId, setOpenId] = useState<number | null>(null);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     fetch("/api/foods")
@@ -51,7 +53,7 @@ export default function RestaurantList({
   }, []);
 
   if (foods.length === 0) {
-    return <p className={styles.emptyText}>Chưa có địa điểm nào.</p>;
+    return <p className={styles.emptyText}>{t("no_places")}</p>;
   }
 
   return (
@@ -82,7 +84,7 @@ export default function RestaurantList({
                 }}
               >
                 <FaEdit />
-                Chỉnh sửa
+                {t("edit")}
               </div>
 
               <div
@@ -93,7 +95,7 @@ export default function RestaurantList({
                 }}
               >
                 <FaTrash />
-                Xóa
+                {t("delete")}
               </div>
             </div>
           )}

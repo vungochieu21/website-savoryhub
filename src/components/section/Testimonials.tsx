@@ -3,82 +3,118 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import styles from "./Testimonials.module.css";
+import { useLanguage } from "src/locales/context/LanguageContext";
+
+/* 🔥 MULTI LANG TYPE */
+type MultiLang = {
+  vi: string;
+  en: string;
+};
 
 type Testimonial = {
   name: string;
-  role: string;
+  role: MultiLang;
   avatar: string;
-  content: string;
+  content: MultiLang;
   rating: number;
 };
 
 const data: Testimonial[] = [
   {
     name: "Nguyễn Minh Tuấn",
-    role: "Nhân viên văn phòng",
+    role: { vi: "Nhân viên văn phòng", en: "Office worker" },
     avatar: "https://i.pravatar.cc/100?img=1",
-    content: "Quán rất phù hợp để đi ăn trưa cùng đồng nghiệp.",
+    content: {
+      vi: "Quán rất phù hợp để đi ăn trưa cùng đồng nghiệp.",
+      en: "Great place for lunch with coworkers.",
+    },
     rating: 4.5,
   },
   {
     name: "Trần Thị Ngọc Anh",
-    role: "Sinh viên",
+    role: { vi: "Sinh viên", en: "Student" },
     avatar: "https://i.pravatar.cc/100?img=5",
-    content: "Giá ổn mà đồ ăn ngon.",
+    content: {
+      vi: "Giá ổn mà đồ ăn ngon.",
+      en: "Affordable price and delicious food.",
+    },
     rating: 4.2,
   },
   {
     name: "Lê Hoàng Nam",
-    role: "Freelancer",
+    role: { vi: "Freelancer", en: "Freelancer" },
     avatar: "https://i.pravatar.cc/100?img=8",
-    content: "Không gian sạch sẽ, nhân viên thân thiện.",
+    content: {
+      vi: "Không gian sạch sẽ, nhân viên thân thiện.",
+      en: "Clean space and friendly staff.",
+    },
     rating: 4.8,
   },
   {
     name: "Phạm Thu Hương",
-    role: "Nội trợ",
+    role: { vi: "Nội trợ", en: "Homemaker" },
     avatar: "https://i.pravatar.cc/100?img=10",
-    content: "Gia đình mình rất thích ăn ở đây.",
+    content: {
+      vi: "Gia đình mình rất thích ăn ở đây.",
+      en: "My family really enjoys eating here.",
+    },
     rating: 4.6,
   },
   {
     name: "Hoàng Văn Thái",
-    role: "Kỹ sư phần mềm",
+    role: { vi: "Kỹ sư phần mềm", en: "Software engineer" },
     avatar: "https://i.pravatar.cc/100?img=12",
-    content: "Hương vị đậm đà, đúng chất truyền thống. Sẽ quay lại!",
+    content: {
+      vi: "Hương vị đậm đà, đúng chất truyền thống. Sẽ quay lại!",
+      en: "Rich traditional flavor. Will come back!",
+    },
     rating: 5.0,
   },
   {
     name: "Vũ Phương Ly",
-    role: "Designer",
+    role: { vi: "Designer", en: "Designer" },
     avatar: "https://i.pravatar.cc/100?img=16",
-    content: "Cách bài trí món ăn rất đẹp mắt và tinh tế.",
+    content: {
+      vi: "Cách bài trí món ăn rất đẹp mắt và tinh tế.",
+      en: "Beautiful and elegant food presentation.",
+    },
     rating: 4.7,
   },
   {
     name: "Đặng Quốc Bảo",
-    role: "Kinh doanh",
+    role: { vi: "Kinh doanh", en: "Business" },
     avatar: "https://i.pravatar.cc/100?img=11",
-    content: "Dịch vụ giao hàng nhanh, đồ ăn vẫn còn nóng hổi.",
+    content: {
+      vi: "Dịch vụ giao hàng nhanh, đồ ăn vẫn còn nóng hổi.",
+      en: "Fast delivery, food still hot.",
+    },
     rating: 4.4,
   },
   {
     name: "Mai Lan Chi",
-    role: "Giáo viên",
+    role: { vi: "Giáo viên", en: "Teacher" },
     avatar: "https://i.pravatar.cc/100?img=26",
-    content: "Thực đơn đa dạng, nhiều món thanh đạm dễ ăn.",
+    content: {
+      vi: "Thực đơn đa dạng, nhiều món thanh đạm dễ ăn.",
+      en: "Diverse menu with many light and healthy dishes.",
+    },
     rating: 4.9,
   },
 ];
 
 export default function Testimonials() {
   const [isHover, setIsHover] = useState(false);
+  const { lang } = useLanguage();
+
+  const currentLang = lang === "en" ? "en" : "vi";
 
   return (
     <section className={styles.section}>
       {/* TITLE */}
       <div className={styles.titleWrap}>
-        <h2 className={styles.title}>Đánh giá khách hàng</h2>
+        <h2 className={styles.title}>
+          {currentLang === "vi" ? "Đánh giá khách hàng" : "Customer Reviews"}
+        </h2>
       </div>
 
       {/* SCROLL */}
@@ -102,9 +138,11 @@ export default function Testimonials() {
                   className={styles.avatar}
                 />
 
-                <div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <h3 className={styles.name}>{item.name}</h3>
-                  <p className={styles.role}>{item.role}</p>
+                  <p className={styles.role}>
+                    {item.role[currentLang]}
+                  </p>
                 </div>
               </div>
 
@@ -115,7 +153,9 @@ export default function Testimonials() {
               </div>
 
               {/* CONTENT */}
-              <p className={styles.content}>{item.content}</p>
+              <p className={styles.content}>
+                {item.content[currentLang]}
+              </p>
             </div>
           ))}
         </div>

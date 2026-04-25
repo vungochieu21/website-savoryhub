@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./DealSection.module.css";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 type Deal = {
   id: number;
@@ -17,40 +18,41 @@ type Deal = {
 const deals: Deal[] = [
   {
     id: 1,
-    shop: "Domino's Pizza Nguyễn Tri Phương",
-    name: "Pizza Ngập Vị Phô Mai",
+    shop: "deal_shop_1",
+    name: "deal_name_1",
     price: 150000,
     oldPrice: 215000,
     image: "https://img.dominos.vn/musttry+(6).jpg",
     code: "PIZZA30",
-    desc: "Pizza vị phô mai kéo sợi siêu đã, ăn là ghiền!",
+    desc: "deal_desc_1",
   },
   {
     id: 2,
-    shop: "KFC Big C Dĩ An Bình Dương",
-    name: "Combo Nhóm 3 Đủ Đầy",
+    shop: "deal_shop_2",
+    name: "deal_name_2",
     price: 150000,
     oldPrice: 300000,
     image:
       "https://static.kfcvietnam.com.vn/images/items/lg/D.BUCKET2.jpg?v=4BBbw4",
     code: "KFCGROUP50",
-    desc: "Combo gà rán cho nhóm bạn, ăn no căng bụng!",
+    desc: "deal_desc_2",
   },
   {
     id: 3,
-    shop: "Burger King Phạm Ngũ Lão",
-    name: "Combo cặp đôi",
+    shop: "deal_shop_3",
+    name: "deal_name_3",
     price: 159000,
     oldPrice: 199000,
     image:
       "https://burgerking.vn/media/catalog/product/cache/1/small_image/316x/9df78eab33525d08d6e5fb8d27136e95/s/h/sharing_combo_199.jpg",
     code: "LOVEBK20",
-    desc: "Combo hoàn hảo cho 2 người, vừa ngon vừa tiết kiệm!",
+    desc: "deal_desc_3",
   },
 ];
 
 export default function DealSection() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const handleCopy = (code: string, id: number) => {
     navigator.clipboard.writeText(code);
@@ -65,11 +67,11 @@ export default function DealSection() {
         {/* HEADER */}
         <div className={styles.header}>
           <h2 className={styles.title}>
-            ✨ Deal Ngon Mỗi Ngày ✨
+            ✨ {t("daily_deals")} ✨
           </h2>
 
           <p className={styles.subtitle}>
-            Ưu đãi có hạn, đừng bỏ lỡ!
+            {t("limited_offer")}
           </p>
         </div>
 
@@ -86,14 +88,14 @@ export default function DealSection() {
                 />
 
                 <span className={styles.badge}>
-                  % GIỚI HẠN
+                  {t("limited")}
                 </span>
               </div>
 
               {/* CONTENT */}
               <div className={styles.content}>
                 
-                <p className={styles.shop}>{deal.shop}</p>
+                <p className={styles.shop}>{t(deal.shop)}</p>
 
                 <h3 className={styles.discount}>
                   {Math.round(
@@ -102,15 +104,15 @@ export default function DealSection() {
                   % OFF
                 </h3>
 
-                <p className={styles.name}>{deal.name}</p>
+                <p className={styles.name}>{t(deal.name)}</p>
 
-                <p className={styles.desc}>{deal.desc}</p>
+                <p className={styles.desc}>{t(deal.desc)}</p>
 
                 {/* CODE */}
                 <div className={styles.codeBox}>
                   <div>
                     <p className={styles.codeLabel}>
-                      Mã khuyến mãi
+                      {t("promo_code")}
                     </p>
 
                     <p className={styles.code}>
@@ -122,13 +124,15 @@ export default function DealSection() {
                     onClick={() => handleCopy(deal.code, deal.id)}
                     className={styles.copyBtn}
                   >
-                    {copiedId === deal.id ? "Đã copy!" : "Sao chép"}
+                    {copiedId === deal.id
+                      ? t("copied")
+                      : t("copy")}
                   </button>
                 </div>
 
                 {/* BUTTON */}
                 <button className={styles.btn}>
-                  Đặt ngay
+                  {t("order_now")}
                 </button>
 
               </div>

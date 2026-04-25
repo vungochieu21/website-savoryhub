@@ -95,7 +95,7 @@ export default function Navbar({ onAdd }: NavbarProps) {
           </button>
 
           {showUserMenu && (
-            <div className={styles.dropdown}>
+                  <div className={`${styles.dropdown} ${styles.userDropdown}`}>
               {!user ? (
                 <>
                   <button onClick={() => router.push("/login")}><FaSignInAlt /> {t("login")}</button>

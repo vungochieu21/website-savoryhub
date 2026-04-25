@@ -4,8 +4,11 @@ import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
 import styles from "./Footer.module.css";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className={styles.footer}>
       <div className="max-w-[1325px] mx-auto px-3 py-20">
@@ -20,12 +23,11 @@ export default function Footer() {
             </div>
 
             <p className="text-sm leading-relaxed mt-3 mb-5 text-gray-300">
-              Đây là Tastii, chúng tôi tin rằng mỗi món ăn ngon đều mang đến
-              những trải nghiệm đáng nhớ.
+              {t("footer_desc")}
             </p>
 
             <h4 className="text-sm font-semibold uppercase mb-3">
-              Theo dõi tại
+              {t("follow_us")}
             </h4>
 
             <div className="flex gap-3">
@@ -51,7 +53,7 @@ export default function Footer() {
           {/* CONTACT */}
           <div>
             <h3 className="text-sm font-bold uppercase mb-4">
-              Liên hệ tại
+              {t("contact")}
             </h3>
 
             <ul className="space-y-3 text-sm text-gray-300">
@@ -59,7 +61,7 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <MapPin size={18} className={styles.icon} />
                 <span>
-                  29/2B, khu phố 8, phường Tân Phong, Biên Hoà, Đồng Nai
+                  {t("address_full")}
                 </span>
               </li>
 
@@ -86,11 +88,15 @@ export default function Footer() {
         <hr className="border-gray-800 mb-6" />
 
         <div className="flex flex-col md:flex-row justify-between text-sm text-gray-400">
-          <p>© {new Date().getFullYear()} Tastii. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Tastii. {t("copyright")}</p>
 
           <div className="flex gap-6 mt-2 md:mt-0">
-            <a href="/terms" className={styles.link}>Terms of Service</a>
-            <a href="/privacy" className={styles.link}>Privacy Policy</a>
+            <a href="/terms" className={styles.link}>
+              {t("terms")}
+            </a>
+            <a href="/privacy" className={styles.link}>
+              {t("privacy")}
+            </a>
           </div>
         </div>
       </div>

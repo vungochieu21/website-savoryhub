@@ -3,19 +3,22 @@
 import { useState } from "react";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import styles from "./ExclusiveDeal.module.css";
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function ExclusiveDeal() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const { t } = useLanguage();
+
   const handleSubscribe = () => {
     if (email.endsWith("@gmail.com")) {
-      setMessage("Đăng ký nhận ưu đãi độc quyền thành công!");
+      setMessage(t("subscribe_success"));
       setSuccess(true);
       setEmail("");
     } else {
-      setMessage("Vui lòng nhập địa chỉ email hợp lệ.");
+      setMessage(t("invalid_email"));
       setSuccess(false);
     }
 
@@ -40,11 +43,11 @@ export default function ExclusiveDeal() {
         <div className={styles.content}>
 
           <h2 className={styles.title}>
-            Nhận Ưu Đãi Độc Quyền
+            {t("exclusive_title")}
           </h2>
 
           <p className={styles.desc}>
-            Đăng ký để nhận nhiều ưu đãi đặc biệt và các chương trình giảm giá độc quyền!
+            {t("exclusive_desc")}
           </p>
 
           {/* FORM */}
@@ -54,7 +57,7 @@ export default function ExclusiveDeal() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Điền email của bạn..."
+              placeholder={t("enter_email")}
               className={styles.input}
             />
 
@@ -62,7 +65,7 @@ export default function ExclusiveDeal() {
               onClick={handleSubscribe}
               className={styles.button}
             >
-              Đăng kí
+              {t("subscribe")}
             </button>
 
           </div>

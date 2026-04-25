@@ -14,8 +14,11 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 
+import { useLanguage } from "src/locales/context/LanguageContext";
+
 export default function DashboardPage() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   const stats = {
     users: 120,
@@ -44,19 +47,19 @@ export default function DashboardPage() {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <button className={styles.backBtn} onClick={handleBack}>
-            <FaArrowLeft /> Back
+            <FaArrowLeft /> {t("back")}
           </button>
 
           <div>
-            <h1>📊 Tastii Dashboard</h1>
-            <p>Welcome back 👋 Here's what's happening today</p>
+            <h1>📊 Tastii {t("dashboard")}</h1>
+            <p>{t("dashboard_welcome")}</p>
           </div>
         </div>
       </div>
 
       <div className={styles.grid}>
         <StatCard
-          title="Users"
+          title={t("users")}
           value={stats.users}
           trend={12}
           data={[10, 15, 12, 18, 20, 22]}
@@ -65,7 +68,7 @@ export default function DashboardPage() {
         />
 
         <StatCard
-          title="Foods"
+          title={t("foods")}
           value={stats.foods}
           trend={8}
           data={[20, 25, 30, 28, 35, 40]}
@@ -74,7 +77,7 @@ export default function DashboardPage() {
         />
 
         <StatCard
-          title="Favorites"
+          title={t("favorites")}
           value={stats.favorites}
           trend={-5}
           data={[50, 48, 45, 40, 38, 35]}
@@ -85,12 +88,12 @@ export default function DashboardPage() {
 
       <div className={styles.layout}>
         <div className={styles.chartCard}>
-          <h3>📈 Analytics</h3>
+          <h3>📈 {t("analytics")}</h3>
           <SimpleChart />
         </div>
 
         <div className={styles.topCard}>
-          <h3>🔥 Top Foods</h3>
+          <h3>🔥 {t("top_foods")}</h3>
           <TopFoods data={topFoods} />
         </div>
       </div>
