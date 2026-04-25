@@ -3,6 +3,7 @@
 import { FaComment, FaCamera, FaHeart, FaStar } from "react-icons/fa";
 import styles from "./FoodCard.module.css";
 import { useFavorites } from "src/locales/context/FavoriteContext";
+import { useRouter } from "next/navigation";
 
 type FoodCardProps = {
   id: string;
@@ -24,6 +25,8 @@ export default function FoodCard({
   photos = 0,
 }: FoodCardProps) {
 
+  const router = useRouter();
+
   const { toggleFavorite, isFavorite } = useFavorites();
   const liked = isFavorite(id);
 
@@ -38,7 +41,10 @@ export default function FoodCard({
   };
 
   return (
-    <div className={styles.card}>
+    <div
+      className={styles.card}
+      onClick={() => router.push(`/food/${id}`)}
+    >
 
       {/* IMAGE */}
       <div className={styles.imageWrapper}>
@@ -50,10 +56,8 @@ export default function FoodCard({
           </div>
         )}
 
-        {/* overlay */}
         <div className={styles.overlay}></div>
 
-        {/* ⭐ rating */}
         <div className={styles.ratingBadge}>
           <FaStar /> {rating}
         </div>
@@ -80,15 +84,17 @@ export default function FoodCard({
             </div>
           </div>
 
+          {/* ❤️ */}
           <div
             onClick={(e) => {
-              e.stopPropagation();
+              e.stopPropagation(); 
               toggleFavorite(item);
             }}
             className={`${styles.like} ${liked ? styles.likeActive : ""}`}
           >
             <FaHeart />
           </div>
+
         </div>
       </div>
     </div>
