@@ -110,7 +110,7 @@ export default function Testimonials() {
 
               {/* RATING */}
               <div className={styles.rating}>
-                <FaStar size={14} />
+                <FaStar size={12} />
                 <span className={styles.ratingText}>{item.rating}</span>
               </div>
 

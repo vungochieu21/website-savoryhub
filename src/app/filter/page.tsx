@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 import Navbar from "src/components/layout/Navbar";
 import Footer from "src/components/layout/Footer";
 import FoodCard from "src/components/food/FoodCard";
@@ -16,28 +18,30 @@ type Food = {
   rating: number;
   address: string;
   image: string;
+  region?: string;
   comments?: number;
   photos?: number;
   tags?: string[];
 };
 
-/* CONSTANT */
 const PRICE_RANGE = {
   LOW: 50000,
   HIGH: 150000,
 };
 
-/* COMPONENT */
 export default function FilterPage() {
   const [type, setType] = useState("all");
   const [price, setPrice] = useState("all");
   const [rating, setRating] = useState("all");
   const [tag, setTag] = useState("all");
+  const [region, setRegion] = useState("all");
   const [open, setOpen] = useState<string | null>(null);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-const foods = (Array.isArray(foodsData) ? foodsData : []) as Food[];
+  const foods: Food[] = useMemo(() => {
+    return Array.isArray(foodsData) ? foodsData : [];
+  }, []);
 
   /* CLICK OUTSIDE */
   useEffect(() => {
@@ -51,7 +55,8 @@ const foods = (Array.isArray(foodsData) ? foodsData : []) as Food[];
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   /* FILTER */
@@ -83,112 +88,196 @@ const foods = (Array.isArray(foodsData) ? foodsData : []) as Food[];
 
       if (tag !== "all" && !(item.tags || []).includes(tag)) return false;
 
+      // REGION FILTER
+      if (region !== "all" && item.region !== region) return false;
+
       return true;
     });
-  }, [foods, type, price, rating, tag]);
+  }, [foods, type, price, rating, tag, region]);
 
-  /* UI */
+  /* check đang filter */
+  const isFiltering =
+    type !== "all" ||
+    price !== "all" ||
+    rating !== "all" ||
+    tag !== "all" ||
+    region !== "all";
+
   return (
     <div ref={wrapperRef}>
       <Navbar />
 
-      <div
-        style={{
-          maxWidth: "1350px",
-          margin: "0 auto",
-          padding: "20px 1px",
-        }}
-      >
-        <h2 className="text-lg font-semibold px-4 mt-[100px]">
-          Tìm kiếm nâng cao
-        </h2>
+      <div className="max-w-[1350px] mx-auto px-4 pt-[90px]">
+
+        {/* HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mb-3"
+        >
+          <div
+            className={`
+              flex items-center justify-between
+              px-4 py-3 rounded-xl
+              border
+              ${isFiltering 
+                ? "border-red-400 dark:border-red-500" 
+                : "border-gray-200 dark:border-gray-700"}
+              bg-white dark:bg-[#1a1a1a]
+              shadow-sm
+              hover:shadow-md transition
+            `}
+          >
+            <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-200 translate-y-1">
+              Tìm kiếm nâng cao
+            </h2>
+
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                {filteredFoods.length} kết quả
+              </span>
+
+              {isFiltering && (
+                <button
+                  onClick={() => {
+                    setType("all");
+                    setPrice("all");
+                    setRating("all");
+                    setTag("all");
+                    setRegion("all");
+                  }}
+                  className="text-xs text-red-500 hover:underline"
+                >
+                  Reset
+                </button>
+              )}
+            </div>
+          </div>
+        </motion.div>
 
         {/* FILTER */}
-        <div className="flex flex-wrap gap-3 p-4">
-          <Dropdown
-            id="type"
-            value={type}
-            setValue={setType}
-            label="Loại"
-            options={[
-              { value: "all", label: "Tất cả" },
-              { value: "food", label: "Quán ăn" },
-              { value: "drink", label: "Đồ uống" },
-              { value: "fastfood", label: "Đồ ăn nhanh" },
-              { value: "buffet", label: "Buffet" },
-            ]}
-            open={open}
-            setOpen={setOpen}
-          />
+        <div className="relative z-50 mb-4">
+          <div className="flex flex-wrap gap-3 p-4 rounded-xl">
 
-          <Dropdown
-            id="price"
-            value={price}
-            setValue={setPrice}
-            label="Giá"
-            options={[
-              { value: "all", label: "Giá cả" },
-              { value: "low", label: "Dưới 50k" },
-              { value: "mid", label: "50k - 150k" },
-              { value: "high", label: "Trên 150k" },
-            ]}
-            open={open}
-            setOpen={setOpen}
-          />
+            <Dropdown
+              id="type"
+              value={type}
+              setValue={setType}
+              label="Loại"
+              options={[
+                { value: "all", label: "Tất cả" },
+                { value: "food", label: "Quán ăn" },
+                { value: "drink", label: "Đồ uống" },
+                { value: "fastfood", label: "Đồ ăn nhanh" },
+                { value: "buffet", label: "Buffet" },
+              ]}
+              open={open}
+              setOpen={setOpen}
+            />
 
-          <Dropdown
-            id="rating"
-            value={rating}
-            setValue={setRating}
-            label="Rating"
-            options={[
-              { value: "all", label: "Đánh giá" },
-              { value: "1-2", label: "⭐ 1 - 2" },
-              { value: "2-3", label: "⭐ 2 - 3" },
-              { value: "3-4", label: "⭐ 3 - 4" },
-              { value: "4-5", label: "⭐ 4 - 5" },
-              { value: "5", label: "⭐ 5" },
-            ]}
-            open={open}
-            setOpen={setOpen}
-          />
+            <Dropdown
+              id="price"
+              value={price}
+              setValue={setPrice}
+              label="Giá"
+              options={[
+                { value: "all", label: "Giá cả" },
+                { value: "low", label: "Dưới 50k" },
+                { value: "mid", label: "50k - 150k" },
+                { value: "high", label: "Trên 150k" },
+              ]}
+              open={open}
+              setOpen={setOpen}
+            />
 
-          <Dropdown
-            id="tag"
-            value={tag}
-            setValue={setTag}
-            label="Đặc tính"
-            options={[
-              { value: "all", label: "Khẩu vị" },
-              { value: "chay", label: "Đồ ăn chay" },
-              { value: "cay", label: "Vị cay" },
-              { value: "mặn", label: "Vị mặn" },
-              { value: "ngọt", label: "Vị ngọt" },
-            ]}
-            open={open}
-            setOpen={setOpen}
-          />
+            <Dropdown
+              id="rating"
+              value={rating}
+              setValue={setRating}
+              label="Rating"
+              options={[
+                { value: "all", label: "Đánh giá" },
+                { value: "1-2", label: "⭐ 1 - 2" },
+                { value: "2-3", label: "⭐ 2 - 3" },
+                { value: "3-4", label: "⭐ 3 - 4" },
+                { value: "4-5", label: "⭐ 4 - 5" },
+                { value: "5", label: "⭐ 5" },
+              ]}
+              open={open}
+              setOpen={setOpen}
+            />
+
+            <Dropdown
+              id="tag"
+              value={tag}
+              setValue={setTag}
+              label="Đặc tính"
+              options={[
+                { value: "all", label: "Khẩu vị" },
+                { value: "chay", label: "Đồ ăn chay" },
+                { value: "cay", label: "Vị cay" },
+                { value: "mặn", label: "Vị mặn" },
+                { value: "ngọt", label: "Vị ngọt" },
+              ]}
+              open={open}
+              setOpen={setOpen}
+            />
+
+            {/* REGION DROPDOWN */}
+            <Dropdown
+              id="region"
+              value={region}
+              setValue={setRegion}
+              label="Khu vực"
+              options={[
+                { value: "all", label: "Tất cả khu vực" },
+                { value: "hcm", label: "TP.HCM" },
+                { value: "ninhbinh", label: "Ninh Bình" },
+                { value: "caobang", label: "Cao Bằng" },
+                { value: "hue", label: "Huế" },
+                { value: "hanoi", label: "Hà Nội" },
+                { value: "danang", label: "Đà Nẵng" },
+                { value: "thanhhoa", label: "Thanh Hóa" },
+                { value: "others", label: "Khác" },
+              ]}
+              open={open}
+              setOpen={setOpen}
+            />
+
+          </div>
         </div>
 
         {/* LIST */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
-          {filteredFoods.length > 0 ? (
-            filteredFoods.map((item, index) => (
-              <FoodCard
-                key={item.id ?? item.name ?? index}
-                name={item.name}
-                address={item.address}
-                image={item.image}
-                rating={item.rating}
-                comments={item.comments}
-                photos={item.photos}
-              />
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-500">
-              Không tìm thấy kết quả
-            </p>
-          )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-10">
+          <AnimatePresence>
+            {filteredFoods.length > 0 ? (
+              filteredFoods.map((item, index) => (
+                <motion.div
+                  key={item.id ?? index}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <FoodCard
+                    id={item.id}
+                    name={item.name}
+                    address={item.address}
+                    image={item.image}
+                    rating={item.rating}
+                    comments={item.comments}
+                    photos={item.photos}
+                  />
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-16 text-gray-500 dark:text-gray-400">
+                😢 Không tìm thấy kết quả
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 

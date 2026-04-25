@@ -1,22 +1,24 @@
-"use client";
+"use client";    /* Use Ant Design */
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import {
-  FaMapMarkerAlt,
-  FaPhone,
-  FaClock,
-  FaMoneyBill,
-  FaImage,
-  FaFileAlt,
-  FaTimes,
-} from "react-icons/fa";
+  Modal,
+  Input,
+  Select,
+  Button,
+  TimePicker,
+  Upload,
+  InputNumber,
+  Form,
+} from "antd";
 
-import styles from "./FoodForm.module.css";
+import { UploadOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+
 import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function FoodForm({ onClose, onSave }: any) {
   const { t } = useLanguage();
-  const [mounted, setMounted] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -33,180 +35,164 @@ export default function FoodForm({ onClose, onSave }: any) {
     image: "",
   });
 
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (!modalRef.current) return;
-      if (!modalRef.current.contains(e.target as Node)) {
-        onClose?.();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
-
-  const handleImage = (e: any) => {
-    if (!mounted) return;
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    setForm((prev) => ({ ...prev, image: url }));
+  const handleChange = (key: string, value: any) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  if (!mounted) return null;
+  const handleImage = (info: any) => {
+    const file = info.file.originFileObj;
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+    handleChange("image", url);
+  };
 
   return (
-    <div className={styles.wrapper}>
-      <div ref={modalRef} className={styles.modal}>
-        <button className={styles.closeBtn} onClick={onClose}>
-          <FaTimes />
-        </button>
+    <Modal
+      open
+      title={t("form_required")}
+      onCancel={onClose}
+      footer={null}
+      centered
+      width={600}
+      style={{ top: 80 }}
+    >
+      <Form layout="vertical">
 
-        <h2 className={styles.title}>{t("form_required")}</h2>
-
-        <div className={styles.inputBox}>
-          <FaFileAlt />
-          <input
-            className={styles.input}
-            placeholder={t("place_name")}
+        {/* NAME */}
+        <Form.Item label={t("place_name")} required>
+          <Input
             value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            onChange={(e) => handleChange("name", e.target.value)}
           />
-        </div>
+        </Form.Item>
 
-        <div className={styles.inputBox}>
-          <FaMapMarkerAlt />
-          <input
-            className={styles.input}
-            placeholder={t("address")}
+        {/* ADDRESS */}
+        <Form.Item label={t("address")} required>
+          <Input
             value={form.address}
-            onChange={(e) => setForm({ ...form, address: e.target.value })}
+            onChange={(e) => handleChange("address", e.target.value)}
           />
-        </div>
+        </Form.Item>
 
-        <h3 className={styles.subTitle}>{t("select_city")}</h3>
-
-        <div className={styles.inputBox}>
-          <select className={styles.input}>
-            <option>{t("country")}</option>
-          </select>
-        </div>
-
-        <div className={styles.inputBox}>
-          <input
-            className={styles.input}
-            placeholder={t("enter_city")}
+        {/* CITY */}
+        <Form.Item label={t("select_city")}>
+          <Select
             value={form.province}
-            onChange={(e) => setForm({ ...form, province: e.target.value })}
+            onChange={(value) => handleChange("province", value)}
+            options={[
+              { value: "vietnam", label: "Vietnam" },
+              { value: "usa", label: "USA" },
+              { value: "japan", label: "Japan" },
+            ]}
           />
-        </div>
+        </Form.Item>
 
-        <div className={styles.inputBox}>
-          <input
-            className={styles.input}
-            placeholder={t("enter_district")}
+        {/* DISTRICT */}
+        <Form.Item label={t("enter_district")}>
+          <Input
             value={form.district}
-            onChange={(e) => setForm({ ...form, district: e.target.value })}
+            onChange={(e) => handleChange("district", e.target.value)}
           />
-        </div>
+        </Form.Item>
 
-        <h3 className={styles.subTitle}>{t("other_info")}</h3>
-
-        <div className={styles.inputBox}>
-          <FaMapMarkerAlt />
-          <input
-            className={styles.input}
-            placeholder={t("map_link")}
+        {/* MAP */}
+        <Form.Item label={t("map_link")}>
+          <Input
             value={form.map}
-            onChange={(e) => setForm({ ...form, map: e.target.value })}
+            onChange={(e) => handleChange("map", e.target.value)}
           />
-        </div>
+        </Form.Item>
 
-        <div className={styles.inputBox}>
-          <FaPhone />
-          <input
-            className={styles.input}
-            placeholder={t("phone")}
+        {/* PHONE */}
+        <Form.Item label={t("phone")}>
+          <Input
             value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            onChange={(e) => handleChange("phone", e.target.value)}
           />
+        </Form.Item>
+
+        {/* TIME */}
+        <div style={{ display: "flex", gap: 10 }}>
+          <Form.Item label={t("open_time")} style={{ flex: 1 }}>
+            <TimePicker
+              style={{ width: "100%" }}
+              value={form.openTime ? dayjs(form.openTime, "HH:mm") : null}
+              format="HH:mm"
+              onChange={(time, timeString) =>
+                handleChange("openTime", timeString)
+              }
+            />
+          </Form.Item>
+
+          <Form.Item label={t("close_time")} style={{ flex: 1 }}>
+            <TimePicker
+              style={{ width: "100%" }}
+              value={form.closeTime ? dayjs(form.closeTime, "HH:mm") : null}
+              format="HH:mm"
+              onChange={(time, timeString) =>
+                handleChange("closeTime", timeString)
+              }
+            />
+          </Form.Item>
         </div>
 
-        <div className={styles.timeWrap}>
-          <div className={styles.inputBox}>
-            <FaClock />
-            <input
-              className={styles.input}
-              type="time"
-              value={form.openTime}
-              onChange={(e) => setForm({ ...form, openTime: e.target.value })}
-            />
-          </div>
-          <div className={styles.inputBox}>
-            <FaClock />
-            <input
-              className={styles.input}
-              type="time"
-              value={form.closeTime}
-              onChange={(e) => setForm({ ...form, closeTime: e.target.value })}
-            />
-          </div>
-        </div>
-
-        <div className={styles.timeWrap}>
-          <div className={styles.inputBox}>
-            <FaMoneyBill />
-            <input
-              className={styles.input}
-              placeholder={t("price_min")}
+        {/* PRICE */}
+        <div style={{ display: "flex", gap: 10 }}>
+          <Form.Item label={t("price_min")} style={{ flex: 1 }}>
+            <InputNumber
+              style={{ width: "100%" }}
               value={form.minPrice}
-              onChange={(e) => setForm({ ...form, minPrice: e.target.value })}
+              onChange={(value) => handleChange("minPrice", value)}
             />
-          </div>
-          <div className={styles.inputBox}>
-            <FaMoneyBill />
-            <input
-              className={styles.input}
-              placeholder={t("price_max")}
+          </Form.Item>
+
+          <Form.Item label={t("price_max")} style={{ flex: 1 }}>
+            <InputNumber
+              style={{ width: "100%" }}
               value={form.maxPrice}
-              onChange={(e) => setForm({ ...form, maxPrice: e.target.value })}
+              onChange={(value) => handleChange("maxPrice", value)}
             />
-          </div>
+          </Form.Item>
         </div>
 
-        <div className={styles.inputBox}>
-          <FaFileAlt />
-          <textarea
-            className={styles.textarea}
+        {/* DESCRIPTION */}
+        <Form.Item label={t("description")}>
+          <Input.TextArea
             maxLength={300}
-            placeholder={t("description")}
+            rows={3}
             value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            onChange={(e) =>
+              handleChange("description", e.target.value)
+            }
           />
-        </div>
+        </Form.Item>
 
-        <div className={styles.inputBox}>
-          <FaImage />
-          <label className={styles.fileLabel}>
-            {t("choose_image")}
-            <input type="file" onChange={handleImage} style={{ display: "none" }} />
-          </label>
-        </div>
+        {/* IMAGE */}
+        <Form.Item label={t("choose_image")}>
+          <Upload
+            beforeUpload={() => false}
+            maxCount={1}
+            onChange={handleImage}
+          >
+            <Button icon={<UploadOutlined />}>
+              {t("choose_image")}
+            </Button>
+          </Upload>
+        </Form.Item>
 
-        <div style={{ textAlign: "right", marginTop: 20 }}>
-          <button className={styles.saveBtn} onClick={() => onSave?.(form)}>
+        {/* ACTION BUTTON */}
+        <div style={{ textAlign: "right" }}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => onSave?.(form)}
+          >
             {t("save")}
-          </button>
+          </Button>
         </div>
-      </div>
-    </div>
+
+      </Form>
+    </Modal>
   );
 }

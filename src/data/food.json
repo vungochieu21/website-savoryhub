@@ -9,7 +9,8 @@
     "comments": 120,
     "photos": 45,
     "price": 60000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
     "comments": 88,
     "photos": 22,
     "price": 55000,
-    "tags": ["cay", "mặn"]
+    "tags": ["cay", "mặn"],
+    "region": "hcm"
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
     "comments": 54,
     "photos": 19,
     "price": 120000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 4,
@@ -45,7 +48,8 @@
     "comments": 31,
     "photos": 12,
     "price": 30000,
-    "tags": ["ngọt"]
+    "tags": ["ngọt"],
+    "region": "hcm"
   },
   {
     "id": 5,
@@ -57,67 +61,73 @@
     "comments": 124,
     "photos": 31,
     "price": 70000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 6,
     "type": "buffet",
     "name": "Seoul Garden Buffet",
-    "address": "B3-16A, 70-72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP. HCM",
+    "address": " AEON MALL Bình Tân, Bình Trị Đông B, An Lạc, TP. HCM",
     "image": "https://pasgo.vn/Upload/anh-chi-tiet/nha-hang-seoul-garden-the-garden-me-tri-slide-1-normal-132517517828.webp",
     "rating": 4.2,
     "comments": 215,
     "photos": 52,
     "price": 250000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 7,
     "type": "food",
     "name": "Bánh Xèo Út Nhỏ",
-    "address": "63/1B Xuân Thới 8, Xuân Thới Sơn, Hóc Môn, TP.HCM",
+    "address": "Đường 31-41 số 21, Phước Bình, Phước Long, TP.HCM",
     "image": "https://img.mservice.com.vn/common/u/2e02fb5fe4f64fb55bc713540643c6f8eae702d101cea8c59afc49cfc505fc37/e53079fd-9552-404e-9e32-c844d4168c86vguaipba.jpeg",
     "rating": 1.8,
     "comments": 98,
     "photos": 20,
     "price": 50000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 8,
     "type": "food",
     "name": "Phở Gia Truyền",
-    "address": "Số 303 – 305 Đ. Võ Văn Tần và số 413 – 415 Đ. Nguyễn Trãi, P. 5, Q. 3, TP. HCM",
-    "image": "https://phothin1955.vn/sites/default/files/styles/image_news/public/2024-09/pho-gia-truyen.jpg?itok=MvvoKEcUhttps://phothin1955.vn/sites/default/files/styles/image_news/public/2024-09/pho-gia-truyen.jpg?itok=MvvoKEcU",
+    "address": "Đường 140B Nguyễn Cư Trinh, Cầu Ông Lãnh, TP.HCM",
+    "image": "https://phothin1955.vn/sites/default/files/styles/image_news/public/2024-09/pho-gia-truyen.jpg",
     "rating": 2.9,
     "comments": 186,
     "photos": 40,
     "price": 65000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 9,
     "type": "food",
     "name": "Cơm Tấm 198",
-    "address": "198/5/6 Phan Văn Trị, P. 12, Quận Bình Thạnh, TP. HCM",
+    "address": "198 Trịnh Đình Trọng, Phú Trung, Tân Phú, TP.HCM",
     "image": "https://down-vn.img.susercontent.com/vn-11134513-7r98o-lsv1tg3ejpacc6@resize_ss640x400",
     "rating": 4.5,
     "comments": 76,
     "photos": 15,
     "price": 45000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 10,
     "type": "drink",
     "name": "Cheese House",
-    "address": "321 Lãnh Binh Thăng - P8 - Q11 - TP. Hồ Chí Minh",
+    "address": "Q307 Đ. Hồng Bàng, Phường 11, Chợ Lớn, TP.HCM",
     "image": "https://down-vn.img.susercontent.com/vn-11134513-7r98o-lsv352n1lfvd42@resize_ss640x400",
-    "rating": 1.5,
+    "rating": 4.1,
     "comments": 142,
     "photos": 26,
     "price": 35000,
-    "tags": ["ngọt"]
+    "tags": ["ngọt"],
+    "region": "hcm"
   },
   {
     "id": 11,
@@ -129,7 +139,8 @@
     "comments": 201,
     "photos": 48,
     "price": 250000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 12,
@@ -141,7 +152,8 @@
     "comments": 89,
     "photos": 19,
     "price": 90000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 13,
@@ -153,7 +165,8 @@
     "comments": 110,
     "photos": 20,
     "price": 25000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 14,
@@ -165,7 +178,8 @@
     "comments": 95,
     "photos": 18,
     "price": 180000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 15,
@@ -177,7 +191,8 @@
     "comments": 130,
     "photos": 40,
     "price": 220000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 16,
@@ -189,7 +204,8 @@
     "comments": 77,
     "photos": 12,
     "price": 60000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 17,
@@ -201,7 +217,8 @@
     "comments": 66,
     "photos": 10,
     "price": 30000,
-    "tags": ["mặn"]
+    "tags": ["mặn"],
+    "region": "hcm"
   },
   {
     "id": 18,
@@ -213,7 +230,8 @@
     "comments": 300,
     "photos": 80,
     "price": 45000,
-    "tags": ["ngọt"]
+    "tags": ["ngọt"],
+    "region": "hcm"
   },
   {
     "id": 19,
@@ -225,7 +243,8 @@
     "comments": 140,
     "photos": 33,
     "price": 80000,
-    "tags": ["cay"]
+    "tags": ["cay"],
+    "region": "hcm"
   },
   {
     "id": 20,
@@ -237,6 +256,111 @@
     "comments": 90,
     "photos": 25,
     "price": 50000,
-    "tags": ["chay"]
+    "tags": ["chay"],
+    "region": "hcm"
+  },
+  {
+  "id": 21,
+  "type": "food",
+  "name": "Hải Sản Bé Mặn",
+  "address": "Lô 9 Võ Nguyên Giáp, Mân Thái, Sơn Trà, Đà Nẵng 550000",
+  "image": "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/674330369_1559974096130450_4370821002097240979_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=13d280&_nc_ohc=k4YY4VpMyN8Q7kNvwEaJnrH&_nc_oc=Adq7uKmv4wrkw1fNZIREck3bU_M0O5A5-0eR7nHZQCB7-33Kyyc7ImOKC640hnHE88I&_nc_zt=23&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=M4Sjbux4kkClluIivFjTpQ&_nc_ss=7b289&oh=00_Af1k85gXXvJ4qJsCFv21cTis_e749pKgH2dMbD3Azyqudw&oe=69F27CE8",
+  "rating": 4.7,
+  "comments": 260,
+  "photos": 70,
+  "price": 200000,
+  "tags": ["mặn"],
+  "region": "danang"
+  },
+  {
+  "id": 22,
+  "type": "food",
+  "name": "Bún Bò Huế O Cương",
+  "address": "12A Trần Thúc Nhẫn, Vĩnh Ninh, Thuận Hóa, Huế",
+  "image": "https://thanhphohue.net/wp-content/uploads/2024/09/bunbohue_tph_02.jpg",
+  "rating": 4.6,
+  "comments": 180,
+  "photos": 40,
+  "price": 50000,
+  "tags": ["cay", "mặn"],
+  "region": "hue"
+  },
+  {
+  "id": 23,
+  "type": "food",
+  "name": "Bánh Cuốn Trứng Phố Cũ",
+  "address": "Đường vào động Ngườm Ngao, Đàm Thủy, Cao Bằng, Việt Nam",
+  "image": "https://mms.img.susercontent.com/vn-11134513-7r98o-lsvfdywidryc0c@resize_ss1242x600!@crop_w1242_h600_cT",
+  "rating": 4.8,
+  "comments": 220,
+  "photos": 55,
+  "price": 40000,
+  "tags": ["mặn"],
+  "region": "caobang"
+  },
+  {
+  "id": 24,
+  "type": "food",
+  "name": "Nem Chua Thanh Hóa Thảo Anh",
+  "address": "78 Lê Quý Đôn, P. Ba Đình, Hạc Thành, Thanh Hóa 440000",
+  "image": "https://mia.vn/media/uploads/blog-du-lich/nem-chua-thanh-hoa-10-1697075819.jpg",
+  "rating": 4.7,
+  "comments": 300,
+  "photos": 70,
+  "price": 30000,
+  "tags": ["mặn"],
+  "region": "thanhhoa"
+  },
+  {
+  "id": 25,
+  "type": "food",
+  "name": "Thịt Dê Cơm Cháy Hoa Lưu",
+  "address": "Thôn Tràng An, Trường Yên, Tây Hoa Lư, Ninh Bình",
+  "image": "https://i0.wp.com/dailongjsc.com.vn/wp-content/uploads/2022/09/Com-Chay-Thit-De-Ninh-Binh2.webp?resize=852%2C852&ssl=1",
+  "rating": 4.9,
+  "comments": 420,
+  "photos": 90,
+  "price": 90000,
+  "tags": ["mặn"],
+  "region": "ninhbinh"
+  },
+  {
+  "id": 26,
+  "type": "food",
+  "name": "Bánh Cuốn Thanh Hóa",
+  "address": "262 Tống Duy Tân, P. Lam Sơn, Hạc Thành, Thanh Hóa",
+  "image": "https://mms.img.susercontent.com/vn-11134513-7r98o-lsvgykqy8q8497@resize_ss1242x600!@crop_w1242_h600_cT",
+  "rating": 4.5,
+  "comments": 160,
+  "photos": 35,
+  "price": 35000,
+  "tags": ["mặn"],
+  "region": "thanhhoa"
+  },
+  {
+  "id": 27,
+  "type": "food",
+  "name": "Phở Chua Gia Truyền Quyên",
+  "address": "065 Đường 3/10, Sông Bằng, Nùng Trí Cao, Cao Bằng 21107",
+  "image": "https://lienhiephoi.caobang.gov.vn/uploads/news/2021_12/3_4.jpg",
+  "rating": 4.6,
+  "comments": 180,
+  "photos": 40,
+  "price": 45000,
+  "tags": ["mặn"],
+  "region": "caobang"
+  },
+  {
+  "id": 28,
+  "type": "food",
+  "name": "Nhà hàng 1969-Vua dê Ninh Bình",
+  "address": "Văn Tiến Dũng/Đường Phố Kim Đa, Phường, Hoa Lư, Ninh Bình",
+  "image": "https://mia.vn/media/uploads/blog-du-lich/diem-mat-goi-ten-nhung-quan-de-ngon-ninh-binh-nuc-tieng-1640528978.jpg",
+  "rating": 4.8,
+  "comments": 260,
+  "photos": 60,
+  "price": 120000,
+  "tags": ["mặn"],
+  "region": "ninhbinh"
   }
 ]

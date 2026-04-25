@@ -8,7 +8,7 @@ import styles from "./Navbar.module.css";
 import {
   FaSearch, FaFilter, FaUserCircle, FaPlus, FaCog, FaGlobe,
   FaSignInAlt, FaUserPlus, FaHeart, FaSignOutAlt, FaEnvelope,
-  FaMapMarkerAlt, FaLock, FaCheckCircle
+  FaMapMarkerAlt, FaLock, FaCheckCircle, FaChartBar
 } from "react-icons/fa";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,7 +62,6 @@ export default function Navbar({ onAdd }: NavbarProps) {
 
     setShowToast(true);
     router.push("/");
-    setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
   };
 
@@ -107,6 +106,12 @@ export default function Navbar({ onAdd }: NavbarProps) {
                   <button onClick={() => { setShowProfile(true); setShowUserMenu(false); }}>
                     <FaUserCircle /> {t("account")}
                   </button>
+
+                  {/* DASHBOARD ADDED */}
+                  <button onClick={() => router.push("/dashboard")}>
+                    <FaChartBar /> {t("dashboard")}
+                  </button>
+
                   <button onClick={handleLogout}>
                     <FaSignOutAlt /> {t("logout")}
                   </button>

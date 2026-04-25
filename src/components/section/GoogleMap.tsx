@@ -13,6 +13,7 @@ const places = [
   { name: "Lẩu Dê", lat: 10.7802, lng: 106.6905, open: "17:00", close: "02:00" },
 ];
 
+/* CHECK OPEN */
 function isOpen(open: string, close: string) {
   const now = new Date();
   const current = now.getHours() * 60 + now.getMinutes();
@@ -30,16 +31,17 @@ function isOpen(open: string, close: string) {
   return current >= openTime && current <= closeTime;
 }
 
-/* MAP INNER */
+/* CLIENT MAP (CHẠY TRONG BROWSER ONLY) */
 function MapInner() {
-  const [Leaflet, setLeaflet] = useState<any>(null);
+  const [ready, setReady] = useState(false);
+  const [components, setComponents] = useState<any>(null);
 
   useEffect(() => {
-    Promise.all([
-      import("leaflet"),
-      import("react-leaflet"),
-      import("leaflet/dist/leaflet.css"),
-    ]).then(([L, RL]) => {
+    (async () => {
+      const L = await import("leaflet");
+      const RL = await import("react-leaflet");
+
+      // FIX ICON ERROR
       delete (L.Icon.Default.prototype as any)._getIconUrl;
 
       L.Icon.Default.mergeOptions({
@@ -51,22 +53,18 @@ function MapInner() {
           "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
       });
 
-      setLeaflet({
-        L,
-        ...RL,
-      });
-    });
+      setComponents({ L, ...RL });
+      setReady(true);
+    })();
   }, []);
 
-  if (!Leaflet) return null;
+  if (!ready || !components) return <div>Loading map...</div>;
 
-  const { MapContainer, TileLayer, Marker, Popup } = Leaflet;
+  const { MapContainer, TileLayer, Marker, Popup } = components;
 
   return (
     <section className={styles.wrapper}>
-      <h2 className={styles.title}>
-        Bản đồ quán ăn
-      </h2>
+      <h2 className={styles.title}>Bản đồ quán ăn</h2>
 
       <div className={styles.mapBox}>
         <MapContainer
@@ -74,6 +72,7 @@ function MapInner() {
           zoom={13}
           className={styles.map}
           attributionControl={false}
+          style={{ height: "400px", width: "100%" }}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -83,7 +82,7 @@ function MapInner() {
             return (
               <Marker key={i} position={[place.lat, place.lng]}>
                 <Popup>
-                  <div style={{ fontSize: "14px" }}>
+                  <div style={{ fontSize: 14 }}>
                     <b>{place.name}</b>
                     <br />
                     ⏰ {place.open} - {place.close}
@@ -107,7 +106,7 @@ function MapInner() {
   );
 }
 
-/* EXPORT */
+/* SSR OFF */
 export default dynamic(() => Promise.resolve(MapInner), {
   ssr: false,
 });
