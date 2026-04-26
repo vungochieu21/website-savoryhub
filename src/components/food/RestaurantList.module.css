@@ -82,3 +82,37 @@
   color: var(--danger);
   border-bottom: none;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.viewMoreContainer {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.loadMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 35px;
+  border-radius: 50px; /* Bo tròn kiểu hiện đại */
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  text-decoration: none; /* Bỏ gạch chân của Link */
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.loadMoreBtn:hover {
+  background: var(--hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  border-color: var(--primary);
+}

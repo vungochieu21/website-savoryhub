@@ -24,20 +24,27 @@ export default function Dropdown({
   open,
   setOpen,
 }: DropdownProps) {
+  // Kiểm tra nếu là ô khu vực thì cho rộng 220px, còn lại giữ 140px như cũ
+  const isRegion = id === "region";
+  const widthClass = isRegion ? "min-w-[180px]" : "min-w-[140px]";
+
   return (
     <div className="relative">
       
       {/* BUTTON */}
       <button
         onClick={() => setOpen(open === id ? null : id)}
-        className="px-4 py-2 rounded-md min-w-[140px] flex justify-between items-center border"
+        className={`px-4 py-2 rounded-md ${widthClass} flex justify-between items-center border`}
         style={{
           background: "var(--btn-bg)",
           color: "var(--btn-text)",
           borderColor: "var(--btn-text)",
         }}
       >
-        {options.find((o) => o.value === value)?.label || label}
+        {/* whitespace-nowrap để chữ không bị xuống dòng */}
+        <span className="whitespace-nowrap mr-2">
+          {options.find((o) => o.value === value)?.label || label}
+        </span>
         <span>▼</span>
       </button>
 

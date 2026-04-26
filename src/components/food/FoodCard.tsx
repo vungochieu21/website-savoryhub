@@ -51,10 +51,10 @@ export default function FoodCard({
       {/* IMAGE */}
       <div className={styles.imageWrapper}>
         {image ? (
-          <img src={image} alt={name} className={styles.img} />
+          <img src={image} alt={t(name)} className={styles.img} />
         ) : (
           <div className={styles.noImg}>
-            🍜 {t("no_image")}
+             noodle {t("no_image")}
           </div>
         )}
 
@@ -68,11 +68,13 @@ export default function FoodCard({
       {/* CONTENT */}
       <div className={styles.content}>
         <div className={styles.title}>
-          {name || t("shop_name_placeholder")}
+          {/* FIX: Bọc t() để dịch name_x */}
+          {t(name) || t("shop_name_placeholder")}
         </div>
 
         <div className={styles.address}>
-          {address || t("address_placeholder")}
+          {/* FIX: Bọc t() để dịch addr_x */}
+          {t(address) || t("address_placeholder")}
         </div>
 
         <div className={styles.bottom}>

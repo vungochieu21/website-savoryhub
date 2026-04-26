@@ -12,39 +12,37 @@ import {
 
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend
+  PieChart, Pie, Cell, LineChart, Line, CartesianGrid
 } from "recharts";
 
 import { useLanguage } from "src/locales/context/LanguageContext";
-
-const theme = {
-  bg: "#080808",
-  cardBg: "#121212",
-  navBg: "#181818",
-  textMain: "#ffffff",
-  textSub: "#888888",
-  border: "#282828",
-  primaryRed: "#b30000",
-};
+import styles from "./Dashboard.module.css";
 
 export default function DashboardPage() {
   const router = useRouter();
   const { t } = useLanguage();
   const [filter, setFilter] = useState("weekdays");
 
-  // --- SỐ LIỆU KPI ---
-  const [stats, setStats] = useState({ revenue: 0, orders: 0, quantity: 0, average: 0 });
+  // State hỗ trợ đổi màu Recharts thủ công khi theme đổi
+  const [isDark, setIsDark] = useState(false);
 
-  // --- DỮ LIỆU PEAK HOURS (LIVE) ---
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  const [stats, setStats] = useState({ revenue: 0, orders: 0, quantity: 0, average: 0 });
   const [dynamicLineData, setDynamicLineData] = useState([
     { time: "10h", value: 200 }, { time: "12h", value: 2200 }, { time: "14h", value: 2600 },
     { time: "16h", value: 1800 }, { time: "18h", value: 2400 }, { time: "20h", value: 2000 }, { time: "22h", value: 1200 }
   ]);
-
-  // --- DỮ LIỆU HEATMAP (LIVE) ---
   const [heatmapData, setHeatmapData] = useState<number[]>([]);
 
-  // Khởi tạo dữ liệu ban đầu dựa trên Filter
   useEffect(() => {
     const isWeekend = filter === "weekends";
     setStats({
@@ -53,12 +51,10 @@ export default function DashboardPage() {
       quantity: isWeekend ? 75000 : 49574,
       average: isWeekend ? 45.5 : 38.5
     });
-
     const baseVal = isWeekend ? 300 : 150;
     setHeatmapData(Array.from({ length: 28 }, () => Math.floor(baseVal + Math.random() * 200)));
   }, [filter]);
 
-  // Hiệu ứng nhảy số liệu tổng thể
   useEffect(() => {
     const interval = setInterval(() => {
       setStats(prev => ({
@@ -66,14 +62,11 @@ export default function DashboardPage() {
         revenue: prev.revenue + Math.floor(Math.random() * 200),
         orders: prev.orders + (Math.random() > 0.8 ? 1 : 0),
       }));
-
       setDynamicLineData(prev => prev.map(item => ({
         ...item,
         value: Math.max(100, item.value + (Math.floor(Math.random() * 401) - 200))
       })));
-
       setHeatmapData(prev => prev.map(val => Math.max(10, val + (Math.floor(Math.random() * 41) - 20)) ));
-
     }, 2500);
     return () => clearInterval(interval);
   }, []);
@@ -94,36 +87,30 @@ export default function DashboardPage() {
     return base.sort((a, b) => b.value - a.value);
   }, [filter, t]);
 
+  // Cấu hình màu cho Recharts (vì Recharts không nhận CSS variables trực tiếp)
+  const chartText = isDark ? "#888888" : "#666666";
+  const chartGrid = isDark ? "#222222" : "#eeeeee";
+  const tooltipBg = isDark ? "#111111" : "#ffffff";
+
   return (
-    <div style={{ backgroundColor: theme.bg, color: theme.textMain, minHeight: "100vh", padding: "24px", fontFamily: "sans-serif" }}>
+    <div className={styles.page}>
       
       {/* NAVBAR */}
-      <div style={{ 
-        display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px",
-        padding: "12px 20px", backgroundColor: theme.navBg, borderRadius: "12px", border: `1px solid ${theme.border}`
-      }}>
-        <button 
-          onClick={handleBack} 
-          style={{ 
-            border: `1.5px solid ${theme.primaryRed}`, background: "transparent", color: theme.primaryRed,
-            padding: "8px 18px", borderRadius: "8px", cursor: "pointer", display: "flex", alignItems: "center", 
-            gap: "10px", fontSize: "0.95rem", transition: "all 0.3s ease",
-          }}
-          onMouseOver={(e) => { e.currentTarget.style.background = theme.primaryRed; e.currentTarget.style.color = "#fff"; }}
-          onMouseOut={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = theme.primaryRed; }}
-        >
+      <div className={styles.navbar}>
+        <button onClick={handleBack} className={styles.backBtn}>
           <FaArrowLeft size={14} /> {t("back")}
         </button>
 
-        <div style={{ display: "flex", background: "#000", borderRadius: "10px", padding: "4px" }}>
+        <div className={styles.filterContainer}>
           {["weekdays", "weekends"].map((type) => (
             <button
               key={type}
               onClick={() => setFilter(type)}
               style={{ 
                 border: "none", padding: "8px 22px", borderRadius: "8px", cursor: "pointer",
-                backgroundColor: filter === type ? theme.primaryRed : "transparent",
-                color: "#fff", fontWeight: "normal", fontSize: "0.9rem", transition: "0.3s"
+                backgroundColor: filter === type ? "var(--primary-red)" : "transparent",
+                color: filter === type ? "#fff" : "var(--text-sub)", 
+                fontWeight: "normal", fontSize: "0.9rem", transition: "0.3s"
               }}
             >
               {type === "weekdays" ? t("weekdays") : t("weekends")}
@@ -144,27 +131,27 @@ export default function DashboardPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "24px" }}>
         
         {/* PEAK HOURS */}
-        <div style={{ gridColumn: "span 8", background: theme.cardBg, padding: "24px", borderRadius: "16px", border: `1px solid ${theme.border}` }}>
-          <h3 style={{ marginBottom: "18px", color: theme.textSub, fontSize: "1rem", fontWeight: "normal" }}>{t("peak_hours_live")}</h3>
+        <div className={styles.chartCard} style={{ gridColumn: "span 8" }}>
+          <h3 style={{ marginBottom: "18px", color: "var(--text-sub)", fontSize: "1rem", fontWeight: "normal" }}>{t("peak_hours_live")}</h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={dynamicLineData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#222" vertical={false} />
-              <XAxis dataKey="time" stroke={theme.textSub} tick={{fontSize: 11}} />
-              <YAxis stroke={theme.textSub} tick={{fontSize: 11}} domain={[0, 4500]} />
-              <Tooltip contentStyle={{ backgroundColor: "#111", border: `1px solid ${theme.border}`, color: "#fff" }} />
-              <Line type="monotone" dataKey="value" stroke={theme.primaryRed} strokeWidth={3} dot={{ r: 4, fill: theme.primaryRed }} animationDuration={1000} />
+              <CartesianGrid strokeDasharray="3 3" stroke={chartGrid} vertical={false} />
+              <XAxis dataKey="time" stroke={chartText} tick={{fontSize: 11}} />
+              <YAxis stroke={chartText} tick={{fontSize: 11}} domain={[0, 4500]} />
+              <Tooltip contentStyle={{ backgroundColor: tooltipBg, border: `1px solid var(--border-color)`, color: "var(--text-main)" }} />
+              <Line type="monotone" dataKey="value" stroke="var(--primary-red)" strokeWidth={3} dot={{ r: 4, fill: "var(--primary-red)" }} animationDuration={1000} />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
         {/* CATEGORY */}
-        <div style={{ gridColumn: "span 4", background: theme.cardBg, padding: "24px", borderRadius: "16px", border: `1px solid ${theme.border}` }}>
-          <h3 style={{ marginBottom: "18px", color: theme.textSub, fontSize: "1rem", fontWeight: "normal" }}>{t("category_breakdown")}</h3>
+        <div className={styles.chartCard} style={{ gridColumn: "span 4" }}>
+          <h3 style={{ marginBottom: "18px", color: "var(--text-sub)", fontSize: "1rem", fontWeight: "normal" }}>{t("category_breakdown")}</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie data={[{name: t('takeaway'), value: 400}, {name: t('dine_in'), value: 300}]} dataKey="value" innerRadius={65} outerRadius={90}>
-                <Cell fill={theme.primaryRed} />
-                <Cell fill="#333" />
+                <Cell fill="var(--primary-red)" />
+                <Cell fill={isDark ? "#333" : "#ddd"} />
               </Pie>
               <Tooltip />
             </PieChart>
@@ -172,36 +159,28 @@ export default function DashboardPage() {
         </div>
 
         {/* BEST SELLING */}
-        <div style={{ gridColumn: "span 6", background: theme.cardBg, padding: "24px", borderRadius: "16px", border: `1px solid ${theme.border}` }}>
-          <h3 style={{ marginBottom: "18px", color: theme.textSub, fontSize: "1rem", fontWeight: "normal" }}>{t("best_selling")} ({filter === "weekdays" ? t("weekdays") : t("weekends")})</h3>
+        <div className={styles.chartCard} style={{ gridColumn: "span 6" }}>
+          <h3 style={{ marginBottom: "18px", color: "var(--text-sub)", fontSize: "1rem", fontWeight: "normal" }}>{t("best_selling")} ({filter === "weekdays" ? t("weekdays") : t("weekends")})</h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={topData} layout="vertical">
               <XAxis type="number" hide />
-              <YAxis dataKey="name" type="category" stroke={theme.textSub} width={90} tick={{fontSize: 11}} />
-              <Bar dataKey="value" fill={theme.primaryRed} radius={[0, 5, 5, 0]} barSize={18} />
+              <YAxis dataKey="name" type="category" stroke={chartText} width={90} tick={{fontSize: 11}} />
+              <Bar dataKey="value" fill="var(--primary-red)" radius={[0, 5, 5, 0]} barSize={18} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* HEATMAP */}
-        <div style={{ gridColumn: "span 6", background: theme.cardBg, padding: "24px", borderRadius: "16px", border: `1px solid ${theme.border}` }}>
-          <h3 style={{ marginBottom: "18px", color: theme.textSub, fontSize: "1rem", fontWeight: "normal" }}>{t("order_density_live")}</h3>
+        <div className={styles.chartCard} style={{ gridColumn: "span 6" }}>
+          <h3 style={{ marginBottom: "18px", color: "var(--text-sub)", fontSize: "1rem", fontWeight: "normal" }}>{t("order_density_live")}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "8px" }}>
             {heatmapData.map((cell, idx) => (
               <div
                 key={idx}
+                className={styles.heatmapCell}
                 style={{
-                  height: "38px", 
                   backgroundColor: `rgba(179, 0, 0, ${cell / 500})`, 
-                  borderRadius: "4px", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center",
-                  fontSize: "10px", 
-                  fontWeight: "bold",
-                  color: cell > 280 ? "#fff" : "#666",
-                  border: "1px solid #1a1a1a",
-                  transition: "background-color 0.5s ease"
+                  color: cell > 280 ? "#fff" : "var(--text-sub)",
                 }}
               >
                 {cell}
@@ -216,22 +195,18 @@ export default function DashboardPage() {
 }
 
 function StatCard({ icon, value, label, color }: any) {
-  const { t } = useLanguage();
   return (
-    <div style={{ 
-      background: theme.cardBg, padding: "22px", borderRadius: "16px", 
-      display: "flex", alignItems: "center", gap: "16px", border: `1px solid ${theme.border}`
-    }}>
+    <div className={styles.statCard}>
       <div style={{ 
-        fontSize: "20px", color: color, background: `${color}10`, 
+        fontSize: "20px", color: color, background: `${color}15`, 
         width: "48px", height: "48px", borderRadius: "12px", 
         display: "flex", alignItems: "center", justifyContent: "center" 
       }}>
         {icon}
       </div>
       <div>
-        <p style={{ margin: 0, color: theme.textSub, fontSize: "13px" }}>{label}</p>
-        <h2 style={{ margin: "4px 0 0 0", color: "#fff", fontSize: "22px", fontWeight: "bold", transition: "all 0.4s" }}>{value}</h2>
+        <p style={{ margin: 0, color: "var(--text-sub)", fontSize: "13px" }}>{label}</p>
+        <h2 style={{ margin: "4px 0 0 0", color: "var(--text-main)", fontSize: "22px", fontWeight: "bold", transition: "all 0.4s" }}>{value}</h2>
       </div>
     </div>
   );
