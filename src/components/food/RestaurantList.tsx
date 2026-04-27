@@ -59,7 +59,7 @@ export default function RestaurantList({
   }
 
   // Ở trang chủ/danh sách này, chúng ta chỉ hiện tối đa ví dụ 8 hoặc 12 món thôi
-  const displayFoods = foods.slice(0, 8);
+  const displayFoods = foods.slice(0, 20);
 
   return (
     <div className={styles.container}>

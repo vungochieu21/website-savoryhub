@@ -83,7 +83,7 @@ const data: Place[] = [
   },
   {
     name: { vi: "Bánh Mì Huỳnh Hoa", en: "Huynh Hoa Banh Mi" },
-    address: { vi: "26 Lê Thị Riêng, Phường Phạm Ngũ Lão, Bến Thành, Hồ Chí Minh", en: "26 Le Thi Rieng Street, Pham Ngu Lao Ward, Ben Thanh District, Ho Chi Minh City, Vietnam26 Le Thi Rieng Street, Pham Ngu Lao Ward, Ben Thanh District, Ho Chi Minh City" },
+    address: { vi: "26 Lê Thị Riêng, Phường Phạm Ngũ Lão, Bến Thành, Hồ Chí Minh", en: "26 Le Thi Rieng Street, Pham Ngu Lao Ward, Ben Thanh District, Ho Chi Minh City" },
     phone: "0904 456 789",
     time: { vi: "14:00 - 23:00", en: "14:00 - 23:00" },
     distance: "1.8 km",
