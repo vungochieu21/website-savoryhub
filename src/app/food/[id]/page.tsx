@@ -5,7 +5,7 @@ import foodsData from "src/data/food.json";
 import { useRouter } from "next/navigation";
 import { use, useState } from "react";
 import { motion } from "framer-motion";
-import { FaArrowLeft, FaStar, FaUtensils, FaCommentAlt, FaArrowRight } from "react-icons/fa"; // Thêm FaArrowRight
+import { FaArrowLeft, FaStar, FaUtensils, FaCommentAlt, FaArrowRight } from "react-icons/fa";
 import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function FoodDetailPage({ params }: any) {
@@ -60,7 +60,9 @@ export default function FoodDetailPage({ params }: any) {
   if (!food) return <div className={styles.page}>❌ {t("not_found")}</div>;
 
   return (
-    <div className={styles.page}>
+    // 🔥 FIX FONT Ở ĐÂY
+    <div className={styles.page} style={{ fontFamily: "var(--font-rubik)" }}>
+      
       <motion.button 
         whileHover={{ scale: 1.05, x: -5 }}
         whileTap={{ scale: 0.95 }}
@@ -97,7 +99,6 @@ export default function FoodDetailPage({ params }: any) {
               </div>
             </div>
 
-            {/* Bọc input và mũi tên vào inputWrapper */}
             <div className={styles.inputWrapper}>
               <textarea 
                 className={styles.commentInput} 
@@ -112,6 +113,7 @@ export default function FoodDetailPage({ params }: any) {
           <h3 style={{ marginTop: '30px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FaUtensils size={18} color="#b30000" /> {t("suggested_sides")}
           </h3>
+
           <div className={styles.sideGrid}>
             {availableSides.map((side, i) => (
               <div key={i} className={styles.sideItem}>
@@ -124,6 +126,7 @@ export default function FoodDetailPage({ params }: any) {
           <h3 style={{ marginTop: '40px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FaCommentAlt size={16} /> {t("community_reviews")} ({virtualReviews.length})
           </h3>
+
           {virtualReviews.map((rev, i) => (
             <div key={i} className={styles.commentBox}>
               <img src={rev.img} className={styles.avatar} alt="avatar" />

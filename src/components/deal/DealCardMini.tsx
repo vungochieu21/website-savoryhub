@@ -3,6 +3,8 @@
 import { useState } from "react";
 import styles from "./DealSection.module.css";
 import { useLanguage } from "src/locales/context/LanguageContext";
+import { motion } from "framer-motion";
+import { FaFire, FaCopy, FaCheck } from "react-icons/fa";
 
 type Deal = {
   id: number;
@@ -67,7 +69,27 @@ export default function DealSection() {
         {/* HEADER */}
         <div className={styles.header}>
           <h2 className={styles.title}>
-            ✨ {t("daily_deals")} ✨
+
+            {/* 🔥 LEFT */}
+            <motion.span
+              className={styles.fireIcon}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ repeat: Infinity, duration: 1 }}
+            >
+              <FaFire />
+            </motion.span>
+
+            {t("daily_deals")}
+
+            {/* 🔥 RIGHT */}
+            <motion.span
+              className={styles.fireIcon}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ repeat: Infinity, duration: 1 }}
+            >
+              <FaFire />
+            </motion.span>
+
           </h2>
 
           <p className={styles.subtitle}>
@@ -100,8 +122,7 @@ export default function DealSection() {
                 <h3 className={styles.discount}>
                   {Math.round(
                     ((deal.oldPrice - deal.price) / deal.oldPrice) * 100
-                  )}
-                  % OFF
+                  )}% OFF
                 </h3>
 
                 <p className={styles.name}>{t(deal.name)}</p>
@@ -124,16 +145,18 @@ export default function DealSection() {
                     onClick={() => handleCopy(deal.code, deal.id)}
                     className={styles.copyBtn}
                   >
-                    {copiedId === deal.id
-                      ? t("copied")
-                      : t("copy")}
+                    {copiedId === deal.id ? <FaCheck /> : <FaCopy />}
                   </button>
                 </div>
 
                 {/* BUTTON */}
-                <button className={styles.btn}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={styles.btn}
+                >
                   {t("order_now")}
-                </button>
+                </motion.button>
 
               </div>
             </div>

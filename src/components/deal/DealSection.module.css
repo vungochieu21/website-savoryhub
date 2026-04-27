@@ -161,3 +161,53 @@
 .btn:hover {
   background: #dc2626;
 }
+
+/* 🔥 FIRE ICON GLOW */
+.fireIcon {
+  display: inline-block;
+  margin: 0 8px;
+  color: orange;
+
+  filter: drop-shadow(0 0 6px orange)
+          drop-shadow(0 0 12px red);
+
+  animation: fireGlow 1.5s infinite alternate;
+}
+
+@keyframes fireGlow {
+  from {
+    filter: drop-shadow(0 0 4px orange)
+            drop-shadow(0 0 8px red);
+  }
+  to {
+    filter: drop-shadow(0 0 10px orange)
+            drop-shadow(0 0 18px red);
+  }
+}
+
+/* ✨ BADGE BLINK */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  background: #b30000;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}

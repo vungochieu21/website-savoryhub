@@ -1,11 +1,22 @@
 import "./globals.css";
 import "antd/dist/reset.css";
 import "leaflet/dist/leaflet.css";
-import Script from "next/script";
+
 import ScrollToTopButton from "src/components/ui/ScrollToTopButton";
 import Providers from "@/src/app/provider";
 import { FavoriteProvider } from "src/locales/context/FavoriteContext";
 import { ConfigProvider } from "antd";
+import ThemeInit from "@/src/components/ThemeInit";
+
+// 🔥 IMPORT RUBIK
+import { Rubik } from "next/font/google";
+
+// 🔥 KHỞI TẠO
+const rubik = Rubik({
+  subsets: ["latin", "vietnamese"], // 🔥 để không lỗi tiếng Việt
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "Tastii",
@@ -20,28 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Theme script (dark/light) */}
-        <Script id="theme-script" strategy="beforeInteractive">
-          {`
-            (function () {
-              try {
-                const theme = localStorage.getItem("theme");
-                const root = document.documentElement;
+    <html lang="vi" suppressHydrationWarning>
+      {/* 🔥 GẮN FONT */}
+      <body className={rubik.className}>
+        <ThemeInit />
 
-                if (theme === "dark") {
-                  root.classList.add("dark");
-                } else {
-                  root.classList.remove("dark");
-                }
-              } catch (e) {}
-            })();
-          `}
-        </Script>
-      </head>
-
-      <body>
         <ConfigProvider
           theme={{
             token: {

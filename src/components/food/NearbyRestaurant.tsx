@@ -26,88 +26,125 @@ type Place = {
   distance: string;
   tags: MultiLang[];
   city: string;
-
-  /* ✅ ADD LAT LNG */
   lat: number;
   lng: number;
+
+  /* ✅ optional */
+  placeId?: string;
 };
 
 /* DATA */
 const data: Place[] = [
   {
-    name: { vi: "Phở Hòa Pasteur", en: "Pho Hoa Pasteur" },
-    address: { vi: "260C Pasteur, Quận 3", en: "260C Pasteur, District 3" },
+    name: { vi: "NHÀ HÀNG NGON", en: "DELICIOUS RESTAURANT" },
+    address: { vi: "160 Pasteur, Bến Nghé, Sài Gòn, Hồ Chí Minh", en: "160 Pasteur Street, Ben Nghe Ward, Saigon, Ho Chi Minh City" },
     phone: "0901 123 456",
     time: { vi: "06:00 - 22:00", en: "06:00 - 22:00" },
     distance: "1.5 km",
     tags: [
-      { vi: "Phở", en: "Pho" },
+      { vi: "Đa dạng", en: "Diversity" },
       { vi: "Ăn tại chỗ", en: "Dine-in" },
+      { vi: "Đồ ăn mang đi", en: "Takeaway food" }
     ],
     city: "hcm",
-    lat: 10.7797,
-    lng: 106.6990,
+    lat: 10.777481,
+    lng: 106.6892627,
   },
   {
-    name: { vi: "Bún Bò Huế Đông Ba", en: "Hue Beef Noodle Dong Ba" },
-    address: { vi: "110 Nguyễn Du, Quận 1", en: "110 Nguyen Du, District 1" },
+    name: { vi: "Ben Nghe Street Food", en: "Ben Nghe Street Food" },
+    address: { vi: "134 Nam Kỳ Khởi Nghĩa, Bến Nghé, Sài Gòn, Hồ Chí Minh", en: "134 Nam Ky Khoi Nghia Street, Ben Nghe Ward, Saigon, Ho Chi Minh City" },
     phone: "0902 234 567",
     time: { vi: "07:00 - 21:00", en: "07:00 - 21:00" },
     distance: "2.3 km",
-    tags: [{ vi: "Bún bò", en: "Beef noodle" }],
+    tags: [
+      { vi: "Bánh mì", en: "Banh mi" },
+      { vi: "Kem", en: "Ice Cream" },
+      { vi: "Ăn tại chỗ", en: "Dine-in" },
+      { vi: "Đồ ăn mang đi", en: "Takeaway food" }
+    ],
     city: "hcm",
-    lat: 10.7765,
-    lng: 106.7009,
+    lat: 10.7822308,
+    lng: 106.5861368,
+    
   },
   {
-    name: { vi: "Cơm Tấm Ba Ghiền", en: "Ba Ghien Broken Rice" },
-    address: { vi: "Phú Nhuận", en: "Phu Nhuan" },
+    name: { vi: "Hoàng's Kitchen", en: "Hoang's Kitchen" },
+    address: { vi: "45 Thủ Khoa Huân, Bến Thành, Hồ Chí Minh", en: "45 Thu Khoa Huan Street, Ben Thanh Ward, Ho Chi Minh City" },
     phone: "0903 345 678",
     time: { vi: "09:00 - 22:00", en: "09:00 - 22:00" },
     distance: "3.8 km",
-    tags: [{ vi: "Cơm tấm", en: "Broken rice" }],
-    city: "hcm",
-    lat: 10.7991,
-    lng: 106.6767,
+    tags: [
+      { vi: "Cà phê trứng", en: "Eggcoffe" },
+      { vi: "Ăn tại chỗ", en: "Dine-in" },
+      { vi: "Đồ ăn mang đi", en: "Takeaway food" }
+    ],    city: "hcm",
+    lat: 10.7822308,
+    lng: 106.5861368,
   },
   {
     name: { vi: "Bánh Mì Huỳnh Hoa", en: "Huynh Hoa Banh Mi" },
-    address: { vi: "Quận 1", en: "District 1" },
+    address: { vi: "26 Lê Thị Riêng, Phường Phạm Ngũ Lão, Bến Thành, Hồ Chí Minh", en: "26 Le Thi Rieng Street, Pham Ngu Lao Ward, Ben Thanh District, Ho Chi Minh City, Vietnam26 Le Thi Rieng Street, Pham Ngu Lao Ward, Ben Thanh District, Ho Chi Minh City" },
     phone: "0904 456 789",
     time: { vi: "14:00 - 23:00", en: "14:00 - 23:00" },
     distance: "1.8 km",
-    tags: [{ vi: "Bánh mì", en: "Banh mi" }],
+    tags: [
+      { vi: "Bánh mì", en: "Banh mi" },
+      { vi: "Nước mía", en: "Sugarcane Juice" },
+      { vi: "Ăn tại chỗ", en: "Dine-in" },
+      { vi: "Đồ ăn mang đi", en: "Takeaway food" }
+    ],
     city: "hcm",
-    lat: 10.7723,
-    lng: 106.6981,
+    lat: 10.7715226,
+    lng: 106.6876332,
   },
   {
-    name: { vi: "Lẩu Dê", en: "Goat Hotpot" },
-    address: { vi: "Quận 3", en: "District 3" },
+    name: { vi: "Lẩu Dê Gia Truyền Tài Ký", en: "Traditional Goat Hot Pot by Tai Ky" },
+    address: { vi: "57A Đ. Ung Văn Khiêm, Phường 25, Thạnh Mỹ Tây, Hồ Chí Minh", en: "57A Ung Van Khiem Street, Ward 25, Thanh My Tay, Ho Chi Minh City" },
     phone: "0905 567 890",
     time: { vi: "17:00 - 00:00", en: "17:00 - 00:00" },
     distance: "4.5 km",
-    tags: [{ vi: "Lẩu", en: "Hotpot" }],
+    tags: [
+      { vi: "Lẩu dê", en: "Goat hotpot" },
+      { vi: "Tiết canh", en: "Blood pudding" },
+      { vi: "Ăn tại chỗ", en: "Dine-in" },
+      { vi: "Đồ ăn mang đi", en: "Takeaway food" }
+    ],
     city: "other",
-    lat: 10.7802,
-    lng: 106.6905,
+    lat: 10.8316887,
+    lng: 106.7024567,
   },
   {
-    name: { vi: "Hải Sản 5 Cua", en: "5 Cua Seafood" },
-    address: { vi: "Quận 7", en: "District 7" },
+    name: { vi: "Nhà Hàng Hải Sản Thiên Nhiên", en: "Thien Nhien Seafood Restaurant" },
+    address: { vi: "1072 Kha Vạn Cân, Linh Chiểu, Thủ Đức", en: "1072 Kha Van Can Street, Linh Chieu Ward, Thu Duc District" },
     phone: "0906 678 901",
     time: { vi: "10:00 - 23:00", en: "10:00 - 23:00" },
     distance: "6.2 km",
-    tags: [{ vi: "Hải sản", en: "Seafood" }],
+     tags: [
+      { vi: "hải sản", en: "Sea food" },
+      { vi: "Lẩu cá", en: "Fish hotpot" },
+      { vi: "Ăn tại chỗ", en: "Dine-in" },
+      { vi: "Đồ ăn mang đi", en: "Takeaway food" }
+    ],
     city: "other",
-    lat: 10.7297,
-    lng: 106.7216,
+    lat: 10.8571958,
+    lng: 106.4523174,
   },
 ];
 
-/* GOOGLE MAP LINK */
-function getMapLink(lat: number, lng: number) {
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+/* 🔥 GOOGLE MAP LINK */
+function getMapLink(
+  name: string,
+  lat: number,
+  lng: number,
+  placeId?: string
+) {
+  if (placeId && placeId.startsWith("ChIJ")) {
+    return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${placeId}`;
+  }
+
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    name
+  )}@${lat},${lng}`;
 }
 
 export default function NearbyRestaurant() {
@@ -186,7 +223,12 @@ export default function NearbyRestaurant() {
 
             <div className={styles.actions}>
               <a
-                href={getMapLink(item.lat, item.lng)}
+                href={getMapLink(
+                  item.name.vi,
+                  item.lat,
+                  item.lng,
+                  item.placeId
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles["btn-outline"]}
