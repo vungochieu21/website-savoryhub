@@ -115,7 +115,7 @@ const data: Place[] = [
   },
   {
     name: { vi: "Nhà Hàng Hải Sản Thiên Nhiên", en: "Thien Nhien Seafood Restaurant" },
-    address: { vi: "1072 Kha Vạn Cân, Linh Chiểu, Thủ Đức", en: "1072 Kha Van Can Street, Linh Chieu Ward, Thu Duc District" },
+    address: { vi: "1072 Kha Vạn Cân, Linh Chiểu, Thủ Đức, Hồ Chí Minh", en: "1072 Kha Van Can Street, Linh Chieu Ward, Thu Duc District, Ho Chi Minh City" },
     phone: "0906 678 901",
     time: { vi: "10:00 - 23:00", en: "10:00 - 23:00" },
     distance: "6.2 km",

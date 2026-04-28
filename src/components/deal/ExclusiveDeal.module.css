@@ -122,3 +122,520 @@
   background: #b91c1c;
   transform: scale(1.05);
 }
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 4px;
+  margin-top: 120px;
+  position: relative;
+}
+
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  z-index: 50;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.container {
+  width: 100%;
+  max-width: 1800px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(to right, #020617, black, #1e293b);
+  padding: 60px 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.desc {
+  color: #d1d5db;
+  font-size: 20px;
+  margin-top: 12px;
+  max-width: 850px;
+  line-height: 1.6;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.card {
+  position: relative;
+  border-radius: 24px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.starter { background: #475569; }
+.golden { 
+  background: #eab308; 
+  border: 2.5px solid #ef4444;
+}
+.platinum { background: #a855f7; }
+
+.popularBadge {
+  position: absolute;
+  top: -15px;
+  background: #ef4444;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.cardIcon { font-size: 40px; margin-bottom: 16px; }
+.cardTitle { font-size: 26px; font-weight: bold; margin-bottom: 8px; }
+.cardPrice { font-size: 30px; font-weight: 800; margin-bottom: 4px; }
+.cardPoints {
+  font-size: 14px;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.featureList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 15.5px;
+  line-height: 1.4;
+}
+
+.checkIcon { font-size: 16px; margin-top: 4px; flex-shrink: 0; }
+
+.form {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.input {
+  width: 450px;
+  height: 60px;
+  border-radius: 16px;
+  padding: 0 24px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+}
+
+.button {
+  background: #dc2626;
+  color: white;
+  font-weight: bold;
+  padding: 0 40px;
+  height: 60px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background: #b91c1c;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .pricingGrid { grid-template-columns: 1fr; }
+  .input { width: 100%; }
+}.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 4px;
+  margin-top: 120px;
+  position: relative;
+}
+
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  z-index: 50;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.container {
+  width: 100%;
+  max-width: 1800px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(to right, #020617, black, #1e293b);
+  padding: 60px 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.desc {
+  color: #d1d5db;
+  font-size: 20px;
+  margin-top: 12px;
+  max-width: 850px;
+  line-height: 1.6;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.card {
+  position: relative;
+  border-radius: 24px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.starter { background: #475569; }
+.golden { 
+  background: #eab308; 
+  border: 2.5px solid #ef4444;
+}
+.platinum { background: #a855f7; }
+
+.popularBadge {
+  position: absolute;
+  top: -15px;
+  background: #ef4444;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.cardIcon { font-size: 40px; margin-bottom: 16px; }
+.cardTitle { font-size: 26px; font-weight: bold; margin-bottom: 8px; }
+.cardPrice { font-size: 30px; font-weight: 800; margin-bottom: 4px; }
+.cardPoints {
+  font-size: 14px;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.featureList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 15.5px;
+  line-height: 1.4;
+}
+
+.checkIcon { font-size: 16px; margin-top: 4px; flex-shrink: 0; }
+
+.form {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.input {
+  width: 450px;
+  height: 60px;
+  border-radius: 16px;
+  padding: 0 24px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+}
+
+.button {
+  background: #dc2626;
+  color: white;
+  font-weight: bold;
+  padding: 0 40px;
+  height: 60px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background: #b91c1c;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .pricingGrid { grid-template-columns: 1fr; }
+  .input { width: 100%; }
+}.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 4px;
+  margin-top: 120px;
+  position: relative;
+}
+
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  z-index: 50;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.container {
+  width: 100%;
+  max-width: 1800px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(to right, #020617, black, #1e293b);
+  padding: 60px 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.desc {
+  color: #d1d5db;
+  font-size: 20px;
+  margin-top: 12px;
+  max-width: 850px;
+  line-height: 1.6;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.card {
+  position: relative;
+  border-radius: 24px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.starter { background: #475569; }
+.golden { 
+  background: #eab308; 
+  border: 2.5px solid #ef4444;
+}
+.platinum { background: #a855f7; }
+
+.popularBadge {
+  position: absolute;
+  top: -15px;
+  background: #ef4444;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.cardIcon { font-size: 40px; margin-bottom: 16px; }
+.cardTitle { font-size: 26px; font-weight: bold; margin-bottom: 8px; }
+.cardPrice { font-size: 30px; font-weight: 800; margin-bottom: 4px; }
+.cardPoints {
+  font-size: 14px;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.featureList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 15.5px;
+  line-height: 1.4;
+}
+
+.checkIcon { font-size: 16px; margin-top: 4px; flex-shrink: 0; }
+
+.form {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.input {
+  width: 450px;
+  height: 60px;
+  border-radius: 16px;
+  padding: 0 24px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+}
+
+.button {
+  background: #dc2626;
+  color: white;
+  font-weight: bold;
+  padding: 0 40px;
+  height: 60px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background: #b91c1c;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .pricingGrid { grid-template-columns: 1fr; }
+  .input { width: 100%; }
+}

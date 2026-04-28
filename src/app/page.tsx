@@ -13,6 +13,9 @@ import Testimonials from "src/components/section/Testimonials";
 import Footer from "src/components/layout/Footer";
 import NearbyRestaurant from "src/components/food/NearbyRestaurant";
 
+// Import màn hình loading của bạn
+import Loading from "./loading";
+
 const FoodForm = dynamic(() => import("src/components/food/FoodForm"), {
   ssr: false,
 });
@@ -29,7 +32,10 @@ export default function Home() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    setMounted(true);
+    // Ép hệ thống đợi 3 giây (3000ms) trước khi tắt màn hình Loading
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 3000); 
 
     fetch("/data/foods.json")
       .then((res) => res.json())
@@ -37,9 +43,13 @@ export default function Home() {
         setFoods(data);
       })
       .catch((err) => console.log(err));
+
+    // Dọn dẹp timer khi component bị unmount để tránh lỗi bộ nhớ
+    return () => clearTimeout(timer);
   }, []);
 
-  if (!mounted) return null;
+  // Hiện màn hình loading cho đến khi hết thời gian chờ
+  if (!mounted) return <Loading />;
 
   return (
     <>
