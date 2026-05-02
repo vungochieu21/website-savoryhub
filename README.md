@@ -11,7 +11,7 @@
 -  Mô tả (Tiếng Việt & Tiếng Anh).
 -  Tìm kiếm và lọc các món ăn, loại món ăn.
 -  Cho phép khách hàng/chủ cửa hàng xem được Bảng thống kê thu chi, lợi nhuận.
--  Có LocalStorage ( cho phép lưu danh sách yêu thích, lưu giao diện sáng/tối, lưu ngôn ngữ người dùng)
+-  Có LocalStorage ( cho phép lưu danh sách yêu thích, lưu giao diện sáng/tối, lưu ngôn ngữ người dùng).
 ### 🚀 Công nghệ sử dụng:
 -  Next.js (App Router)
 -  React.js
@@ -131,30 +131,30 @@ src/
 - Có hỗ trợ nút cuộn lên trang chính.
 - Tương thích với desktop.
 ### 📄 Các trang chính:
-- ➡️ ***Trang chủ:***
+➡️ ***Trang chủ:***
 - Banner quảng cáo hình ảnh các món ăn. 
 - List các món đang được ưu đãi.
 - List các món được bán chạy.
 - Các gói ưu đãi phù hợp với từng khách hàng.
 - Hiển thị đánh giá từ người dùng.
 - Hiển thị quán ăn gần bạn và bản đồ khu vực.
-- ➡️ ***Trang Filter:***
+➡️ ***Trang Filter:***
 - Có tìm kiếm nâng cao đúng theo ý muốn mọi nhu cầu.
 - Chọn lọc món theo nhu cầu người dùng.
-- ➡️ ***Trang chi tiết món:***
+➡️ ***Trang chi tiết món:***
 - Cho phép đánh giá sao trên món.
 - Cho phép đánh giá trải nghiệm vè món.
 - Đề xuất các món phụ từ quán.
 - Hiện đánh giá món từ người dùng khác.
-- ➡️ ***Trang Thêm địa điểm:***
+➡️ ***Trang Thêm địa điểm:***
 - Nhập thông tin địa điểm, giá cả, thời gian mở/đóng cửa cho các chủ cửa hàng.
 - Cho phép up quán ăn, các thực đơn món từ người bán.
-- ➡️ ***Trang tài khoản:***
+➡️ ***Trang tài khoản:***
 - Trang đăng nhập/đăng ký rõ ràng.
 - Xem thông tin tài khoản cá nhân.
 - Cho phép người bán xem bảng thống kê thu chi.
 - Có danh mục yêu thích.
-- ➡️ ***Trang setting:***
+➡️ ***Trang setting:***
 - Có thể chuyển đổi sáng/tối theo cá nhân.
 - Chuyển đổi ngôn ngữ theo ý muốn người dùng.
 ## 📩 Cách tải website-savoryhub:
@@ -172,5 +172,6 @@ npm install
 npm run dev
 ```
 - Bước 4: Mở [http://localhost:3000](http://localhost:3000) trong trình duyệt.
-###🧑‍💻 Tác giả:
+
+### 🧑‍💻 Tác giả:
 - Được sáng tạo và phát triển bởi [Vu Hieu](https://github.com/vungochieu21) và [Anh Khoi 36](https://github.com/nguyenkhoi28052006-dev)
