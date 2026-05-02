@@ -1,6 +1,4 @@
-/* ======================================================
-   BIẾN MÀU SẮC & CƠ CHẾ THEME
-   ====================================================== */
+/* THEME */
 .page {
   --bg-color: #f8f9fa;
   --card-bg: #ffffff;
@@ -27,7 +25,7 @@
   --item-bg: #252525;
 }
 
-/* Nút quay lại đỏ bên trái */
+/* Button back */
 .backBtn {
   position: absolute;
   top: 25px;
@@ -39,14 +37,14 @@
   padding: 10px 20px;
   border-radius: 50px;
   border: none;
-  background: #b30000; /* Màu đỏ đô thương hiệu */
+  background: #b30000;
   color: white;
   cursor: pointer;
   font-weight: 600;
   box-shadow: 0 4px 15px rgba(179, 0, 0, 0.4);
 }
 
-/* Card cỡ vừa */
+/* Card */
 .card {
   max-width: 750px;
   margin: 60px auto 20px auto;
@@ -72,7 +70,6 @@
   margin-bottom: 8px;
 }
 
-/* BỐ CỤC ĐÁNH GIÁ */
 .ratingContainer {
   display: flex;
   gap: 20px;
@@ -93,12 +90,10 @@
   cursor: pointer;
 }
 
-/* Khung vẫn đổi màu đỏ b30000 khi tương tác */
 .ratingSection:hover {
   border-color: #b30000;
 }
 
-/* --- THIẾT KẾ MỚI CHO CỤM NHẬP LIỆU --- */
 .inputWrapper {
   flex: 2;
   position: relative;
@@ -107,7 +102,7 @@
 
 .commentInput {
   width: 100%;
-  padding: 15px 45px 15px 15px; /* Thêm padding phải để không đè chữ lên mũi tên */
+  padding: 15px 45px 15px 15px;
   border-radius: 16px;
   border: 2px solid var(--border-color);
   background: var(--card-bg);
@@ -137,7 +132,7 @@
   transform: scale(1.2);
 }
 
-/* SAO MÀU VÀNG */
+/* Star */
 .star {
   font-size: 24px;
   cursor: pointer;
@@ -149,7 +144,7 @@
   transform: scale(1.2);
 }
 
-/* MÓN PHỤ */
+/* side dish */
 .sideGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -171,7 +166,7 @@
   color: #b30000;
 }
 
-/* BÌNH LUẬN */
+/* Comment */
 .commentBox {
   margin-top: 15px;
   padding: 18px;

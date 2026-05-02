@@ -17,7 +17,7 @@
 .chaseStage {
   position: relative;
   width: 100%;
-  max-width: 500px; /* Nới rộng một chút cho thoải mái */
+  max-width: 500px;
   height: 120px;
 }
 
@@ -25,7 +25,6 @@
   position: absolute;
   font-size: 50px;
   bottom: 10px;
-  /* Chạy nhảy nhót */
   animation: jump 0.4s infinite alternate ease-in-out, chase 3s infinite linear;
 }
 
@@ -55,7 +54,7 @@
 
 .text {
   margin-top: 30px;
-  font-family: system-ui, -apple-system, sans-serif; /* Phông chữ mặc định hệ thống */
+  font-family: system-ui, -apple-system, sans-serif;
   font-size: 18px;
   font-weight: 600;
   color: #ff4757;

@@ -12,7 +12,7 @@ import {
 import styles from "./NearbyRestaurant.module.css";
 import { useLanguage } from "src/locales/context/LanguageContext";
 
-/* 🔥 MULTI LANG */
+/* MULTI LANG */
 type MultiLang = {
   vi: string;
   en: string;
@@ -29,7 +29,7 @@ type Place = {
   lat: number;
   lng: number;
 
-  /* ✅ optional */
+  /* optional */
   placeId?: string;
 };
 
@@ -131,7 +131,7 @@ const data: Place[] = [
   },
 ];
 
-/* 🔥 GOOGLE MAP LINK */
+/* GOOGLE MAP LINK */
 function getMapLink(
   name: string,
   lat: number,

@@ -68,12 +68,10 @@ export default function FoodCard({
       {/* CONTENT */}
       <div className={styles.content}>
         <div className={styles.title}>
-          {/* FIX: Bọc t() để dịch name_x */}
           {t(name) || t("shop_name_placeholder")}
         </div>
 
         <div className={styles.address}>
-          {/* FIX: Bọc t() để dịch addr_x */}
           {t(address) || t("address_placeholder")}
         </div>
 
@@ -88,7 +86,7 @@ export default function FoodCard({
             </div>
           </div>
 
-          {/* ❤️ */}
+          {/* Tim */}
           <div
             onClick={(e) => {
               e.stopPropagation(); 

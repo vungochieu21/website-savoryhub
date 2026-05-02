@@ -24,7 +24,6 @@ export default function Dropdown({
   open,
   setOpen,
 }: DropdownProps) {
-  // Kiểm tra nếu là ô khu vực thì cho rộng 220px, còn lại giữ 140px như cũ
   const isRegion = id === "region";
   const widthClass = isRegion ? "min-w-[180px]" : "min-w-[140px]";
 
@@ -41,7 +40,7 @@ export default function Dropdown({
           borderColor: "var(--btn-text)",
         }}
       >
-        {/* whitespace-nowrap để chữ không bị xuống dòng */}
+        {/* whitespace-nowrap */}
         <span className="whitespace-nowrap mr-2">
           {options.find((o) => o.value === value)?.label || label}
         </span>

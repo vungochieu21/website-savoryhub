@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 import styles from "./Testimonials.module.css";
 import { useLanguage } from "src/locales/context/LanguageContext";
 
-/* 🔥 MULTI LANG TYPE */
+/* MULTI LANG TYPE */
 type MultiLang = {
   vi: string;
   en: string;

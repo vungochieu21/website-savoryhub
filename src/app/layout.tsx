@@ -8,12 +8,10 @@ import { FavoriteProvider } from "src/locales/context/FavoriteContext";
 import { ConfigProvider } from "antd";
 import ThemeInit from "@/src/components/ThemeInit";
 
-// 🔥 IMPORT RUBIK
 import { Rubik } from "next/font/google";
 
-// 🔥 KHỞI TẠO
 const rubik = Rubik({
-  subsets: ["latin", "vietnamese"], // 🔥 để không lỗi tiếng Việt
+  subsets: ["latin", "vietnamese"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
@@ -32,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      {/* 🔥 GẮN FONT */}
+      {/* add FONT */}
       <body className={rubik.className}>
         <ThemeInit />
 

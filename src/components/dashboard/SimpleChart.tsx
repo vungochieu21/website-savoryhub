@@ -35,7 +35,6 @@ export default function SimpleChart() {
     setData(generateData(range));
   }, [range]);
 
-  // 🔥 realtime update
   useEffect(() => {
     const interval = setInterval(() => {
       setData((prev) =>
@@ -99,7 +98,7 @@ export default function SimpleChart() {
 
             <Legend />
 
-            {/* 🔴 Likes (Area) */}
+            {/* Likes */}
             <Area
               type="monotone"
               dataKey="likes"
@@ -109,7 +108,7 @@ export default function SimpleChart() {
               animationDuration={800}
             />
 
-            {/* 🔵 Users */}
+            {/* Users */}
             <Line
               type="monotone"
               dataKey="users"
@@ -118,7 +117,7 @@ export default function SimpleChart() {
               dot={false}
             />
 
-            {/* 🟢 Foods */}
+            {/* Foods */}
             <Line
               type="monotone"
               dataKey="foods"

@@ -526,5 +526,4 @@ export const texts = {
     see_more: "See more",
     no_places: "No places found",
   },
-  
 };

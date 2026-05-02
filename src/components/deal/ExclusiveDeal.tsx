@@ -113,7 +113,7 @@ export default function ExclusiveDeal() {
             ))}
           </div>
 
-          {/* FORM - CHỈ CẦN ĐIỀN EMAIL ĐĂNG KÝ */}
+          {/* FORM */}
           <div className={styles.form}>
             <input
               type="email"

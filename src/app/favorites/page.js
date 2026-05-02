@@ -4,8 +4,8 @@ import { useFavorites } from "src/locales/context/FavoriteContext";
 import FoodCard from "src/components/food/FoodCard";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "src/locales/context/LanguageContext";
-import { motion } from "framer-motion"; // Import motion để làm hiệu ứng
-import { FaArrowLeft } from "react-icons/fa"; // Import icon cho đẹp
+import { motion } from "framer-motion";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function FavoritesPage() {
   const { favorites } = useFavorites();
@@ -15,7 +15,7 @@ export default function FavoritesPage() {
   return (
     <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
       
-      {/* 🔙 Nút quay lại được thiết kế lại */}
+      {/* Button back */}
       <motion.button
         whileHover={{ scale: 1.05, x: -5 }}
         whileTap={{ scale: 0.95 }}
@@ -40,7 +40,7 @@ export default function FavoritesPage() {
 
       <h1>{t("favorites_title")}</h1>
 
-      {/* ❌ không có */}
+      {/* Empty */}
       {favorites.length === 0 ? (
         <div
           style={{

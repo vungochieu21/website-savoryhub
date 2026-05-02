@@ -101,7 +101,6 @@
   margin-top: 14px;
 }
 
-/* ✅ FIX chuẩn + vẫn theo theme */
 .btn-outline {
   flex: 1;
   border: 1px solid var(--primary);

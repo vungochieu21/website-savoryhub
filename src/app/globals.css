@@ -10,96 +10,94 @@ html, body {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* Main */
+/* ROOT VARIABLES */
 :root {
   --background: #e5e5e5;
   --foreground: #000000;
-  
   --navbar-bg: #ffffff;
   --navbar-text: #000000;
-
   --surface: #ffffff;
   --border: #ffffff;
-}
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
 
-  --navbar-bg: #333333;
-  --navbar-text: #ffffff;
-
-  --surface: #333333;
-  --border: #333333;
-}
-
-/* Main Card */
-:root {
   --card: #ffffff;
   --card-text: #000000;
-  --border: #ffffff;
   --muted-text: #888888;
   --no-img-bg: #888888;
   --like: #ff0000;
   --shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-.dark {
-  --card: #333333;
-  --card-text: #ffffff;
-  --border: #333333;
-  --muted-text: #888888;
-  --no-img-bg: #888888;
-  --like: #ff0000;
-  --shadow: 0 4px 10px rgba(0,0,0,0.4);
-}
 
-/* NearbyRestaurant */
-:root {
   --text: #000000;
-  --card: #ffffff;
   --primary: #b30000;
-  --primary-hover: #b30000;
+  --primary-hover: #8f0000;
+
   --tag-bg: #000000;
   --tag-text: #ffffff;
-}
-.dark {
-  --text: #ffffff;
-  --card: #000000;
-  --primary: #b30000;
-  --primary-hover: #b30000;
-  --tag-bg: #888888;
-  --tag-text: #000000;
-}
 
-/* Filter advance */
-:root {
   --btn-bg: #ffffff;
   --btn-text: #b30000;
   --dropdown-bg: #ffffff;
   --dropdown-text: #000000;
   --hover-bg: #b30000;
   --hover-text: #ffffff;
+
+  --footer-bg: #333333;
+  --footer-text: #ffffff;
+  --footer-icon-bg: #222222;
 }
+
+/* DARK MODE */
 .dark {
+  --background: #000000;
+  --foreground: #ffffff;
+  --navbar-bg: #333333;
+  --navbar-text: #ffffff;
+  --surface: #333333;
+  --border: #333333;
+
+  --card: #333333;
+  --card-text: #ffffff;
+  --muted-text: #888888;
+  --no-img-bg: #888888;
+  --like: #ff0000;
+  --shadow: 0 4px 10px rgba(0,0,0,0.4);
+
+  --text: #ffffff;
+  --primary: #b30000;
+  --primary-hover: #ff4d4f;
+
+  --tag-bg: #888888;
+  --tag-text: #000000;
+
   --btn-bg: #1a1a1a;
   --btn-text: #ff4d4f;
   --dropdown-bg: #1a1a1a;
   --dropdown-text: #ffffff;
   --hover-bg: #ff4d4f;
   --hover-text: #000000;
-}
-
-/* Footer */
-:root {
-  --primary: #b30000;
 
   --footer-bg: #333333;
   --footer-text: #ffffff;
   --footer-icon-bg: #222222;
 }
-.dark {
-  --primary: #b30000;
 
-  --footer-bg: #333333;
-  --footer-text: #ffffff;
-  --footer-icon-bg: #222222;
+/* DESKTOP RESPONSIVE */
+
+/* Container */
+.container {
+  width: min(92%, 1600px);
+  margin: 0 auto;
+}
+
+/* Grid auto scale */
+.grid-responsive {
+  display: grid;
+  gap: 24px;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+@media (min-width: 1920px) {
+  .grid-responsive {
+    gap: 32px;
+  }
 }

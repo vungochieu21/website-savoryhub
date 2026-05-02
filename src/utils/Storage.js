@@ -1,8 +1,6 @@
 "use client";
 
-/* =========================
-   AUTH SYSTEM
-========================= */
+/* AUTH SYSTEM */
 
 export const registerUser = (user) => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -14,10 +12,8 @@ export const registerUser = (user) => {
 
   users.push(user);
 
-  // ✅ FIX: phải lưu danh sách users
   localStorage.setItem("users", JSON.stringify(users));
 
-  // auto login sau khi register
   localStorage.setItem("currentUser", JSON.stringify(user));
 
   window.dispatchEvent(new Event("authChange"));
@@ -41,9 +37,7 @@ export const loginUser = (name, password) => {
   return { success: true, user };
 };
 
-/* =========================
-   WRAPPER
-========================= */
+/* WRAPPER */
 
 export const loginUserSafe = ({ name, password }) => {
   return loginUser(name, password);
@@ -61,9 +55,7 @@ export const getCurrentUser = () => {
   return user ? JSON.parse(user) : null;
 };
 
-/* =========================
-   WISHLIST (GIỮ NGUYÊN)
-========================= */
+/* WISHLIST */
 
 export const getWishlist = () => {
   if (typeof window === "undefined") return [];

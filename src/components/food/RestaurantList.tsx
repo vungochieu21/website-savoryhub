@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import Link from "next/link"; // Thêm để điều hướng
+import Link from "next/link";
 import FoodCard from "./FoodCard";
 import styles from "./RestaurantList.module.css";
 import { useLanguage } from "src/locales/context/LanguageContext";
@@ -58,7 +58,6 @@ export default function RestaurantList({
     return <p className={styles.emptyText}>{t("no_places")}</p>;
   }
 
-  // Ở trang chủ/danh sách này, chúng ta chỉ hiện tối đa ví dụ 8 hoặc 12 món thôi
   const displayFoods = foods.slice(0, 20);
 
   return (
@@ -109,7 +108,6 @@ export default function RestaurantList({
         ))}
       </div>
 
-      {/* NÚT XEM THÊM - ĐẨY SANG TRANG FILTER */}
       <div className={styles.viewMoreContainer}>
         <Link href="/filter" className={styles.loadMoreBtn}>
           {t("see_more")}

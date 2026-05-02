@@ -68,8 +68,8 @@ export default function Navbar({ onAdd }: NavbarProps) {
   const flags: any = { vi: "🇻🇳", en: "🇺🇸" };
 
   return (
-    <div className={styles.navbar}>
-      <div className={styles.navInner}>
+    <div className={`${styles.navbar} px-3 md:px-6 lg:px-10`}>
+      <div className={`${styles.navInner} max-w-7xl mx-auto flex items-center justify-between`}>
         <div className={styles.logoWrapper} onClick={() => router.push("/")}>
           <img src="/Logo.png" alt="Tastii" className={styles.logoImg} />
         </div>

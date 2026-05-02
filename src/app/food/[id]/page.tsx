@@ -60,7 +60,6 @@ export default function FoodDetailPage({ params }: any) {
   if (!food) return <div className={styles.page}>❌ {t("not_found")}</div>;
 
   return (
-    // 🔥 FIX FONT Ở ĐÂY
     <div className={styles.page} style={{ fontFamily: "var(--font-rubik)" }}>
       
       <motion.button 

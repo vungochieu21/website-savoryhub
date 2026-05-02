@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "./GoogleMap.module.css";
 import { useLanguage } from "src/locales/context/LanguageContext";
 
-/* 🔥 MULTI LANG */
+/* MULTI LANG */
 type MultiLang = {
   vi: string;
   en: string;

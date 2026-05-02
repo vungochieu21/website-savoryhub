@@ -70,7 +70,7 @@ export default function DealSection() {
         <div className={styles.header}>
           <h2 className={styles.title}>
 
-            {/* 🔥 LEFT */}
+            {/* LEFT */}
             <motion.span
               className={styles.fireIcon}
               animate={{ scale: [1, 1.3, 1] }}
@@ -81,7 +81,7 @@ export default function DealSection() {
 
             {t("daily_deals")}
 
-            {/* 🔥 RIGHT */}
+            {/* RIGHT */}
             <motion.span
               className={styles.fireIcon}
               animate={{ scale: [1, 1.3, 1] }}

@@ -23,7 +23,6 @@ export default function DashboardPage() {
   const { t } = useLanguage();
   const [filter, setFilter] = useState("weekdays");
 
-  // State hỗ trợ đổi màu Recharts thủ công khi theme đổi
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -87,7 +86,6 @@ export default function DashboardPage() {
     return base.sort((a, b) => b.value - a.value);
   }, [filter, t]);
 
-  // Cấu hình màu cho Recharts (vì Recharts không nhận CSS variables trực tiếp)
   const chartText = isDark ? "#888888" : "#666666";
   const chartGrid = isDark ? "#222222" : "#eeeeee";
   const tooltipBg = isDark ? "#111111" : "#ffffff";

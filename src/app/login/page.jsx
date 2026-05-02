@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "src/utils/Storage";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
-import { useLanguage } from "src/locales/context/LanguageContext"; // ✅ thêm
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { t } = useLanguage(); // ✅ thêm
+  const { t } = useLanguage();
 
   const [form, setForm] = useState({
     name: "",
@@ -37,14 +37,14 @@ export default function LoginPage() {
 
   const handleLogin = () => {
     if (!form.name || !form.password) {
-      setError(t("login_error_empty")); // ✅ sửa
+      setError(t("login_error_empty"));
       return;
     }
 
     const res = loginUser(form.name, form.password);
 
     if (!res.success) {
-      setError(t("login_error_invalid")); // ✅ sửa
+      setError(t("login_error_invalid"));
       return;
     }
 

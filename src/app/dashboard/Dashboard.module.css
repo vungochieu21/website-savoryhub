@@ -1,5 +1,5 @@
 .page {
-  /* Màu mặc định (Light Mode) */
+  /* Color default (Light Mode) */
   --bg-color: #f8f9fa;
   --card-bg: #ffffff;
   --nav-bg: #ffffff;
@@ -17,7 +17,6 @@
   transition: all 0.3s ease;
 }
 
-/* Khi class .dark được kích hoạt ở thẻ cha hoặc body/html */
 :global(.dark) .page {
   --bg-color: #080808;
   --card-bg: #121212;

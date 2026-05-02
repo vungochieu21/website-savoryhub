@@ -12,8 +12,8 @@ type Props = {
   title: string;
   value: number;
   icon?: any;
-  trend?: number; // % tăng giảm
-  data?: number[]; // sparkline data
+  trend?: number;
+  data?: number[];
   loading?: boolean;
 };
 
@@ -27,7 +27,7 @@ export default function StatCard({
 }: Props) {
   const [displayValue, setDisplayValue] = useState(0);
 
-  // 🔢 count up
+  // count up
   useEffect(() => {
     if (loading) return;
 

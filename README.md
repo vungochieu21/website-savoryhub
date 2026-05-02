@@ -10,49 +10,139 @@
 -  Tiêu đề (Tiếng Việt & Tiếng Anh).
 -  Mô tả (Tiếng Việt & Tiếng Anh).
 -  Tìm kiếm và lọc các món ăn, loại món ăn.
+-  Cho phép khách hàng/chủ cửa hàng xem được Bảng thống kê thu chi, lợi nhuận
+### 🚀 *Công nghệ sử dụng:*
+-  Next.js (App Router)
+-  React.js
+-  CSS Modules
+-  Framer Motion
+-  Ant Design
+-  React Icons
+-  Leaflet / Google Maps
+-  JSON
+## 📂 Cấu trúc project
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   └── foods/
+│   │       └── route.ts
+│   │
+│   ├── dashboard/
+│   │   ├── Dashboard.module.css
+│   │   └── page.tsx
+│   │
+│   ├── favorites/
+│   │   └── page.js
+│   │
+│   ├── filter/
+│   │   └── page.tsx
+│   │
+│   ├── food/
+│   │   └── [id]/
+│   │       ├── FoodDetail.module.css
+│   │       └── page.tsx
+│   │
+│   ├── login/
+│   │   └── page.jsx
+│   │
+│   ├── register/
+│   │   └── page.jsx
+│   │
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── loading.module.css
+│   ├── loading.tsx
+│   ├── page.tsx
+│   └── provider.js
+│
+├── components/
+│   ├── dashboard/
+│   │   ├── dashboard.module.css
+│   │   ├── SimpleChart.tsx
+│   │   ├── StatCard.tsx
+│   │   └── TopFoods.tsx
+│   │
+│   ├── deal/
+│   │   ├── DealCardMini.tsx
+│   │   ├── DealSection.module.css
+│   │   ├── ExclusiveDeal.module.css
+│   │   └── ExclusiveDeal.tsx
+│   │
+│   ├── food/
+│   │   ├── FoodCard.module.css
+│   │   ├── FoodCard.tsx
+│   │   ├── FoodForm.module.css
+│   │   ├── FoodForm.tsx
+│   │   ├── NearbyRestaurant.module.css
+│   │   ├── NearbyRestaurant.tsx
+│   │   ├── RestaurantList.module.css
+│   │   └── RestaurantList.tsx
+│   │
+│   ├── layout/
+│   │   ├── Banner.tsx
+│   │   ├── BannerMini.tsx
+│   │   ├── Footer.module.css
+│   │   ├── Footer.tsx
+│   │   ├── Navbar.module.css
+│   │   └── Navbar.tsx
+│   │
+│   ├── section/
+│   │   ├── GoogleMap.module.css
+│   │   ├── GoogleMap.tsx
+│   │   ├── GoogleMapClient.tsx
+│   │   ├── Testimonials.module.css
+│   │   └── Testimonials.tsx
+│   │
+│   └── ui/
+│       ├── Dropdown.tsx
+│       ├── NightModeButton.module.css
+│       ├── NightModeButton.tsx
+│       ├── ScrollToTopButton.jsx
+│       ├── ScrollToTopButton.module.css
+│       └── ThemeInit.tsx
+│
+├── data/
+│   └── food.json
+│
+├── locales/
+│   ├── context/
+│   │   ├── FavoriteContext.js
+│   │   └── LanguageContext.js
+│   │
+│   └── lang/
+│       ├── texts.js
+│       └── translator.js
+│
+└── utils/
+    └── Storage.js
+```
 ### 💎 *Trải nghiệm người dùng:* 
-- Đăng ký/đăng nhập bằng localstorage.
+- Đăng ký/đăng nhập bằng Localstorage.
 - Xem thông tin người dùng trong tài khoản.
-- Hỗ trợ Dark Mode.
-- Giao diện dark mode mượt.
+- Có chế độ sáng/tối 
+- Hỗ trợ Chế độ sáng/tôi bằng Localstorage.
+- Giao diện chế độ sáng/tối mượt mà.
 - Hỗ trợ Tiếng Việt & Tiếng Anh.
-- Có thông báo khi add, đánh giá, đăng kí/đăng nhập, yêu thích.
-- Tương thích cho desktop.
+- Có thông báo khi đăng kí/đăng nhập, yêu thích.
+- Tương thích với desktop.
 ### 📄 *Các trang chính:*
 - ➡️ ***Trang chủ:***
-<br> - Banner hình ảnh các món ăn. 
-<br> - List các địa điểm quán ăn.
-<br> - List các quán ăn đang có sale.
+<br> - Banner quảng cáo hình ảnh các món ăn. 
+<br> - List các món đang được ưu đãi.
+<br> - List các món được bán chạy.
 - ➡️ **Setting:**
 <br> - Chuyển đổi ngôn ngữ.
-<br> - Chuyển đổi chế độ.
+<br> - Chuyển đổi chế độ sáng/tối.
 - ➡️ ***Giao diện xác thực:***
-<br> - Trang đăng nhập/đăng ký cơ bản.
-<br> - Xem thông tin tài khoản.
+<br> - Trang đăng nhập/đăng ký rõ ràng.
+<br> - Xem thông tin tài khoản cá nhân.
 - ➡️ ***Quản lý:***
 <br> - Danh mục yêu thích.
 <br> - Lưu trữ tự động.
 <br> - Có localstorage.
 <br> - Lưu dữ liệu người dùng.
-## 📖 Hướng dẫn sử dụng:
-### 🔐 *Xác thực người dùng:*
-- Ấn vào nút đăng nhập để đăng nhập.
-- Ấn vào nút đăng kí để tạo tài khoản.
-- Lưu dữ liệu bằng localstorage.
-### 📁 *Quản lí sử dụng người dùng:*
-- Thêm địa điểm mới:
-<br> Bước 1: Ấn dấu "+".
-<br> Bước 2: Nhập thông tin (tên quán, địa điểm, tên món, ...).
-- Dữ liệu autosave vào localstorage.
-- Sửa địa điểm được thêm:
-<br> Bước 1: Ấn vào dấu ba chấm trên card cần sửa.
-<br> Bước 2: Ấn sửa thông tin.
-- Xoá địa điểm được thêm:
-<br> Bước 1: Ấn vào dấu ba chấm trên card cần xoá.
-<br> Bước 2: Ấn xoá.
-### ⚙️ Settings:
-- Chế độ sáng/tối.
-- Ngôn ngữ: Anh/Việt.
 ## 📩 Cách tải website-savoryhub:
 - Bước 1: Clone
 ```bash

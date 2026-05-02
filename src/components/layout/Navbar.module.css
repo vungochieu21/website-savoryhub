@@ -71,7 +71,7 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 10px;
-  min-width: 180px; /* settings dùng */
+  min-width: 180px;
 }
 
 .dropdown.userDropdown {

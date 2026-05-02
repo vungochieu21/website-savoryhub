@@ -25,7 +25,6 @@
   will-change: transform, opacity;
 }
 
-/* Tùy chỉnh thanh cuộn để không bị lòi ra góc bo */
 .modal::-webkit-scrollbar {
   width: 6px;
 }
@@ -68,12 +67,11 @@
   margin-bottom: 15px;
 }
 
-/* THÊM KHUNG CHO CÁC PHẦN NHẬP LIỆU */
 .input {
   flex: 1;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc; /* Khung rõ ràng hơn */
+  border: 1px solid #ccc;
   background: transparent;
   color: var(--card-text);
   outline: none;
@@ -84,7 +82,6 @@
   border-color: #b30000;
 }
 
-/* TRẢ MÔ TẢ VỀ BAN ĐẦU */
 .textarea {
   flex: 1;
   padding: 10px;
@@ -93,9 +90,9 @@
   background: transparent;
   color: var(--card-text);
   outline: none;
-  height: 80px; /* Độ cao ban đầu */
+  height: 80px;
   font-family: inherit;
-  resize: vertical; /* Có thể kéo dãn theo chiều dọc như mặc định */
+  resize: vertical;
 }
 
 .textarea:focus {

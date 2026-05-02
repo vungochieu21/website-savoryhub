@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from "src/utils/Storage";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
-import { useLanguage } from "src/locales/context/LanguageContext"; // ✅ thêm
+import { useLanguage } from "src/locales/context/LanguageContext";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { t } = useLanguage(); // ✅ thêm
+  const { t } = useLanguage();
 
   const [form, setForm] = useState({
     name: "",
@@ -36,7 +36,7 @@ export default function RegisterPage() {
 
   const handleRegister = () => {
     if (!form.name || !form.email || !form.password || !form.address) {
-      setError(t("login_error_empty")); // ✅ sửa
+      setError(t("login_error_empty"));
       return;
     }
 
@@ -50,7 +50,7 @@ export default function RegisterPage() {
       return;
     }
 
-    alert(t("register_success")); // ✅ sửa
+    alert(t("register_success"));
     router.push("/login");
   };
 

@@ -27,7 +27,7 @@ export default function BannerMini() {
     if (current >= banners.length) {
       const timeout = setTimeout(() => {
         setTransition(false);
-        setCurrent((prev) => prev - banners.length); // 👈 FIX MƯỢT
+        setCurrent((prev) => prev - banners.length);
       }, 600);
 
       return () => clearTimeout(timeout);
