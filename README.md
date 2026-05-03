@@ -119,7 +119,7 @@ src/
 └── utils/
     └── Storage.js
 ```
-### 💎 Trải nghiệm người dùng:*
+### 💎 Trải nghiệm người dùng:
 - Đăng ký/đăng nhập bằng Localstorage.
 - Xem thông tin người dùng trong tài khoản.
 - Có chế độ sáng/tối (lưu bằng Localstorage).
@@ -174,4 +174,4 @@ npm run dev
 - Bước 4: Mở [http://localhost:3000](http://localhost:3000) trong trình duyệt.
 
 ## 🧑‍💻 Tác giả:
-- Được sáng tạo và phát triển bởi [Vu Hieu](https://github.com/vungochieu21) và [Anh Khoi 36](https://github.com/nguyenkhoi28052006-dev)
+- Được sáng tạo và phát triển bởi [Vu Hieu](https://github.com/vungochieu21) và [Anh Khoi](https://github.com/nguyenkhoi28052006-dev)
