@@ -258,7 +258,8 @@ export const texts = {
     name_49: "Bánh Áp Chao Cô Ngân", addr_49: "Phố Thầu, Hợp Giang, Cao Bằng",
     name_50: "Bánh Xèo Đội Cấn", addr_50: "167 Đội Cấn, Ba Đình, Hà Nội",
     see_more: "Xem thêm",
-    no_places: "Không tìm thấy địa điểm nào"
+    no_places: "Không tìm thấy địa điểm nào",
+    top_favorite_places: "Top các quán ăn được yêu thích",
   },
 
   en: {
@@ -525,5 +526,6 @@ export const texts = {
     name_50: "Doi Can Crispy Pancake", addr_50: "167 Doi Can, Ba Dinh, Ha Noi",
     see_more: "See more",
     no_places: "No places found",
+    top_favorite_places: "Top favorite restaurants",
   },
 };
