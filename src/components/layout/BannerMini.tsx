@@ -38,7 +38,7 @@ export default function BannerMini() {
   }, [current]);
 
   return (
-    <div className="mt-[120px] mb-[120px] flex justify-center">
+    <div className="mt-[120px] mb-[50px] flex justify-center">
       <div className="w-full max-w-[1400px] px-1">
 
         {/* OUTER CLIP */}

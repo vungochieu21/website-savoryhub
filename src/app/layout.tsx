@@ -8,11 +8,11 @@ import { FavoriteProvider } from "src/locales/context/FavoriteContext";
 import { ConfigProvider } from "antd";
 import ThemeInit from "@/src/components/ThemeInit";
 
-import { Rubik } from "next/font/google";
+import { Inter } from "next/font/google";
 
-const rubik = Rubik({
+const inter = Inter({
   subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       {/* add FONT */}
-      <body className={rubik.className}>
+      <body className={inter.className}>
         <ThemeInit />
 
         <ConfigProvider

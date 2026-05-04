@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { FaEdit, FaTrash, FaFire } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Link from "next/link";
 import FoodCard from "./FoodCard";
 import styles from "./RestaurantList.module.css";
@@ -64,11 +64,8 @@ export default function RestaurantList({
     <div className={styles.container}>
       <div className={styles.headerWrapper}>
         <div className={styles.topSellerHeader}>
-          <FaFire className={styles.fireIcon} />
           <h2 className={styles.topSellerTitle}>Top Seller</h2>
-          <FaFire className={styles.fireIcon} />
         </div>
-        <p className={styles.topSellerSubtitle}>{t("top_favorite_places")}</p>
       </div>
       
       <div ref={wrapperRef} className={styles.grid}>

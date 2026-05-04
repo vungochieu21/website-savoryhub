@@ -259,7 +259,6 @@ export const texts = {
     name_50: "Bánh Xèo Đội Cấn", addr_50: "167 Đội Cấn, Ba Đình, Hà Nội",
     see_more: "Xem thêm",
     no_places: "Không tìm thấy địa điểm nào",
-    top_favorite_places: "Top các quán ăn được yêu thích",
   },
 
   en: {
