@@ -9,7 +9,7 @@ import { useLanguage } from "src/locales/context/LanguageContext";
 
 /* TYPES */
 type Food = {
-  id: string; 
+  id: string;
   name: string;
   address: string;
   image?: string;
@@ -19,25 +19,37 @@ type Food = {
 };
 
 type Props = {
+  foods?: Food[]; // nhận foods từ component cha (tùy chọn)
   onEdit: (index: number) => void;
   onDelete: (index: number) => void;
 };
 
 export default function RestaurantList({
+  foods: initialFoods = [],
   onEdit,
   onDelete,
 }: Props) {
-  const [foods, setFoods] = useState<Food[]>([]);
+  const [foods, setFoods] = useState<Food[]>(initialFoods);
   const [openId, setOpenId] = useState<number | null>(null);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
+  // Nếu component cha truyền foods mới vào thì cập nhật state
   useEffect(() => {
-    fetch("/api/foods")
-      .then((res) => res.json())
-      .then((data) => setFoods(data));
-  }, []);
+    if (initialFoods.length > 0) {
+      setFoods(initialFoods);
+    }
+  }, [initialFoods]);
+
+  // Chỉ fetch API khi không có foods được truyền từ component cha
+  useEffect(() => {
+    if (initialFoods.length === 0) {
+      fetch("/api/foods")
+        .then((res) => res.json())
+        .then((data) => setFoods(data));
+    }
+  }, [initialFoods]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -67,13 +79,12 @@ export default function RestaurantList({
           <h2 className={styles.topSellerTitle}>Top Seller</h2>
         </div>
       </div>
-      
+
       <div ref={wrapperRef} className={styles.grid}>
         {displayFoods.map((food, index) => (
           <div key={index} className={styles.cardWrapper}>
             <FoodCard {...food} />
 
-            {/* MENU BUTTON */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -84,7 +95,6 @@ export default function RestaurantList({
               ⋮
             </button>
 
-            {/* DROPDOWN */}
             {openId === index && (
               <div className={styles.menuBox}>
                 <div

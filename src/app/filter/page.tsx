@@ -106,7 +106,7 @@ export default function FilterPage() {
 
   return (
     <div ref={wrapperRef}>
-      <Navbar />
+      <Navbar onAdd={() => {}} />
 
       <div className="max-w-[1350px] mx-auto px-4 pt-[90px]">
 
@@ -262,7 +262,7 @@ export default function FilterPage() {
                   whileHover={{ y: -5 }}
                 >
                   <FoodCard
-                    id={item.id}
+                    id={String(item.id ?? "")}
                     name={item.name}
                     address={item.address}
                     image={item.image}

@@ -33,11 +33,11 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMounted(true);
-    }, 3000); 
+    }, 3000);
 
     fetch("/data/foods.json")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: any[]) => {
         setFoods(data);
       })
       .catch((err) => console.log(err));
@@ -78,21 +78,18 @@ export default function Home() {
 
         <Testimonials />
         <NearbyRestaurant />
-
-        {/* MAP */}
         <GoogleMap />
       </div>
 
       <Footer />
 
-      {/* FORM */}
       {showForm && (
         <FoodForm
           onClose={() => {
             setShowForm(false);
             setEditingIndex(null);
           }}
-          onSave={(data) => {
+          onSave={(data: any) => {
             if (editingIndex !== null) {
               const newFoods = [...foods];
               newFoods[editingIndex] = data;
