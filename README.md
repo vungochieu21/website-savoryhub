@@ -11,7 +11,7 @@
 -  Mô tả (Tiếng Việt & Tiếng Anh).
 -  Tìm kiếm và lọc các món ăn, loại món ăn.
 -  Cho phép khách hàng/chủ cửa hàng xem được Bảng thống kê thu chi, lợi nhuận.
--  Có LocalStorage ( cho phép lưu danh sách yêu thích, lưu giao diện sáng/tối, lưu ngôn ngữ người dùng).
+-  Có LocalStorage (cho phép lưu danh sách yêu thích, lưu giao diện sáng/tối, lưu ngôn ngữ người dùng).
 ### 🚀 Công nghệ sử dụng:
 -  Next.js (App Router)
 -  React.js
@@ -21,6 +21,7 @@
 -  React Icons
 -  Leaflet / Google Maps
 -  JSON
+-  API
 ### 📂 Cấu trúc project
 
 ```

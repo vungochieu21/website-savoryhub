@@ -78,3 +78,28 @@ export const removeWishlist = (id) => {
 
   localStorage.setItem("wishlist", JSON.stringify(list));
 };
+
+/* CUSTOM FOODS STORAGE */
+
+export const getCustomFoods = () => {
+  if (typeof window === "undefined") return [];
+  return JSON.parse(localStorage.getItem("custom_foods")) || [];
+};
+
+export const addCustomFood = (formData) => {
+  if (typeof window === "undefined") return;
+
+  const currentList = getCustomFoods();
+  
+  // Lưu giữ y nguyên hiện trạng object nhận từ Form, chỉ cấp thêm ID duy nhất
+  const newFoodItem = {
+    id: Date.now(),
+    ...formData,
+  };
+
+  currentList.push(newFoodItem);
+  localStorage.setItem("custom_foods", JSON.stringify(currentList));
+  
+  // Tạo event để trang Filter cập nhật danh sách ngay lập tức khi thêm
+  window.dispatchEvent(new Event("storage_updated"));
+};

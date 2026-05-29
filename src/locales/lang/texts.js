@@ -259,6 +259,11 @@ export const texts = {
     name_50: "Bánh Xèo Đội Cấn", addr_50: "167 Đội Cấn, Ba Đình, Hà Nội",
     see_more: "Xem thêm",
     no_places: "Không tìm thấy địa điểm nào",
+    confirm_delete_title: "Bạn chắc chắn muốn xóa quán này?",
+    confirm_delete: "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa quán khỏi danh sách?",
+    yes: "Có, Xóa",
+    no: "Không",
+    cancel: "Hủy bỏ"
   },
 
   en: {
@@ -526,5 +531,10 @@ export const texts = {
     see_more: "See more",
     no_places: "No places found",
     top_favorite_places: "Top favorite restaurants",
+    confirm_delete_title: "Delete this restaurant?",
+    confirm_delete: "This action cannot be undone. Are you sure you want to remove this restaurant from your favorites?",
+    yes: "Yes, Delete",
+    no: "No",
+    cancel: "Cancel"
   },
 };

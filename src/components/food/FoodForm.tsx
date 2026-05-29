@@ -1,6 +1,6 @@
 "use client";    /* Use Ant Design */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   Input,
@@ -17,7 +17,8 @@ import dayjs from "dayjs";
 
 import { useLanguage } from "src/locales/context/LanguageContext";
 
-export default function FoodForm({ onClose, onSave }: any) {
+// Nhận thêm prop initialData để phục vụ tính năng chỉnh sửa
+export default function FoodForm({ onClose, onSave, initialData }: any) {
   const { t } = useLanguage();
 
   const [form, setForm] = useState({
@@ -34,6 +35,26 @@ export default function FoodForm({ onClose, onSave }: any) {
     description: "",
     image: "",
   });
+
+  // Nếu có dữ liệu chỉnh sửa truyền vào, đổ dữ liệu đó vào Form ngay lập tức
+  useEffect(() => {
+    if (initialData) {
+      setForm({
+        name: initialData.name || "",
+        address: initialData.address || "",
+        province: initialData.province || "",
+        district: initialData.district || "",
+        map: initialData.map || "",
+        phone: initialData.phone || "",
+        openTime: initialData.openTime || "",
+        closeTime: initialData.closeTime || "",
+        minPrice: initialData.minPrice || "",
+        maxPrice: initialData.maxPrice || "",
+        description: initialData.description || "",
+        image: initialData.image || "",
+      });
+    }
+  }, [initialData]);
 
   const handleChange = (key: string, value: any) => {
     setForm((prev) => ({ ...prev, [key]: value }));
